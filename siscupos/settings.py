@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -57,9 +56,13 @@ WSGI_APPLICATION = 'siscupos.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default':{
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME':'d8iv5ac7d1jos6',
+        'USER':'kpbaqcwlfpqkgw',
+        'PASSWORD':'4KLEgGfQDTQN2qgVYUo6DJfXiy',
+        'HOST':'ec2-23-23-183-5.compute-1.amazonaws.com',
+        'PORT':'5432',
     }
 }
 
@@ -79,5 +82,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'static'),
+)
+
+#MEDIA_ROOT = join(BASE_DIR, 'media')
+#MEDIA_URL = '/media/'
+#MAX_UPLOAD_SIZE = 20971520 # 20MB
+#CONTENT_TYPES = ['application/pdf', 'image/jpeg', 'image/png'] # .pdf, .jpeg and .png
+
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
