@@ -47,9 +47,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'siscupos.urls'
+ROOT_URLCONF = 'mysite.urls'
 
-WSGI_APPLICATION = 'siscupos.wsgi.application'
+WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 # Database
