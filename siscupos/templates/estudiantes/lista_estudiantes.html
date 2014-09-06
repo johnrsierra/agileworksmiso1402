@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+
+{% block title %}Siscupos - Estudiantes{% endblock %}
+
+{% block page-header%}
+Lista de Estudiantes
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="active">
+    <i class="fa fa-location-arrow"></i> estudiantes
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>codigo</th>
+                        <th>nombres</th>
+                        <th>Apellidos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if lista_estudiantes %}
+                    {% for estudiante in lista_estudiantes %}
+                    <tr>
+                        <td>{{estudiante.codigo}}</td>
+                        <td>{{estudiante.nombres}}</td>
+                        <td>{{estudiante.apellidos}}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">No hay estudiantes registrados.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+{% endblock %}

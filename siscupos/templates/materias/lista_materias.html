@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+
+{% block title %}Siscupos - Materias{% endblock %}
+
+{% block page-header%}
+Lista de Materias
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="active">
+    <i class="fa fa-location-arrow"></i> materias
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>codigo</th>
+                        <th>nombre</th>
+                        <th>Creditos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if lista_materias %}
+                    {% for materia in lista_materias %}
+                    <tr>
+                        <td>{{materia.codigo}}</td>
+                        <td>{{materia.nombre}}</td>
+                        <td>{{materia.creditos}}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">No hay materias disponibles.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+{% endblock %}
