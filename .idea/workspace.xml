@@ -23,21 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="lista_materias.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/siscupos/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0518732" vertical-offset="540" max-vertical-offset="972">
-              <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+            <state vertical-scroll-proportion="-9.333333" vertical-offset="810" max-vertical-offset="3798">
+              <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lista_estudiantes.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html">
+      <file leaf-file-name="lista_programas.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/lista_programas.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.3333333" vertical-offset="396" max-vertical-offset="972">
-              <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.5185185" vertical-offset="324" max-vertical-offset="972">
+              <caret line="32" column="48" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -46,50 +46,18 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/siscupos/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1422">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1422">
               <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/siscupos/urls.py">
+      <file leaf-file-name="lista_materias.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-              <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/siscupos/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
-              <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resultado_programacion.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/siscupos/templates/programacion/resultado_programacion.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="270">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/siscupos/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.333333" vertical-offset="810" max-vertical-offset="3798">
-              <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
+            <state vertical-scroll-proportion="-8.666667" vertical-offset="432" max-vertical-offset="972">
+              <caret line="37" column="29" selection-start-line="0" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -116,12 +84,13 @@
         <option value="$PROJECT_DIR$/data/siscupos.sql" />
         <option value="$PROJECT_DIR$/mysite/settings.py" />
         <option value="$PROJECT_DIR$/mysite/urls.py" />
-        <option value="$PROJECT_DIR$/siscupos/templates/index.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/programacion.html" />
         <option value="$PROJECT_DIR$/siscupos/urls.py" />
         <option value="$PROJECT_DIR$/siscupos/views.py" />
         <option value="$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/index.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/programas/lista_programas.html" />
       </list>
     </option>
   </component>
@@ -226,7 +195,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="programacion" />
+              <option name="myItemId" value="programas" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -461,10 +430,10 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33796296" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16203703" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24262296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19179164" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23046567" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24918033" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -589,30 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/programacion/resultado_programacion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="270">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1422">
-          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.333333" vertical-offset="810" max-vertical-offset="3798">
-          <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
@@ -639,10 +584,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.333333" vertical-offset="810" max-vertical-offset="3798">
+          <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0518732" vertical-offset="540" max-vertical-offset="972">
-          <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+        <state vertical-scroll-proportion="-8.666667" vertical-offset="432" max-vertical-offset="972">
+          <caret line="37" column="29" selection-start-line="0" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="1422">
+          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/lista_programas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5185185" vertical-offset="324" max-vertical-offset="972">
+          <caret line="32" column="48" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
           <folding />
         </state>
       </provider>
