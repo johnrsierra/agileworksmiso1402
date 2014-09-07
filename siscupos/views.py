@@ -27,7 +27,7 @@ def estudiantes(request):
     context = {'lista_estudiantes':lista_estudiantes}
     return render(request,'estudiantes/lista_estudiantes.html',context)
 
-#Lista los cursos que han sido seleccionados por los estudiantes y aún no han sido cursados
+#Lista los cursos que han sido seleccionados por los estudiantes y aun no han sido cursados
 #Cursados -> 0 no ha sido cursado
 #            1 ya fue cursado
 def demandaCupos(request):
