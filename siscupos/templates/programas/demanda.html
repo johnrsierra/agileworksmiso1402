@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+
+{% block title %}Siscupos - Demanda asignaturas{% endblock %}
+
+{% block page-header%}
+Demanda de asignaturas
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="active">
+    <i class="fa fa-location-arrow"></i> demanda
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Sección</th>
+                        <th>Cupos</th>
+                        <th>Periodo</th>
+                        <th>Asignatura</th>
+                        <th>Programa</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                {% if lista_preprogramacion %}
+                    {% for preprogramacion in lista_preprogramacion %}
+                    <tr>
+                        <td>{{preprogramacion.seccion}}</td>
+                        <td>{{preprogramacion.cupos}}</td>
+                        <td>{{preprogramacion.periodo}}</td>
+                        <td>{{preprogramacion.asignaturaXPrograma.asignatura.nombres}}</td>
+                        <td>{{preprogramacion.asignaturaXPrograma.programaAcademico.nombre}}</td>
+                        <td>10(quemado)</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6">No hay pre programaciones registradas.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+{% endblock %}

@@ -12,6 +12,11 @@ def index(request):
     context = {'nuevos_contactos':contactos,'nuevos_grupos':grupos,'nuevas_ubicaciones':ubicaciones}
     return render(request,'index.html', context)
 
+def programas(request):
+    lista_programas = ProgramaAcademico.objects.all()
+    context = {'lista_programas':lista_programas}
+    return render(request,'programas/lista_programas.html',context)
+
 def materias(request):
     lista_materias = Asignatura.objects.all()
     context = {'lista_materias':lista_materias}
@@ -21,3 +26,8 @@ def estudiantes(request):
     lista_estudiantes = Estudiante.objects.all()
     context = {'lista_estudiantes':lista_estudiantes}
     return render(request,'estudiantes/lista_estudiantes.html',context)
+
+def demandaCupos(request):
+    lista_preprogramacion = PreProgramacion.objects.all()
+    context = {'lista_preprogramacion':lista_preprogramacion}
+    return render(request,'programas/demanda.html',context)
