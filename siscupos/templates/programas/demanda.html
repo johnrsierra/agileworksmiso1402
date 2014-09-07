@@ -19,30 +19,26 @@ Demanda de asignaturas
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                     <tr>
-                        <th>Sección</th>
-                        <th>Cupos</th>
-                        <th>Periodo</th>
-                        <th>Asignatura</th>
-                        <th>Programa</th>
-                        <th># Estudiantes Pre-asignados</th>
+                        <th>Codigo</th>
+                        <th>Nombres</th>
+                        <th>Creditos</th>
+                        <th>Demanda</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                {% if lista_preprogramacion %}
-                    {% for preprogramacion in lista_preprogramacion %}
+                {% if lista_demanda %}
+                    {% for asignatura in lista_demanda %}
                     <tr>
-                        <td>{{preprogramacion.seccion}}</td>
-                        <td>{{preprogramacion.cupos}}</td>
-                        <td>{{preprogramacion.periodo}}</td>
-                        <td>{{preprogramacion.asignaturaXPrograma.asignatura.nombres}}</td>
-                        <td>{{preprogramacion.asignaturaXPrograma.programaAcademico.nombre}}</td>
-                        <td>10(quemado)</td>
+                        <td>{{asignatura.codigo}}</td>
+                        <td>{{asignatura.nombres}}</td>
+                        <td>{{asignatura.creditos}}</td>
+                        <td>{{asignatura.demanda}}</td>
                     </tr>
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="6">No hay pre programaciones registradas.</td>
+                        <td colspan="6">No hay información sobre la demanda actualmente.</td>
                     </tr>
                 {% endif %}
                 </tbody>
