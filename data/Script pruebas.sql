@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 --ProgramaAcademico
 insert into "siscupos_programaacademico" values (1, 'MISO', 'Maestria en Ingenieria de Software', ' Ruby ');
 

@@ -54,7 +54,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
+import dj_database_url
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -64,7 +64,9 @@ DATABASES = {
         'HOST': 'ec2-23-23-183-5.compute-1.amazonaws.com',
         'PORT': '5432',
     }
+    #'default' :  dj_database_url.config()
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -95,5 +97,4 @@ STATICFILES_DIRS = (
 #MAX_UPLOAD_SIZE = 20971520 # 20MB
 #CONTENT_TYPES = ['application/pdf', 'image/jpeg', 'image/png'] # .pdf, .jpeg and .png
 
-#import dj_database_url
-#DATABASES['default'] =  dj_database_url.config()
+

@@ -32,5 +32,6 @@ def estudiantes(request):
 #            1 ya fue cursado
 def demandaCupos(request):
     lista_demanda = Asignatura.objects.annotate(demanda=Count('asignaturaxestudiante')).filter(asignaturaxestudiante__cursada='0')
+    print lista_demanda[0]
     context = {'lista_demanda':lista_demanda}
     return render(request,'programas/demanda.html',context)
