@@ -63,7 +63,7 @@ class PreAsignacionCurso(models.Model):
     def __unicode__(self):
         return self.codigo+' '+self.fechaCorrida+' '+self.periodo
 
-
+#Clase Asignatura
 class AsignaturaSugerida(models.Model):
     anno = models.IntegerField(max_length=4)
     estado = models.CharField(max_length=10)
