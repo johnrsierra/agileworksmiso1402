@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Count
 
 
 class Asignatura(models.Model):
@@ -7,6 +8,9 @@ class Asignatura(models.Model):
     creditos = models.IntegerField()
     def __unicode__(self):
         return self.codigo+' '+self.nombres
+    @staticmethod
+    def demanda_cupos():
+        return Asignatura.objects.annotate(demanda=Count('asignaturaxestudiante')).filter(asignaturaxestudiante__cursada='0')
 
 
 class ProgramaAcademico(models.Model):

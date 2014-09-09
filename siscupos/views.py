@@ -2,7 +2,7 @@ from django.shortcuts import render
 from siscupos.models import Asignatura,AsignaturaSugerida,AsignaturaXEstudiante,AsignaturaXPrograma,Estudiante,PreAsignacionCurso,PreProgramacion,ProgramaAcademico
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.db.models import Count
+
 
 # Create your views here.
 def index(request):
@@ -31,7 +31,6 @@ def estudiantes(request):
 #Cursados -> 0 no ha sido cursado
 #            1 ya fue cursado
 def demandaCupos(request):
-    lista_demanda = Asignatura.objects.annotate(demanda=Count('asignaturaxestudiante')).filter(asignaturaxestudiante__cursada='0')
-    print lista_demanda[0]
+    lista_demanda = Asignatura.demanda_cupos()
     context = {'lista_demanda':lista_demanda}
     return render(request,'programas/demanda.html',context)
