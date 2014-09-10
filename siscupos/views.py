@@ -6,10 +6,11 @@ from django.template import RequestContext
 
 # Create your views here.
 def index(request):
-    contactos = 1
-    grupos = 1
-    ubicaciones = 1
-    context = {'nuevos_contactos':contactos,'nuevos_grupos':grupos,'nuevas_ubicaciones':ubicaciones}
+    programas = ProgramaAcademico.objects.count()
+    estudiantes = Estudiante.objects.count()
+    materias = Asignatura.objects.count()
+    ejecuciones=PreAsignacionCurso.objects.count()
+    context = {'nuevos_programas':programas,'nuevos_estudiantes':estudiantes,'nuevas_materias':materias,'ejecuciones':ejecuciones}
     return render(request,'index.html', context)
 
 def coordinacion(request):
