@@ -12,10 +12,10 @@ def index(request):
     context = {'nuevos_contactos':contactos,'nuevos_grupos':grupos,'nuevas_ubicaciones':ubicaciones}
     return render(request,'index.html', context)
 
-def programas(request):
+def coordinacion(request):
     lista_programas = ProgramaAcademico.objects.all()
     context = {'lista_programas':lista_programas}
-    return render(request,'programas/lista_programas.html',context)
+    return render(request,'coordinacion/lista_programas.html',context)
 
 def materias(request):
     lista_materias = Asignatura.objects.all()
@@ -33,18 +33,18 @@ def estudiantes(request):
 def demandaCupos(request):
     lista_demanda = Asignatura.demanda_cupos()
     context = {'lista_demanda':lista_demanda}
-    return render(request,'programas/demanda.html',context)
+    return render(request,'coordinacion/demanda.html',context)
 
 def ejecuciones(request):
     lista_ejecuciones = PreAsignacionCurso.objects.all()
     context = {'lista_ejecuciones':lista_ejecuciones}
-    return render(request,'programas/optimizador.html',context)
+    return render(request,'coordinacion/optimizador.html',context)
 
 def resultado(request,preasig_id):
     if preasig_id is not None:
         preAsignacionCurso = PreAsignacionCurso.objects.get(pk=preasig_id)
         lista_resultado = preAsignacionCurso.asignaturasugerida_set.all()
         contexto = {'edit':False,'preProg':preAsignacionCurso,'lista_resultado':lista_resultado}
-        return render(request,'programas/resultado_ejecucion.html',contexto)
+        return render(request,'coordinacion/resultado_ejecucion.html',contexto)
     else:
         return render(request,'contactos/resultado_ejecucion.html',{})
