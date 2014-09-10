@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'kb*u-$(cout=&=b20*h@lewq3ami^4q&v9!13e!pa$v%826#*n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -29,12 +29,12 @@ ALLOWED_HOSTS = ['*','siscupos-dev.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
     'south',
     'siscupos'
 )
