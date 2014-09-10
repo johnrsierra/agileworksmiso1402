@@ -34,3 +34,17 @@ def demandaCupos(request):
     lista_demanda = Asignatura.demanda_cupos()
     context = {'lista_demanda':lista_demanda}
     return render(request,'programas/demanda.html',context)
+
+def ejecuciones(request):
+    lista_ejecuciones = PreAsignacionCurso.objects.all()
+    context = {'lista_ejecuciones':lista_ejecuciones}
+    return render(request,'programas/optimizador.html',context)
+
+def resultado(request,preasig_id):
+    if preasig_id is not None:
+        preAsignacionCurso = PreAsignacionCurso.objects.get(pk=preasig_id)
+        lista_resultado = preAsignacionCurso.asignaturasugerida_set.all()
+        contexto = {'edit':False,'preProg':preAsignacionCurso,'lista_resultado':lista_resultado}
+        return render(request,'programas/resultado_ejecucion.html',contexto)
+    else:
+        return render(request,'contactos/resultado_ejecucion.html',{})
