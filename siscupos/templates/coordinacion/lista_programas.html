@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block title %}Siscupos - Programas{% endblock %}
+
+{% block page-header%}
+Lista de Programas
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <i class="fa fa-table"></i> Coordinación
+</li>
+<li class="active">
+    <i class="fa fa-edit"></i> programas
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Sigla</th>
+                    <th>Nombre</th>
+                    <th>Coordinador</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if lista_programas %}
+                {% for programa in lista_programas %}
+                <tr>
+                    <td>{{programa.sigla}}</td>
+                    <td>{{programa.nombre}}</td>
+                    <td>{{programa.nombreCoordinador}}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3">No hay programas registrados.</td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+{% endblock %}

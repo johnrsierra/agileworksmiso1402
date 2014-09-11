@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+
+{% block title %}Siscupos - Optimizador Plan carrera{% endblock %}
+
+{% block page-header%}
+Optimizador plan de carrera
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <i class="fa fa-table"></i> Coordinación
+</li>
+<li>
+    <i class="fa fa-dashboard"></i> Optimizador
+</li>
+<li class="active">
+    <i class="fa fa-file"></i> resultados
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Año</th>
+                    <th>Estado</th>
+                    <th>Pre programación</th>
+                    <th>Estudiante</th>
+                    <th>Total</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% if lista_resultado %}
+                {% for resultado in lista_resultado %}
+                <tr>
+                    <td>{{resultado.anno}}</td>
+                    <td>{{resultado.estado}}</td>
+                    <td>{{resultado.preProgramacion}}</td>
+                    <td>{{resultado.estudiante}}</td>
+                    <td>{{resultado}}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="6">No existen resultados.</td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+{% endblock %}

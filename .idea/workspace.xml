@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bcbd84d4-4c2b-4a44-9378-6170e06a4eb7" name="Default" comment="" />
+    <list default="true" id="bcbd84d4-4c2b-4a44-9378-6170e06a4eb7" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/PKG-INFO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/SOURCES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/installed-files.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/top_level.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_json.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_range.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_with.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_psycopg.so" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_psycopg.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/__init__.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/__init__.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/dbapi20.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/dbapi20.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/errorcodes.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/errorcodes.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extensions.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extensions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extras.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extras.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/pool.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/pool.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_async.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_async.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_bug_gc.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_bug_gc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cancel.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cancel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_connection.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_connection.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_copy.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_copy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cursor.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cursor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_dates.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_dates.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_extras_dictcursor.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_extras_dictcursor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_green.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_green.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_lobject.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_lobject.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_module.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_module.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_notify.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_notify.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_quote.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_quote.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_transaction.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_transaction.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_basic.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_basic.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_extras.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_extras.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/testutils.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/testutils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tz.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tz.py" />
+    </list>
     <ignored path="siscupos.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,43 +58,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/siscupos/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="822" max-vertical-offset="1926">
-              <caret line="31" column="27" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+            <state vertical-scroll-proportion="-4.2280703" vertical-offset="1199" max-vertical-offset="4590">
+              <caret line="80" column="50" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/siscupos/admin.py">
+      <file leaf-file-name="lista_materias.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41474655" vertical-offset="0" max-vertical-offset="217">
-              <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="requirements.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+            <state vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="972">
+              <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Script pruebas.sql" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Script pruebas.sql" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/Script pruebas.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="223" max-vertical-offset="828">
-              <caret line="36" column="2" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.94049585" vertical-offset="151" max-vertical-offset="828">
+              <caret line="40" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -71,6 +94,9 @@
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="true" />
     </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../agenda" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
@@ -84,21 +110,28 @@
         <option value="$PROJECT_DIR$/data/siscupos.sql" />
         <option value="$PROJECT_DIR$/mysite/urls.py" />
         <option value="$PROJECT_DIR$/siscupos/templates/programacion.html" />
-        <option value="$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html" />
-        <option value="$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/programas/lista_programas.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/estudiantes/carpeta.html" />
-        <option value="$PROJECT_DIR$/siscupos/templates/programas/demanda.html" />
-        <option value="$PROJECT_DIR$/siscupos/views.py" />
-        <option value="$PROJECT_DIR$/siscupos/models.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/siscupos/urls.py" />
         <option value="$PROJECT_DIR$/mysite/admin.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/data/Script pruebas.sql" />
-        <option value="$PROJECT_DIR$/siscupos/templates/index.html" />
         <option value="$PROJECT_DIR$/mysite/settings.py" />
         <option value="$PROJECT_DIR$/siscupos/admin.py" />
+        <option value="$PROJECT_DIR$/siscupos/templates/programas/demanda.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/programas/resultado_ejecucion.html" />
+        <option value="$PROJECT_DIR$/siscupos/models.py" />
+        <option value="$PROJECT_DIR$/siscupos/templates/programas/optimizador.html" />
+        <option value="$PROJECT_DIR$/siscupos/urls.py" />
+        <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/lista_programas.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/demanda.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/resultado_ejecucion.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/optimizador.html" />
+        <option value="$PROJECT_DIR$/../agenda/libreta/views.py" />
+        <option value="$PROJECT_DIR$/siscupos/views.py" />
+        <option value="$PROJECT_DIR$/siscupos/templates/index.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html" />
+        <option value="$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html" />
+        <option value="$PROJECT_DIR$/data/Script pruebas.sql" />
       </list>
     </option>
   </component>
@@ -108,7 +141,33 @@
     <option name="width" value="1313" />
     <option name="height" value="744" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
+            <id>Portability issues</id>
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -134,6 +193,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,7 +236,77 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mysite" />
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="materias" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="estudiantes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siscupos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="coordinacion" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -196,7 +326,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -204,10 +333,11 @@
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="FullScreen" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="options.lastSelected" value="preferences.general" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -366,25 +496,25 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="24" width="1313" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.61882716" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6574074" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3148148" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24262296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17286822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22170542" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5925926" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.59193546" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24918033" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24918033" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -407,38 +537,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mysite/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="396">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="252">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/Script pruebas.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
-          <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/demanda.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1026">
-          <caret line="35" column="85" selection-start-line="35" selection-start-column="85" selection-end-line="35" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1494">
@@ -451,7 +549,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="126">
           <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -475,7 +572,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1044" max-vertical-offset="1908">
           <caret line="58" column="4" selection-start-line="58" selection-start-column="4" selection-end-line="65" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -495,11 +591,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/demanda.html">
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/demanda.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1026">
           <caret line="35" column="85" selection-start-line="35" selection-start-column="85" selection-end-line="35" selection-end-column="85" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -531,15 +626,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1134" max-vertical-offset="1890">
           <caret line="63" column="56" selection-start-line="63" selection-start-column="17" selection-end-line="63" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/demanda.html">
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/demanda.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1026">
           <caret line="35" column="85" selection-start-line="35" selection-start-column="85" selection-end-line="35" selection-end-column="85" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -559,7 +652,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/lista_programas.html">
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/lista_programas.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="666" max-vertical-offset="972">
           <caret line="37" column="68" selection-start-line="37" selection-start-column="68" selection-end-line="37" selection-end-column="68" />
@@ -646,27 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.3333333" vertical-offset="396" max-vertical-offset="972">
-          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="972">
-          <caret line="37" column="29" selection-start-line="0" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/lista_programas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="972">
-          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/templates/estudiantes/carpeta.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="490">
@@ -681,14 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/templates/programas/demanda.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32994923" vertical-offset="435" max-vertical-offset="1026">
-          <caret line="35" column="85" selection-start-line="35" selection-start-column="85" selection-end-line="35" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/migrations/0001_initial.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3438">
@@ -696,19 +760,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.56528926" vertical-offset="540" max-vertical-offset="1494">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.029126214" vertical-offset="0" max-vertical-offset="618">
           <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -716,15 +771,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="305" max-vertical-offset="756">
-          <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -732,7 +778,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -740,19 +785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27979276" vertical-offset="0" max-vertical-offset="324">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#51#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1865285" vertical-offset="0" max-vertical-offset="342">
-          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#51#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,7 +792,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.915078" vertical-offset="588" max-vertical-offset="1584">
           <caret line="62" column="1" selection-start-line="62" selection-start-column="1" selection-end-line="62" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -772,37 +803,123 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/Script pruebas.sql">
+    <entry file="file://$PROJECT_DIR$/siscupos/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="223" max-vertical-offset="828">
-          <caret line="36" column="2" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.14563107" vertical-offset="0" max-vertical-offset="618">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.42718446" vertical-offset="822" max-vertical-offset="1926">
+          <caret line="31" column="27" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.61322314" vertical-offset="889" max-vertical-offset="1494">
+          <caret line="70" column="24" selection-start-line="70" selection-start-column="6" selection-end-line="70" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17475729" vertical-offset="0" max-vertical-offset="618">
+          <caret line="7" column="65" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/static/sb-admin/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40484428" vertical-offset="2862" max-vertical-offset="8856">
+          <caret line="172" column="20" selection-start-line="172" selection-start-column="20" selection-end-line="182" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/demanda.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="1080">
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/resultado_ejecucion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1170">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/optimizador.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.3333333" vertical-offset="0" max-vertical-offset="1116">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/lista_programas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.6666665" vertical-offset="108" max-vertical-offset="1026">
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../agenda/libreta/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18620689" vertical-offset="0" max-vertical-offset="2790">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30456853" vertical-offset="0" max-vertical-offset="972">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09137931" vertical-offset="37" max-vertical-offset="954">
+          <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16042781" vertical-offset="0" max-vertical-offset="4194">
-          <caret line="5" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+        <state vertical-scroll-proportion="-4.2280703" vertical-offset="1199" max-vertical-offset="4590">
+          <caret line="80" column="50" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+    <entry file="file://$PROJECT_DIR$/siscupos/templates/materias/lista_materias.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="822" max-vertical-offset="1926">
-          <caret line="31" column="27" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+        <state vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="972">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/admin.py">
+    <entry file="file://$PROJECT_DIR$/data/Script pruebas.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41474655" vertical-offset="0" max-vertical-offset="217">
-          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.94049585" vertical-offset="151" max-vertical-offset="828">
+          <caret line="40" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
