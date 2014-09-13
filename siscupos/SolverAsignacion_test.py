@@ -157,6 +157,7 @@ class TestSolveAsignacion(unittest.TestCase):
         #Obtiene el par Indice y Valor del listado de ESTUDIANTES y se recorre dicho listado
         for i_idx, i_val in enumerate(self.vl_estudiantes):
             vl_totalAsignacionCursosDeseo = 0
+            vl_totalCursosDeseados = 0
             vl_cursosAsignadoEstudiante =[]
             #Obtiene el par Indice y Valor del listado de SECCIONES y se recorre dicho listado
             for j_idx, j_val in enumerate(self.vl_secciones):
@@ -170,14 +171,18 @@ class TestSolveAsignacion(unittest.TestCase):
             for k_idx, k_val in enumerate(self.vl_cursos):
                 #Se evalua que exista un cruce en la matriz ESTUDIANTES X CURSO  (valor a 1)
                 if self.vl_est_x_cur[i_idx][k_idx] == 1 :
+                    vl_totalCursosDeseados += 1
                     # A partir del valor del recorrido se evalua que el CURSO corresponda a los cursos que ha sido asignado
                     if k_val in vl_cursosAsignadoEstudiante :
                         vl_totalAsignacionCursosDeseo += 1
             
             # Se evalua que almenos se haya asignado a un curso de deseo
-            #print i_val, k_val, vl_cursosAsignadoEstudiante, vl_totalAsignacionCursosDeseo
-            self.assertGreaterEqual(vl_totalAsignacionCursosDeseo, 1)
-            
+            #print i_val, k_val, vl_cursosAsignadoEstudiante, vl_totalAsignacionCursosDeseo, vl_totalCursosDeseados
+            if vl_totalCursosDeseados > 0 :
+                self.assertGreaterEqual(vl_totalAsignacionCursosDeseo, 1)
+            else:
+                self.assertEqual(vl_totalAsignacionCursosDeseo, 0)
+
     
     def _testEstudianteNoAsignadoCursoNoDeseo(self):
         #Obtiene el par Indice y Valor del listado de ESTUDIANTES y se recorre dicho listado
