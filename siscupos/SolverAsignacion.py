@@ -76,65 +76,15 @@ def optimizarAutomatico():
     for rowEC in rowsEstudiCur:
         EST_X_CUR[rowEC[1]-9000][rowEC[0]-9000] = 1
 
+    asig_est = optimizadorCursos(ESTUDIANTES, CURSOS, SECCIONES, SEC_X_CUR, CUPOS, EST_X_CUR)
 
+    #Registra la corrida
+    curPerAsignacion = conn.cursor()
+    curPerAsignacion.execute("insert into siscupos_preasignacioncurso (codigo, \"fechaCorrida\", observacion, periodo) values (2, CURRENT_DATE, 'OK', 20141)")
 
+    conn.commit()
 
-
-    prob = LpProblem("AsignacionCursos", LpMaximize)
-
-    asig_est = LpVariable.dicts("AsigSugerida",
-                                [(i, j) for i in ESTUDIANTES
-                                 for j in SECCIONES], 0, 1, LpBinary)
-
-
-    #for i in ESTUDIANTES:
-    #    for j in SECCIONES:
-    #      asig_est[(i, j)].varValue = 0
-
-
-    # Funcion objetivo
-    prob += lpSum(asig_est[(i, j)] for i in ESTUDIANTES for j in SECCIONES)
-
-
-    # Restriccion D: Un estudiante es asignado a uno de los cursos que el desea asistir
-    for i in ESTUDIANTES:
-        prob += lpSum(EST_X_CUR[i][SEC_X_CUR[j]] for j in SECCIONES if asig_est[(i, j)].varValue > 0) >= 1
-
-    #== lpSum(1 for j in SECCIONES if asig_est[(i, j)].varValue > 0)
-
-    # Restriccion A: Un estudiante tiene un maximo de 2 cursos
-    for i in ESTUDIANTES:
-        prob += lpSum(asig_est[(i, j)] for j in SECCIONES) <= 2
-
-    # Restriccion B: Un estudiante no puede ser asignado a dos secciones del mismo curso
-    #for k in CURSOS:
-    #    for i in ESTUDIANTES:
-    #        for j in SECCIONES:
-    #           prob += lpSum(asig_est[(i, j)].varValue * cur_x_sec[(k, j)].varValue for j in SECCIONES) <= 1
-
-    # Restriccion C: La asignacion a una seccion no puede superar su cupo maximo
-    for j in SECCIONES:
-        prob += lpSum(asig_est[(i, j)] for i in ESTUDIANTES) <= CUPOS[j]
-
-    # The problem is solved using PuLP's choice of Solver
-    prob.solve()
-
-    # The status of the solution is printed to the screen
-    print("Status:", LpStatus[prob.status])
-
-
-    for i in ESTUDIANTES:
-        print("Estudiante: ", i)
-        print(lpSum( EST_X_CUR[i][SEC_X_CUR[j]] for j in SECCIONES if asig_est[(i, j)].varValue > 0), " = ", lpSum(1 for j in SECCIONES if asig_est[(i, j)].varValue > 0) )
-        for j in SECCIONES:
-            print("    est_x_cur: ", j,  EST_X_CUR[i][SEC_X_CUR[j]], "asignacion a la secc ", j, " = ", asig_est[(i, j)].varValue)
-
-
-    for i in ESTUDIANTES:
-        for j in SECCIONES:
-            if asig_est[(i, j)].varValue > 0:
-                print(i, ",", SEC_X_CUR[j], " = ", asig_est[(i, j)].varValue, EST_X_CUR[i][SEC_X_CUR[j]])
-
+    print 'LISTO'
 
 def optimizadorCursos(v_estudiantes, v_cursos, v_secciones, v_sec_x_cur, v_cupos, v_est_x_cur):
 
@@ -145,10 +95,6 @@ def optimizadorCursos(v_estudiantes, v_cursos, v_secciones, v_sec_x_cur, v_cupos
                                           for j in v_secciones], 0, 1, LpBinary)
 
     # Llenar los datos de prueba
-
-
-
-
 
     #for i in v_estudiantes:
     #    for j in v_secciones:
