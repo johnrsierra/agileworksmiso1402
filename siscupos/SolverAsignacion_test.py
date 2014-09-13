@@ -166,7 +166,6 @@ class TestSolveAsignacion(unittest.TestCase):
                     # Se agrega el valor del diccionario de CURSOS usando la llave de SECCIONES
                     vl_cursosAsignadoEstudiante.append(self.vl_sec_x_cur[j_val])
             
-            
             #Obtiene el par Indice y Valor del listado de CURSOS y se recorre dicho listado
             for k_idx, k_val in enumerate(self.vl_cursos):
                 #Se evalua que exista un cruce en la matriz ESTUDIANTES X CURSO  (valor a 1)
