@@ -153,7 +153,7 @@ class TestSolveAsignacion(unittest.TestCase):
             self.assertLessEqual(len(list(set(vl_cursosAsignadoEstudiante))) , 2)
     
 
-    def testEstudianteAsignadoAlmenosUnCursoDeseo(self):
+    def _testEstudianteAsignadoAlmenosUnCursoDeseo(self):
         #Obtiene el par Indice y Valor del listado de ESTUDIANTES y se recorre dicho listado
         for i_idx, i_val in enumerate(self.vl_estudiantes):
             vl_totalAsignacionCursosDeseo = 0
