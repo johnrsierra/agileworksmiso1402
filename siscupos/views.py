@@ -62,4 +62,5 @@ def resultado(request,preasig_id):
 
 def optimizando(request):
     optimizarAutomatico()
+    context = {}
     return render(request,'coordinacion/optimizando.html',context)
