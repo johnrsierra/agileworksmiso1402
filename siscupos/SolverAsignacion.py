@@ -78,9 +78,25 @@ def optimizarAutomatico():
 
     asig_est = optimizadorCursos(ESTUDIANTES, CURSOS, SECCIONES, SEC_X_CUR, CUPOS, EST_X_CUR)
 
-    #Registra la corrida
+    #Cursores para realizar inserts
     curPerAsignacion = conn.cursor()
+    curIdPreAsid = conn.cursor()
+
+
     curPerAsignacion.execute("insert into siscupos_preasignacioncurso (codigo, \"fechaCorrida\", observacion, periodo) values (2, CURRENT_DATE, 'OK', 20141)")
+    conn.commit()
+    curIdPreAsid.execute(" select max(id) from siscupos_preasignacioncurso ")
+    rowsIdPreAsid = curIdPreAsid.fetchall()
+    for rowID in rowsIdPreAsid:
+        idPreAsig = rowID[0]
+
+    for i in ESTUDIANTES:
+        for j in SECCIONES:
+            if asig_est[(i, j)].varValue > 0:
+                curAsignaturaSugerida = conn.cursor()
+                curAsignaturaSugerida.execute(" insert into siscupos_asignaturasugerida (anno, estado, \"preAsignacionCurso_id\", estudiante_id,\"preProgramacion_id\") "
+                                  "values (2014, 'OK', "+str(idPreAsig)+", "+str(i+9000)+", "+str(SEC_X_CUR[j])+" ) ")
+
 
     conn.commit()
 
