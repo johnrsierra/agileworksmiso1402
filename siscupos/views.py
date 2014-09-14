@@ -60,6 +60,6 @@ def resultado(request,preasig_id):
     else:
         return render(request,'contactos/resultado_ejecucion.html',{})
 
-def optimizar(request):
+def optimizando(request):
     optimizarAutomatico()
     return render(request,'coordinacion/optimizando.html',context)
