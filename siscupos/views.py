@@ -18,6 +18,15 @@ def coordinacion(request):
     context = {'lista_programas':lista_programas}
     return render(request,'coordinacion/lista_programas.html',context)
 
+def consultarPreProgramacion(request,prog_id):
+    if prog_id is not None:
+        print prog_id
+        lista_programacion = PreProgramacion.objects.filter(asignaturaXPrograma__programaAcademico=prog_id)
+        context={'lista_programacion':lista_programacion}
+        return render(request,'coordinacion/plan_programa.html',context)
+    else:
+        return render(request,'coordinacion/plan_programa.html',{})
+
 def materias(request):
     lista_materias = Asignatura.objects.all()
     context = {'lista_materias':lista_materias}

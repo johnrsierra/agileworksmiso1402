@@ -22,20 +22,20 @@ Lista de Programas
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
-                    <th>Sigla</th>
-                    <th>Nombre</th>
-                    <th>Coordinador</th>
-                    <th>Programación</th>
+                    <th>Sección</th>
+                    <th>Cupos</th>
+                    <th>Periodo</th>
+                    <th>Asignatura</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% if lista_programas %}
-                {% for programa in lista_programas %}
+                {% if lista_programacion %}
+                {% for programa in lista_programacion %}
                 <tr>
-                    <td>{{programa.sigla}}</td>
-                    <td>{{programa.nombre}}</td>
-                    <td>{{programa.nombreCoordinador}}</td>
-                    <td><a href="/siscupos/coordinacion/programacion/{{programa.id}}/plan">plan</a></td>
+                    <td>{{programa.seccion}}</td>
+                    <td>{{programa.cupos}}</td>
+                    <td>{{programa.periodo}}</td>
+                    <td>{{programa.asignaturaXPrograma}}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

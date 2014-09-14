@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^coordinacion/demanda/$',views.demandaCupos, name='demanda'),
     url(r'^coordinacion/optimizador/$',views.ejecuciones, name='optimizador'),
     url(r'^coordinacion/optimizador/(?P<preasig_id>\w+)/resultados/$',views.resultado,name='resultado'),
+    url(r'^coordinacion/programacion/(?P<prog_id>\w+)/plan/$',views.consultarPreProgramacion,name='plan'),
     url(r'^materias/$',views.materias, name='materias'),
     url(r'^estudiantes/$',views.estudiantes, name='estudiantes'),
 )

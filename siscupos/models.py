@@ -10,7 +10,7 @@ class Asignatura(models.Model):
         return self.codigo+' '+self.nombres
     @staticmethod
     def demanda_cupos():
-        return Asignatura.objects.annotate(demanda=Count('asignaturaxestudiante')).filter(asignaturaxestudiante__cursada='0')
+        return Asignatura.objects.annotate(demanda=Count('asignaturaxestudiante'))#.filter(asignaturaxestudiante__cursada='0')
 
 
 class ProgramaAcademico(models.Model):
@@ -36,7 +36,7 @@ class Estudiante(models.Model):
     nombres = models.CharField(max_length=200)
     apellidos = models.CharField(max_length=200)
     def __unicode__(self):
-        return self.codigo
+        return unicode(self.codigo) + ' ' + unicode(self.nombres) + ' ' + unicode(self.apellidos)
 
 
 class AsignaturaXEstudiante(models.Model):
@@ -47,7 +47,7 @@ class AsignaturaXEstudiante(models.Model):
     asignatura = models.ForeignKey(Asignatura)
     estudiante = models.ForeignKey(Estudiante)
     def __unicode__(self):
-        return self.estudiante+' '+self.asignatura
+        return unicode(self.estudiante) + ' ' + unicode(self.asignatura)
 
 
 class PreProgramacion(models.Model):
