@@ -20,9 +20,10 @@ def coordinacion(request):
 
 def consultarPreProgramacion(request,prog_id):
     if prog_id is not None:
-        print prog_id
+        programa = ProgramaAcademico.objects.get(pk=prog_id)
+        print programa
         lista_programacion = PreProgramacion.objects.filter(asignaturaXPrograma__programaAcademico=prog_id)
-        context={'lista_programacion':lista_programacion}
+        context={'lista_programacion':lista_programacion,'programa':programa}
         return render(request,'coordinacion/plan_programa.html',context)
     else:
         return render(request,'coordinacion/plan_programa.html',{})
