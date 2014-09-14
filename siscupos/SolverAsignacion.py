@@ -81,11 +81,13 @@ def optimizarAutomatico():
     #Cursores para realizar inserts
     curPerAsignacion = conn.cursor()
     curIdPreAsid = conn.cursor()
-
+    curUpdPerAsignacion = conn.cursor()
 
     curPerAsignacion.execute("insert into siscupos_preasignacioncurso (codigo, \"fechaCorrida\", observacion, periodo) values (2, CURRENT_DATE, 'OK', 20141)")
+    curUpdPerAsignacion.execute("update siscupos_preasignacioncurso set codigo = id ")
     conn.commit()
     curIdPreAsid.execute(" select max(id) from siscupos_preasignacioncurso ")
+
     rowsIdPreAsid = curIdPreAsid.fetchall()
     for rowID in rowsIdPreAsid:
         idPreAsig = rowID[0]
