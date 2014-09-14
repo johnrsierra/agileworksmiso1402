@@ -57,7 +57,7 @@ class PreProgramacion(models.Model):
     periodo = models.CharField(max_length=10)
     asignaturaXPrograma = models.ForeignKey(AsignaturaXPrograma)
     def __unicode__(self):
-        return self.seccion+' '+self.perioro+' '+self.asignaturaXPrograma
+        return self.seccion+' '+self.periodo+' '+self.asignaturaXPrograma
 
 class PreAsignacionCurso(models.Model):
     codigo = models.IntegerField(max_length=20)
