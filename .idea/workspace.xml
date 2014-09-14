@@ -75,8 +75,8 @@
       <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/siscupos/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5121951" vertical-offset="492" max-vertical-offset="1230">
-              <caret line="59" column="43" selection-start-line="59" selection-start-column="43" selection-end-line="59" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.7154471" vertical-offset="492" max-vertical-offset="1245">
+              <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -163,7 +163,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="326" />
+    <option name="x" value="262" />
     <option name="y" value="22" />
     <option name="width" value="1594" />
     <option name="height" value="1058" />
@@ -601,7 +601,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="326" y="22" width="1594" height="1058" extended-state="0" />
+    <frame x="262" y="22" width="1594" height="1058" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1015,8 +1015,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5121951" vertical-offset="492" max-vertical-offset="1230">
-          <caret line="59" column="43" selection-start-line="59" selection-start-column="43" selection-end-line="59" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.7154471" vertical-offset="492" max-vertical-offset="1245">
+          <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
           <folding />
         </state>
       </provider>
