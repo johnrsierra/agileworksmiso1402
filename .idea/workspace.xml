@@ -2,40 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcbd84d4-4c2b-4a44-9378-6170e06a4eb7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/top_level.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/dependency_links.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_with.py" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/PKG-INFO" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/installed-files.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/top_level.txt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_range.py" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_json.py" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/SOURCES.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extensions.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extensions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_transaction.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_transaction.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_copy.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_copy.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_extras_dictcursor.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_extras_dictcursor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_module.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_module.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_notify.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_notify.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_connection.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_connection.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/dbapi20.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/dbapi20.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_async.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_async.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cursor.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cursor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_dates.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_dates.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_green.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_green.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/installed-files.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2-2.5.3-py2.7.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_with.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/errorcodes.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/errorcodes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_quote.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_quote.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_basic.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_basic.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_extras.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_extras.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extras.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extras.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/__init__.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cancel.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cancel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tz.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tz.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_bug_gc.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_bug_gc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/pool.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/pool.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/__init__.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_psycopg.so" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_psycopg.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_extras.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_extras.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_module.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_module.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/testutils.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/testutils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_quote.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_quote.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_async.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_async.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/__init__.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cursor.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cursor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_connection.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_connection.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extensions.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extensions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_dates.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_dates.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_psycopg.so" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/_psycopg.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_basic.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_types_basic.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_extras_dictcursor.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_extras_dictcursor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/dbapi20.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/dbapi20.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_bug_gc.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_bug_gc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/__init__.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_notify.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_notify.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/pool.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/pool.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extras.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/extras.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_transaction.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_transaction.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_lobject.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_lobject.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_copy.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_copy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_green.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_green.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cancel.py" afterPath="$PROJECT_DIR$/../agenda/venv/lib/python2.7/site-packages/psycopg2/tests/test_cancel.py" />
     </list>
     <ignored path="siscupos.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,21 +65,31 @@
       <file leaf-file-name="lista_estudiantes.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="840">
+            <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="840">
               <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="optimizador.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="optimizador.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/optimizador.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24507658" vertical-offset="106" max-vertical-offset="1020">
+            <state vertical-scroll-proportion="-10.291667" vertical-offset="83" max-vertical-offset="1020">
               <caret line="22" column="93" selection-start-line="22" selection-start-column="93" selection-end-line="22" selection-end-column="93" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#button#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/siscupos/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.75069255" vertical-offset="44" max-vertical-offset="1305">
+              <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -125,13 +135,13 @@
         <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/resultado_ejecucion.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/demanda.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/lista_programas.html" />
-        <option value="$PROJECT_DIR$/siscupos/models.py" />
         <option value="$PROJECT_DIR$/siscupos/urls.py" />
         <option value="$PROJECT_DIR$/siscupos/admin.py" />
         <option value="$PROJECT_DIR$/siscupos/views.py" />
         <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/plan_programa.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html" />
         <option value="$PROJECT_DIR$/siscupos/templates/coordinacion/optimizador.html" />
+        <option value="$PROJECT_DIR$/siscupos/models.py" />
       </list>
     </option>
   </component>
@@ -193,7 +203,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -290,6 +299,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -532,7 +542,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5962733" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5973085" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24262296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15291107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -544,11 +554,11 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3148148" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3148148" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24918033" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -566,6 +576,7 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -872,13 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siscupos/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36780384" vertical-offset="0" max-vertical-offset="1260">
-          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/demanda.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44310722" vertical-offset="0" max-vertical-offset="914">
@@ -916,7 +920,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/templates/estudiantes/lista_estudiantes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="840">
+        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="840">
           <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
           <folding />
         </state>
@@ -924,11 +928,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/siscupos/templates/coordinacion/optimizador.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24507658" vertical-offset="106" max-vertical-offset="1020">
+        <state vertical-scroll-proportion="-10.291667" vertical-offset="83" max-vertical-offset="1020">
           <caret line="22" column="93" selection-start-line="22" selection-start-column="93" selection-end-line="22" selection-end-column="93" />
           <folding>
             <element signature="n#style#0;n#a#0;n#button#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siscupos/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.75069255" vertical-offset="44" max-vertical-offset="1305">
+          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>

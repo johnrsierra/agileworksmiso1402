@@ -19,6 +19,8 @@ class ProgramaAcademico(models.Model):
     nombreCoordinador = models.CharField(max_length=200)
     def __unicode__(self):
         return self.sigla + ' ' + self.nombre
+    class Meta:
+        verbose_name_plural = "Programas Academicos"
 
 
 class AsignaturaXPrograma(models.Model):
@@ -58,6 +60,8 @@ class PreProgramacion(models.Model):
     asignaturaXPrograma = models.ForeignKey(AsignaturaXPrograma)
     def __unicode__(self):
         return str(self.seccion) + ' ' + self.periodo + ' ' + unicode(self.asignaturaXPrograma)
+    class Meta:
+        verbose_name_plural = "Pre Programaciones"
 
 class PreAsignacionCurso(models.Model):
     codigo = models.IntegerField(max_length=20)
