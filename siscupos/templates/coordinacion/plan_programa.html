@@ -1,17 +1,20 @@
 {% extends "index.html" %}
 
-{% block title %}Siscupos - Demanda asignaturas{% endblock %}
+{% block title %}Siscupos - Programas{% endblock %}
 
 {% block page-header%}
-Demanda de asignaturas
+Programación para {{programa}}
 {% endblock %}
 
 {% block breadcrumb %}
 <li>
     <i class="fa fa-table"></i> Coordinación
 </li>
+<li>
+    <i class="fa fa-edit"></i> programas
+</li>
 <li class="active">
-    <i class="fa fa-bar-chart-o"></i> demanda
+    <i class="fa fa-calendar"></i> programación
 </li>
 {% endblock %}
 
@@ -22,26 +25,25 @@ Demanda de asignaturas
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
-                    <th>Codigo</th>
-                    <th>Nombres</th>
-                    <th>Creditos</th>
-                    <th>Demanda(#Estudiantes)</th>
-
+                    <th>Sección</th>
+                    <th>Cupos</th>
+                    <th>Periodo</th>
+                    <th>Asignatura</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% if lista_demanda %}
-                {% for asignatura in lista_demanda %}
+                {% if lista_programacion %}
+                {% for programa in lista_programacion %}
                 <tr>
-                    <td>{{asignatura.codigo}}</td>
-                    <td>{{asignatura.nombres}}</td>
-                    <td>{{asignatura.creditos}}</td>
-                    <td>{{asignatura.demanda}}</td>
+                    <td>{{programa.seccion}}</td>
+                    <td>{{programa.cupos}}</td>
+                    <td>{{programa.periodo}}</td>
+                    <td>{{programa.asignaturaXPrograma}}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
                 <tr>
-                    <td colspan="6">No hay información sobre la demanda actualmente.</td>
+                    <td colspan="4">No hay programas registrados.</td>
                 </tr>
                 {% endif %}
                 </tbody>

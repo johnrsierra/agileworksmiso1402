@@ -26,10 +26,14 @@ Optimizador plan de carrera
                 <thead>
                 <tr>
                     <th>Año</th>
-                    <th>Estado</th>
-                    <th>Pre programación</th>
-                    <th>Estudiante</th>
-                    <th>Total</th>
+                    <th>Sección</th>
+                    <th>Cupos</th>
+                    <th>Periodo</th>
+                    <th>Asignatura</th>
+                    <th>Código Estudiante</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Fecha Ejecución</th>
 
                 </tr>
                 </thead>
@@ -38,10 +42,14 @@ Optimizador plan de carrera
                 {% for resultado in lista_resultado %}
                 <tr>
                     <td>{{resultado.anno}}</td>
-                    <td>{{resultado.estado}}</td>
-                    <td>{{resultado.preProgramacion}}</td>
-                    <td>{{resultado.estudiante}}</td>
-                    <td>{{resultado}}</td>
+                    <td>{{resultado.preProgramacion.seccion}}</td>
+                    <td>{{resultado.preProgramacion.cupos}}</td>
+                    <td>{{resultado.preProgramacion.periodo}}</td>
+                    <td>{{resultado.preProgramacion.asignaturaXPrograma.asignatura}}</td>
+                    <td>{{resultado.estudiante.codigo}}</td>
+                    <td>{{resultado.estudiante.nombres}}</td>
+                    <td>{{resultado.estudiante.apellidos}}</td>
+                    <td>{{resultado.preAsignacionCurso.fechaCorrida}}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

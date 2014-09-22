@@ -2,9 +2,9 @@ from django.shortcuts import render,HttpResponse
 from siscupos.models import Asignatura,AsignaturaSugerida,AsignaturaXEstudiante,AsignaturaXPrograma,Estudiante,PreAsignacionCurso,PreProgramacion,ProgramaAcademico
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
 import json
 from django.core import serializers
+from SolverAsignacion import *
 
 # Create your views here.
 def index(request):
@@ -19,6 +19,16 @@ def coordinacion(request):
     lista_programas = ProgramaAcademico.objects.all()
     context = {'lista_programas':lista_programas}
     return render(request,'coordinacion/lista_programas.html',context)
+
+def consultarPreProgramacion(request,prog_id):
+    if prog_id is not None:
+        programa = ProgramaAcademico.objects.get(pk=prog_id)
+        print programa
+        lista_programacion = PreProgramacion.objects.filter(asignaturaXPrograma__programaAcademico=prog_id)
+        context={'lista_programacion':lista_programacion,'programa':programa}
+        return render(request,'coordinacion/plan_programa.html',context)
+    else:
+        return render(request,'coordinacion/plan_programa.html',{})
 
 def materias(request):
     lista_materias = Asignatura.objects.all()
@@ -52,8 +62,12 @@ def resultado(request,preasig_id):
     else:
         return render(request,'contactos/resultado_ejecucion.html',{})
 
-
 def jsonTest(request):
     asig = Asignatura.objects.all()
     data = serializers.serialize('json', asig, fields=('name','size'))
     return HttpResponse(data, content_type='application/json; charset=UTF-8')
+
+def optimizando(request):
+    optimizarAutomatico()
+    context = {}
+    return render(request,'coordinacion/optimizando.html',context)
