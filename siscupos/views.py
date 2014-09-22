@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from siscupos.models import Asignatura,AsignaturaSugerida,AsignaturaXEstudiante,AsignaturaXPrograma,Estudiante,PreAsignacionCurso,PreProgramacion,ProgramaAcademico
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+import json
+from django.core import serializers
 
 # Create your views here.
 def index(request):
@@ -49,3 +51,9 @@ def resultado(request,preasig_id):
         return render(request,'coordinacion/resultado_ejecucion.html',contexto)
     else:
         return render(request,'contactos/resultado_ejecucion.html',{})
+
+
+def jsonTest(request):
+    asig = Asignatura.objects.all()
+    data = serializers.serialize('json', asig, fields=('name','size'))
+    return HttpResponse(data, content_type='application/json; charset=UTF-8')

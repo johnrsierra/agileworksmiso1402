@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^coordinacion/optimizador/(?P<preasig_id>\w+)/resultados/$',views.resultado,name='resultado'),
     url(r'^materias/$',views.materias, name='materias'),
     url(r'^estudiantes/$',views.estudiantes, name='estudiantes'),
+    url(r'^coordinacion/asignatura/$',views.jsonTest,name='asignatura'),
 )
 
