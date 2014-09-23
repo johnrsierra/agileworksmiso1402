@@ -71,3 +71,9 @@ def optimizando(request):
     optimizarAutomatico()
     context = {}
     return render(request,'coordinacion/optimizando.html',context)
+
+def carpeta(request,est_id):
+    #debe ser la lista de materias del programa del estudiante
+    lista_materias = Asignatura.objects.all()
+    context = {'lista_materias':lista_materias}
+    return render(request,'estudiantes/carpeta.html',context)

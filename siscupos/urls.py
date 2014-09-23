@@ -11,8 +11,10 @@ urlpatterns = patterns('',
     url(r'^coordinacion/optimizando/$',views.optimizando, name='optimizando'),
     url(r'^coordinacion/optimizador/(?P<preasig_id>\w+)/resultados/$',views.resultado,name='resultado'),
     url(r'^coordinacion/programacion/(?P<prog_id>\w+)/plan/$',views.consultarPreProgramacion,name='plan'),
+    url(r'^coordinacion/asignatura/$',views.jsonTest,name='asignatura'),
     url(r'^materias/$',views.materias, name='materias'),
     url(r'^estudiantes/$',views.estudiantes, name='estudiantes'),
-    url(r'^coordinacion/asignatura/$',views.jsonTest,name='asignatura'),
+    url(r'^estudiantes/(?P<est_id>\w+)/carpeta/$',views.carpeta,name='carpeta'),
+
 )
 
