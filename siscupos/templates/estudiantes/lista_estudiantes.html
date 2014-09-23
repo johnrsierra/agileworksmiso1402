@@ -22,7 +22,7 @@ Lista de Estudiantes
                         <th>codigo</th>
                         <th>nombres</th>
                         <th>Apellidos</th>
-                        <!--th>Materias Sugeridas</th-->
+                        <th>Materias Sugeridas</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@ Lista de Estudiantes
                         <td>{{estudiante.codigo}}</td>
                         <td>{{estudiante.nombres}}</td>
                         <td>{{estudiante.apellidos}}</td>
-                        <!--td>Materias Sugeridas</td-->
+                        <td><a href="/siscupos/estudiantes/{{estudiante.id}}/carpeta">carpeta</a></td>
                     </tr>
                     {% endfor %}
                 {% else %}
@@ -46,5 +46,4 @@ Lista de Estudiantes
     </div>
 </div>
 <!-- /.row -->
-
 {% endblock %}
