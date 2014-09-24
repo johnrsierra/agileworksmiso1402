@@ -17,6 +17,9 @@ Carpeta
 
 {% block content %}
 <div class="row">
+{{materia.estudiante}}
+</div>
+<div class="row">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Plan de estudios</h3>
@@ -24,12 +27,12 @@ Carpeta
         <div class="panel-body" id="stack">
             {% if lista_materias %}
             {% for materia in lista_materias %}
-            <div class="col-sm-3 " >
+            <div class="col-sm-3 col-lg-3" >
                 <div class="panel panel-primary materia">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6">
-                                <div class="huge">{{materia.codigo}}</div>
+                                <div >{{materia.codigo}}</div>
                             </div>
                         </div>
                     </div>
@@ -52,48 +55,48 @@ Carpeta
         </div>
         <div class="panel-body">
             <!-- caja periodo -->
-            <div class="col-sm-3">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">201410</h3>
                     </div>
-                    <div class="panel-body" id="periodo1">
+                    <div class="panel-body" id="periodo1" style="min-height:225px">
 
                     </div>
                 </div>
             </div>
             <!-- /.caja periodo -->
             <!-- caja periodo -->
-            <div class="col-sm-3">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">201420</h3>
                     </div>
-                    <div class="panel-body" id="periodo2">
+                    <div class="panel-body" id="periodo2" style="min-height:225px">
 
                     </div>
                 </div>
             </div>
             <!-- /.caja periodo -->
             <!-- caja periodo -->
-            <div class="col-sm-3">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">201510</h3>
                     </div>
-                    <div class="panel-body" id="periodo3">
+                    <div class="panel-body" id="periodo3" style="min-height:225px">
 
                     </div>
                 </div>
             </div>
             <!-- /.caja periodo -->
             <!-- caja periodo -->
-            <div class="col-sm-3">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">201520</h3>
                     </div>
-                    <div class="panel-body" id="periodo4">
+                    <div class="panel-body" id="periodo4" style="min-height:225px">
 
                     </div>
                 </div>
