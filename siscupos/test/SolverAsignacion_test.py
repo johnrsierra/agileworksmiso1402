@@ -1,6 +1,6 @@
 import unittest
 from pulp import *
-from SolverAsignacion import *
+from siscupos.SolverAsignacion import *
 
 class TestSolveAsignacion(unittest.TestCase):
     def setUp(self):
@@ -201,3 +201,6 @@ class TestSolveAsignacion(unittest.TestCase):
                 if self.vl_est_x_cur[i_idx][k_idx] == 1 :
                     # Se evalua que el CURSO al cual ha sido asignado corresponde a un curso deseado
                     self.assertTrue( k_val in vl_cursosAsignadoEstudiante )
+                    
+    def testOptimizarAutomatico(self):
+        optimizarAutomatico()
