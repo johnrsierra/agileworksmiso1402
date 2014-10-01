@@ -23,3 +23,6 @@ drop: function( event, ui ) {
     $(tmp).clone().removeAttr('style').appendTo(this);
 }
 });
+
+
+$('table.table').DataTable();
