@@ -30,11 +30,13 @@ def consultarPreProgramacion(request,prog_id):
     else:
         return render(request,'coordinacion/plan_programa.html',{})
 
+#Retorna el listado de materias
 def materias(request):
     lista_materias = Asignatura.objects.all()
     context = {'lista_materias':lista_materias}
     return render(request,'materias/lista_materias.html',context)
 
+#Retorna el listado de estudiantes
 def estudiantes(request):
     lista_estudiantes = Estudiante.objects.all()
     context = {'lista_estudiantes':lista_estudiantes}
@@ -74,6 +76,27 @@ def optimizando(request):
 
 def carpeta(request,est_id):
     #debe ser la lista de materias del programa del estudiante
-    lista_materias = Asignatura.objects.all()
-    context = {'lista_materias':lista_materias}
+    est = Estudiante.objects.get(pk=est_id)
+    periodos = darPeriodos(est.periodoInicio)
+    mats_periodos = []
+    for x in range(0,len(periodos)):
+        lista_materias = AsignaturaXEstudiante.objects.filter(estudiante=est,periodo=periodos[x])
+        mats_periodos.append({'periodo':periodos[x],'lista_materias':lista_materias})
+    context = {'estudiante':est,'periodos':periodos,'mats_periodos':mats_periodos}
     return render(request,'estudiantes/carpeta.html',context)
+
+#Este metodo deberia eliminarse y traer los periodos de la DB
+def darPeriodos(periodo):
+    ano = str(periodo[:4])
+    sem = str(periodo[-2:])
+    periodos = []
+    periodos.append(periodo)
+    for x in range(1,4):
+        if(sem == '10'):
+            sem = '20'
+        else:
+            ano = str(int(ano)+1)
+            sem = '10'
+        per = ano + sem
+        periodos.append(per)
+    return periodos

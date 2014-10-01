@@ -1,0 +1,110 @@
+{% extends "index.html" %}
+
+{% block title %}Siscupos - Carpeta{% endblock %}
+
+{% block page-header%}
+Carpeta
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <i class="fa fa-table"></i> Coordinación
+</li>
+<li class="active">
+    <i class="fa fa-edit"></i> programas
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+{{materia.estudiante}}
+</div>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Plan de estudios</h3>
+        </div>
+        <div class="panel-body" id="stack">
+            {% if lista_materias %}
+            {% for materia in lista_materias %}
+            <div class="col-sm-3 col-lg-3" >
+                <div class="panel panel-primary materia">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div >{{materia.codigo}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4">No hay programas registrados.</td>
+            </tr>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Planeación</h3>
+        </div>
+        <div class="panel-body">
+            <!-- caja periodo -->
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">201410</h3>
+                    </div>
+                    <div class="panel-body" id="periodo1" style="min-height:225px">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.caja periodo -->
+            <!-- caja periodo -->
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">201420</h3>
+                    </div>
+                    <div class="panel-body" id="periodo2" style="min-height:225px">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.caja periodo -->
+            <!-- caja periodo -->
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">201510</h3>
+                    </div>
+                    <div class="panel-body" id="periodo3" style="min-height:225px">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.caja periodo -->
+            <!-- caja periodo -->
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">201520</h3>
+                    </div>
+                    <div class="panel-body" id="periodo4" style="min-height:225px">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.caja periodo -->
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

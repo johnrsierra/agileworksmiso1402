@@ -6,6 +6,7 @@ class Asignatura(models.Model):
     codigo = models.CharField(max_length=20)
     nombres = models.CharField(max_length=200)
     creditos = models.IntegerField()
+    nivel = models.CharField(max_length=200)
     def __unicode__(self):
         return self.codigo+' '+self.nombres
     @staticmethod
@@ -37,6 +38,7 @@ class Estudiante(models.Model):
     codigo = models.IntegerField(max_length=20)
     nombres = models.CharField(max_length=200)
     apellidos = models.CharField(max_length=200)
+    periodoInicio = models.CharField(max_length=6)
     def __unicode__(self):
         return unicode(self.codigo) + ' ' + unicode(self.nombres) + ' ' + unicode(self.apellidos)
 
@@ -44,8 +46,7 @@ class Estudiante(models.Model):
 class AsignaturaXEstudiante(models.Model):
     cursada = models.CharField(max_length=2)
     estado = models.CharField(max_length=3)
-    fechaAdicion = models.DateTimeField()
-    fechaRemocion = models.DateTimeField()
+    periodo = models.CharField(max_length=6)
     asignatura = models.ForeignKey(Asignatura)
     estudiante = models.ForeignKey(Estudiante)
     def __unicode__(self):
@@ -80,4 +81,3 @@ class AsignaturaSugerida(models.Model):
     preAsignacionCurso = models.ForeignKey(PreAsignacionCurso)
     def __unicode__(self):
         return self.preAsignacionCurso.fechaCorrida
-        #return unicode(self.anno) + ' ' + self.estado + ' ' + unicode(self.preProgramacion) + ' ' + unicode(self.estudiante) + ' ' + unicode(self.preAsignacionCurso)
