@@ -99,16 +99,22 @@ STATICFILES_DIRS = (
    # 'django.contrib.staticfiles.finders.FileSystemFinder',
 #)
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
+
+#TEMPLATE_CONTEXT_PROCESSORS = (
+ #   'django.contrib.auth.context_processors.auth',
     #'django.core.context_processors.debug',
     #'django.core.context_processors.i18n',
     #'django.core.context_processors.media',
     #'django.core.context_processors.static',
     #'django.core.context_processors.tz',
     #'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request',
-)
+ #   'django.core.context_processors.request',
+#)
 #MEDIA_ROOT = join(BASE_DIR, 'media')
 #MEDIA_URL = '/media/'
 #MAX_UPLOAD_SIZE = 20971520 # 20MB
