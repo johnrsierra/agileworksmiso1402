@@ -94,13 +94,13 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
 )
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-)
+#STATICFILES_FINDERS = (
+  #  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+   # 'django.contrib.staticfiles.finders.FileSystemFinder',
+#)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
+    #'django.contrib.auth.context_processors.auth',
     #'django.core.context_processors.debug',
     #'django.core.context_processors.i18n',
     #'django.core.context_processors.media',
