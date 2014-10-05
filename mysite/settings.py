@@ -88,16 +88,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/staticfiles/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'staticfiles'),
+    os.path.join(PROJECT_PATH, 'static'),
 )
 
-#STATICFILES_FINDERS = (
-  #  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-   # 'django.contrib.staticfiles.finders.FileSystemFinder',
-#)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+ )
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
@@ -121,3 +121,6 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
 #CONTENT_TYPES = ['application/pdf', 'image/jpeg', 'image/png'] # .pdf, .jpeg and .png
 
 
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Siscupos Admin'
+}
