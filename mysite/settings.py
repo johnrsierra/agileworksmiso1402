@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*','siscupos-dev.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = (
-    'grappelli',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

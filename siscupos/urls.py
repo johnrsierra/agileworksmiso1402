@@ -4,7 +4,7 @@ admin.autodiscover()
 from siscupos import views
 urlpatterns = patterns('',
     url(r'^$', views.index , name='index'),
-    url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
+    #url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
     url(r'^coordinacion/$',views.coordinacion, name='coordinacion'),
     url(r'^coordinacion/demanda/$',views.demandaCupos, name='demanda'),
