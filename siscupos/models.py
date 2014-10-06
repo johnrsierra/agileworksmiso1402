@@ -70,7 +70,7 @@ class PreAsignacionCurso(models.Model):
     observacion = models.CharField(max_length=200)
     periodo = models.CharField(max_length=6)
     def __unicode__(self):
-        return self.codigo+' '+self.fechaCorrida+' '+self.periodo
+        return str(self.codigo) + ' ' + str(self.observacion)
 
 #Clase Asignatura
 class AsignaturaSugerida(models.Model):
@@ -81,7 +81,7 @@ class AsignaturaSugerida(models.Model):
     preAsignacionCurso = models.ForeignKey(PreAsignacionCurso)
     def __unicode__(self):
         return self.preAsignacionCurso.fechaCorrida
-
+#Clase solicitada por FViera
 class PreProgramacionAsig(models.Model):
     seccion = models.IntegerField()
     cupos = models.IntegerField()

@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'kb*u-$(cout=&=b20*h@lewq3ami^4q&v9!13e!pa$v%826#*n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*','siscupos-dev.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = (
-    'grappelli',
+    #'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,21 +97,30 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
+ )
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
+#TEMPLATE_CONTEXT_PROCESSORS = (
+ #   'django.contrib.auth.context_processors.auth',
     #'django.core.context_processors.debug',
     #'django.core.context_processors.i18n',
     #'django.core.context_processors.media',
     #'django.core.context_processors.static',
     #'django.core.context_processors.tz',
     #'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request',
-)
+ #   'django.core.context_processors.request',
+#)
 #MEDIA_ROOT = join(BASE_DIR, 'media')
 #MEDIA_URL = '/media/'
 #MAX_UPLOAD_SIZE = 20971520 # 20MB
 #CONTENT_TYPES = ['application/pdf', 'image/jpeg', 'image/png'] # .pdf, .jpeg and .png
 
 
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Siscupos Admin'
+}

@@ -1,5 +1,5 @@
 #Optimizador de asignacion de CUPOS
-#Authors: Grupo MisoAgiles 2014
+#Authors: Grupo MisoAgiles 2014 - modifcado
 
 #import de la libreria de conexion a la BD
 import psycopg2
