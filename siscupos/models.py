@@ -57,7 +57,7 @@ class PreProgramacion(models.Model):
     seccion = models.IntegerField()
     cupos = models.IntegerField()
     diaSemana = models.CharField(max_length=1)
-    periodo = models.CharField(max_length=10)
+    periodo = models.CharField(max_length=6)
     asignaturaXPrograma = models.ForeignKey(AsignaturaXPrograma)
     def __unicode__(self):
         return str(self.seccion) + ' ' + self.periodo + ' ' + unicode(self.asignaturaXPrograma)
@@ -68,7 +68,7 @@ class PreAsignacionCurso(models.Model):
     codigo = models.IntegerField(max_length=20)
     fechaCorrida = models.DateTimeField()
     observacion = models.CharField(max_length=200)
-    periodo = models.CharField(max_length=10)
+    periodo = models.CharField(max_length=6)
     def __unicode__(self):
         return self.codigo+' '+self.fechaCorrida+' '+self.periodo
 
@@ -81,3 +81,11 @@ class AsignaturaSugerida(models.Model):
     preAsignacionCurso = models.ForeignKey(PreAsignacionCurso)
     def __unicode__(self):
         return self.preAsignacionCurso.fechaCorrida
+
+class PreProgramacionAsig(models.Model):
+    seccion = models.IntegerField()
+    cupos = models.IntegerField()
+    diaSemana = models.CharField(max_length=1)
+    periodo = models.CharField(max_length=6)
+    asignaturaXPrograma = models.ForeignKey(AsignaturaXPrograma)
+    preAsignacionCurso = models.ForeignKey(PreAsignacionCurso)
