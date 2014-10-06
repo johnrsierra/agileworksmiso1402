@@ -64,10 +64,23 @@ def resultado(request,preasig_id):
     else:
         return render(request,'contactos/resultado_ejecucion.html',{})
 
+
+
 def jsonTest(request):
-    asig = Asignatura.objects.all()
-    data = serializers.serialize('json', asig, fields=('name','size'))
-    return HttpResponse(data, content_type='application/json; charset=UTF-8')
+#from django.db import connection
+    cursor = connection.cursor()
+    cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = 70 and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", seccion order by 1')
+    cursos = cursor.fetchall()
+    results = []
+    for row in cursos:
+        p = {'id':row[0],'programa':row[1],'asignatura':row[2],'seccion':row[3],'estudiantes':row[4],'cupos':row[5]}
+        results.append(p)
+
+    #resultado = PreAsignacionCurso.objects.filter(codigo=70,asignaturasugerida__preProgramacion__asignaturaXPrograma__programaAcademico__sigla="MISO")#.annotate(estudiantes=Count('asignaturasugerida__preProgramacion__asignaturaXPrograma__asignatura'))
+    #print resultado[0].demanda
+    #asig = Asignatura.objects.all()
+    #data = serializers.serialize('json', json.dumps(results), fields=('plan'))
+    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
 
 def optimizando(request):
     optimizarAutomatico()
@@ -100,3 +113,10 @@ def darPeriodos(periodo):
         per = ano + sem
         periodos.append(per)
     return periodos
+
+from django.db import connection
+
+def calcularAsignacionMaterias(request,ejecucion, maestria):
+    cursor = connection.cursor()
+    cursos = cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = 70 and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", "seccion" order by 1')
+    print cursos

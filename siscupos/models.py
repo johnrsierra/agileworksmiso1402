@@ -70,7 +70,7 @@ class PreAsignacionCurso(models.Model):
     observacion = models.CharField(max_length=200)
     periodo = models.CharField(max_length=10)
     def __unicode__(self):
-        return self.codigo+' '+self.fechaCorrida+' '+self.periodo
+        return str(self.codigo) + ' ' + str(self.observacion)
 
 #Clase Asignatura
 class AsignaturaSugerida(models.Model):
