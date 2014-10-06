@@ -26,3 +26,24 @@ drop: function( event, ui ) {
 
 
 $('table.table').DataTable();
+
+
+var seleccionarPlan = function(programa){
+    $.get( "asignacionr/"+programa+"/", function( data ) {
+        console.log(data);
+        setResults(data);
+    });
+}
+var setResults = function(datos){
+$('#morris-bar-chart').empty();
+Morris.Bar({
+        element: 'morris-bar-chart',
+        data: datos,
+        xkey: 'asignatura',
+        ykeys: ['cupos','estudiantes'],
+        labels: ['cupos','estudiantes'],
+        hideHover: 'auto',
+        resize: true,
+        xLabelAngle: 60
+    });
+}

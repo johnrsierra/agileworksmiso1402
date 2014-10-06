@@ -17,6 +17,51 @@ Optimizador plan de carrera
 
 {% block content %}
 <div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Asignaturas</h3>
+            </div>
+            <div class="panel-body">
+                {% if lista_programas %}
+                {% for programa in lista_programas %}
+                <a style="cursor: pointer;" onclick="seleccionarPlan('{{programa.sigla}}')">
+                    <div class="col-sm">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="huge">{{programa.sigla}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="4">No hay programas registrados.</td>
+                </tr>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Asignación vs Cupos
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="morris-bar-chart"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    </div>
+    <div class="row">
     <div class="col-lg">
         <div class="table-responsive">
             <button type="button" class="btn btn-danger btn-md">
@@ -56,7 +101,9 @@ Optimizador plan de carrera
             </table>
         </div>
     </div>
+    </div>
 </div>
 <!-- /.row -->
 
 {% endblock %}
+

@@ -23,7 +23,6 @@ def coordinacion(request):
 def consultarPreProgramacion(request,prog_id):
     if prog_id is not None:
         programa = ProgramaAcademico.objects.get(pk=prog_id)
-        print programa
         lista_programacion = PreProgramacion.objects.filter(asignaturaXPrograma__programaAcademico=prog_id)
         context={'lista_programacion':lista_programacion,'programa':programa}
         return render(request,'coordinacion/plan_programa.html',context)
@@ -51,8 +50,9 @@ def demandaCupos(request):
     return render(request,'coordinacion/demanda.html',context)
 
 def ejecuciones(request):
+    lista_programas = ProgramaAcademico.objects.all()
     lista_ejecuciones = PreAsignacionCurso.objects.all()
-    context = {'lista_ejecuciones':lista_ejecuciones}
+    context = {'lista_ejecuciones':lista_ejecuciones,'lista_programas':lista_programas}
     return render(request,'coordinacion/optimizador.html',context)
 
 def resultado(request,preasig_id):
@@ -64,23 +64,10 @@ def resultado(request,preasig_id):
     else:
         return render(request,'contactos/resultado_ejecucion.html',{})
 
-
-
 def jsonTest(request):
-#from django.db import connection
-    cursor = connection.cursor()
-    cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = 70 and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", seccion order by 1')
-    cursos = cursor.fetchall()
-    results = []
-    for row in cursos:
-        p = {'id':row[0],'programa':row[1],'asignatura':row[2],'seccion':row[3],'estudiantes':row[4],'cupos':row[5]}
-        results.append(p)
-
-    #resultado = PreAsignacionCurso.objects.filter(codigo=70,asignaturasugerida__preProgramacion__asignaturaXPrograma__programaAcademico__sigla="MISO")#.annotate(estudiantes=Count('asignaturasugerida__preProgramacion__asignaturaXPrograma__asignatura'))
-    #print resultado[0].demanda
-    #asig = Asignatura.objects.all()
-    #data = serializers.serialize('json', json.dumps(results), fields=('plan'))
-    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
+    asig = Asignatura.objects.all()
+    data = serializers.serialize('json',asig, fields=('plan'))
+    return HttpResponse(data, content_type='application/json; charset=UTF-8')
 
 def optimizando(request):
     optimizarAutomatico()
@@ -116,7 +103,13 @@ def darPeriodos(periodo):
 
 from django.db import connection
 
-def calcularAsignacionMaterias(request,ejecucion, maestria):
+def consultarAsignacionPrograma(request, prog):
     cursor = connection.cursor()
-    cursos = cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = 70 and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", "seccion" order by 1')
-    print cursos
+    cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = 70 and pro.sigla = %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", seccion order by 1',[prog])
+    cursos = cursor.fetchall()
+    results = []
+    for row in cursos:
+        p = {'id':row[0],'programa':row[1],'asignatura':row[2],'seccion':row[3],'estudiantes':row[4],'cupos':row[5]}
+        results.append(p)
+
+    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
