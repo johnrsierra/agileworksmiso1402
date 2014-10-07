@@ -7,6 +7,8 @@ import psycopg2
 # Import PuLP modeler functions
 from pulp import *
 
+from django.db import connection
+
 
 def optimizarAutomatico():
 
@@ -23,16 +25,18 @@ def optimizarAutomatico():
     CUPOS = {}
 
     #Obtiene la conexion
-    try:
-        conn = psycopg2.connect("dbname='d8iv5ac7d1jos6' user='kpbaqcwlfpqkgw' host='ec2-23-23-183-5.compute-1.amazonaws.com' password='4KLEgGfQDTQN2qgVYUo6DJfXiy'")
-    except Exception:
-        print "Fallo la conexion a la base de datos"
+    #try:
+
+        #conn = psycopg2.connect("dbname='d8iv5ac7d1jos6' user='kpbaqcwlfpqkgw' host='ec2-23-23-183-5.compute-1.amazonaws.com' password='4KLEgGfQDTQN2qgVYUo6DJfXiy'")
+    #except Exception:
+    #   print "Fallo la conexion a la base de datos"
+
 
     #Crea los cursores para la ejecucion de las consultas
-    curEstudiantes = conn.cursor()
-    curCursos = conn.cursor()
-    curSecciones = conn.cursor()
-    curEstudiCur = conn.cursor()
+    curEstudiantes = connection.cursor()
+    curCursos = connection.cursor()
+    curSecciones = connection.cursor()
+    curEstudiCur = connection.cursor()
 
     try:
         curEstudiantes.execute("SELECT id from siscupos_estudiante")

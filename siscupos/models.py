@@ -7,6 +7,7 @@ class Asignatura(models.Model):
     nombres = models.CharField(max_length=200)
     creditos = models.IntegerField()
     nivel = models.CharField(max_length=200)
+    credito_prerrequisitos = models.IntegerField()
     def __unicode__(self):
         return self.codigo+' '+self.nombres
     @staticmethod
