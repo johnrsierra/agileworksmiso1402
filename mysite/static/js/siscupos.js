@@ -27,9 +27,17 @@ drop: function( event, ui ) {
 
 $('table.table').DataTable();
 
+$(document).on("click", ".open-AddBookDialog", function () {
+     var myBookId = $(this).data('id');
+     $(".modal-body #bookId").val( myBookId );
+    $('#addBookDialog').modal('show');
+});
+
+
 
 var seleccionarPlan = function(programa){
-    $.get( "asignacionr/"+programa+"/", function( data ) {
+    console.log(window.corrida);
+    $.get( "asignacionr/"+programa+"/"+window.corrida+"/", function( data ) {
         console.log(data);
         setResults(data);
     });

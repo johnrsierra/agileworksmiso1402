@@ -103,9 +103,9 @@ def darPeriodos(periodo):
 
 from django.db import connection
 
-def consultarAsignacionPrograma(request, prog):
+def consultarAsignacionPrograma(request, prog,corrida):
     cursor = connection.cursor()
-    cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = 70 and pro.sigla = %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", seccion order by 1',[prog])
+    cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = %s and pro.sigla = %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", seccion order by 1',[corrida,prog])
     cursos = cursor.fetchall()
     results = []
     for row in cursos:
