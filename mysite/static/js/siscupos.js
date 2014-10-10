@@ -27,9 +27,9 @@ drop: function( event, ui ) {
 
 $('table.table').DataTable();
 
-
 var seleccionarPlan = function(programa){
-    $.get( "asignacionr/"+programa+"/", function( data ) {
+    console.log(window.corrida);
+    $.get( "asignacionr/"+programa+"/"+window.corrida+"/", function( data ) {
         console.log(data);
         setResults(data);
     });
