@@ -1,1 +1,2 @@
-__author__ = 'desarrollo'
+from django.contrib import admin
+
