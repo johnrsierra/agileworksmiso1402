@@ -115,7 +115,7 @@ def consultarAsignacionPrograma(request, prog,corrida):
     return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
 
 #FSandoval: consulta para conocer la satisfaccion de los estudiantes en una corrida dada
-def consultarSatisfaccionPrograma(request, prog, corrida):
+def consultarSatisfaccionPrograma(request, corrida):
     #Variables que contienen los resultados
     porcentajeUno = 0
     porcentajedos = 0
@@ -136,7 +136,8 @@ def consultarSatisfaccionPrograma(request, prog, corrida):
         porcentajedos = row[0]
 
     #Carga los resultados en un objeto JSon
-    p = {'uno': porcentajeUno, 'dos': porcentajedos}
+    p = {'tipo': '1', 'porcentaje': porcentajeUno}
+    p = {'tipo': '2', 'porcentaje': porcentajedos}
     results.append(p)
 
     return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')

@@ -47,3 +47,24 @@ Morris.Bar({
         xLabelAngle: 60
     });
 }
+
+var seleccionarCorrida = function(programa){
+    console.log(window.corrida);
+    $.get( "asignacions/"+window.corrida+"/", function( data ) {
+        console.log(data);
+        setResultsCorrida(data);
+    });
+}
+var setResultsCorrida = function(datos){
+$('#morris-bar-chart').empty();
+Morris.Bar({
+        element: 'morris-bar-chart',
+        data: datos,
+        xkey: 'tipo',
+        ykeys: ['porcentaje'],
+        labels: ['porcentaje'],
+        hideHover: 'auto',
+        resize: true,
+        xLabelAngle: 60
+    });
+}
