@@ -114,7 +114,7 @@ def consultarAsignacionPrograma(request, prog,corrida):
 
     return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
 
-#FSandoval: consulta para conocer la satisfacción de los estudiantes en una corrida dada
+#FSandoval: consulta para conocer la satisfaccion de los estudiantes en una corrida dada
 def consultarSatisfaccionPrograma(request, prog, corrida):
     #Variables que contienen los resultados
     porcentajeUno = 0
