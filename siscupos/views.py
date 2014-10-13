@@ -113,3 +113,30 @@ def consultarAsignacionPrograma(request, prog,corrida):
         results.append(p)
 
     return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
+
+#FSandoval: consulta para conocer la satisfacción de los estudiantes en una corrida dada
+def consultarSatisfaccionPrograma(request, prog, corrida):
+    #Variables que contienen los resultados
+    porcentajeUno = 0
+    porcentajedos = 0
+    #consulta los resultados de los estudiantes que inscribieron un curso
+    cursorUno = connection.cursor()
+    cursorUno.execute('select AVG(case when COALESCE(a.asignadas,0)= COALESCE(b.capacidad,0) THEN 100 ELSE 0 end) , count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = ? group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = ''0''  and asig."preAsignacionCurso_id" = ? group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad = 1', [corrida, corrida])
+    resultadoUno = cursorUno.fetchall()
+    results = []
+    for row in resultadoUno:
+        porcentajeUno = row[0]
+
+    #consulta los resultados de los estudiantes que inscribieron dos cursos
+    cursordos = connection.cursor()
+    cursordos.execute('select AVG(case when COALESCE(a.asignadas,0)= 2 THEN 100 WHEN COALESCE(a.asignadas,0)= 1 THEN 50 ELSE 0 end) , count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = ? group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = ''0'' and asig."preAsignacionCurso_id" = ? group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad > 1', [corrida, corrida])
+    resultadodos = cursordos.fetchall()
+    results = []
+    for row in resultadodos:
+        porcentajedos = row[0]
+
+    #Carga los resultados en un objeto JSon
+    p = {'uno': porcentajeUno, 'dos': porcentajedos}
+    results.append(p)
+
+    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
