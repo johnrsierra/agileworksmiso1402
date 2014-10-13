@@ -123,14 +123,14 @@ def consultarSatisfaccionPrograma(request, corrida):
 
     #consulta los resultados de los estudiantes que inscribieron un curso
     cursorUno = connection.cursor()
-    cursorUno.execute('select AVG(case when COALESCE(a.asignadas,0)= COALESCE(b.capacidad,0) THEN 100 ELSE 0 end) , count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = ? group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = ''0''  and asig."preAsignacionCurso_id" = ? group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad = 1', [corrida, corrida])
+    cursorUno.execute('select AVG(case when COALESCE(a.asignadas,0)= COALESCE(b.capacidad,0) THEN 100 ELSE 0 end) , count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = %s group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = ''0''  and asig."preAsignacionCurso_id" = %s group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad = 1', [corrida, corrida])
     resultadoUno = cursorUno.fetchall()
     for row in resultadoUno:
         porcentajeUno = row[0]
 
     #consulta los resultados de los estudiantes que inscribieron dos cursos
     cursordos = connection.cursor()
-    cursordos.execute('select AVG(case when COALESCE(a.asignadas,0)= 2 THEN 100 WHEN COALESCE(a.asignadas,0)= 1 THEN 50 ELSE 0 end) , count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = ? group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = ''0'' and asig."preAsignacionCurso_id" = ? group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad > 1', [corrida, corrida])
+    cursordos.execute('select AVG(case when COALESCE(a.asignadas,0)= 2 THEN 100 WHEN COALESCE(a.asignadas,0)= 1 THEN 50 ELSE 0 end) , count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = %s group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = ''0'' and asig."preAsignacionCurso_id" = %s group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad > 1', [corrida, corrida])
     resultadodos = cursordos.fetchall()
 
     for row in resultadodos:
