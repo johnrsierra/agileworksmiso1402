@@ -16,65 +16,67 @@ Optimizador plan de carrera
 {% endblock %}
 
 {% block content %}
-    <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Resultados</h4>
-          </div>
-          <div class="modal-body">
-            <div class="col-lg">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Programas</h3>
-                    </div>
-                    <div class="panel-body">
-                        {% if lista_programas %}
-                        {% for programa in lista_programas %}
-                        <a style="cursor: pointer;" onclick="seleccionarPlan('{{programa.sigla}}')">
-                            <div class="col-sm-3">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <div class="huge">{{programa.sigla}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+<!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Programas</h3>
                             </div>
-                        </a>
-                        {% endfor %}
-                        {% else %}
-                        <tr>
-                            <td colspan="4">No hay programas registrados.</td>
-                        </tr>
-                        {% endif %}
+                            <div class="panel-body">
+                                {% if lista_programas %}
+                                    {% for programa in lista_programas %}
+                                        <a style="cursor: pointer;" onclick="seleccionarPlan('{{ programa.sigla }}')">
+                                            <div class="col-sm-3">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <div class="huge">{{ programa.sigla }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">No hay programas registrados.</td>
+                                    </tr>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Asignación vs Cupos
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="morris-bar-chart"></div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
                     </div>
                 </div>
-            </div>
-            <div class="col-lg">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Asignación vs Cupos
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div id="morris-bar-chart"></div>
-                    </div>
-                    <!-- /.panel-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
-                <!-- /.panel -->
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          </div>
         </div>
-      </div>
     </div>
+
 <div class="row">
     <div class="col-lg">
         <div class="table-responsive">
@@ -108,11 +110,12 @@ Optimizador plan de carrera
                     <td>{{ejecucion.observacion}}</td>
                     <td>{{ejecucion.periodo}}</td>
                     <td>
-
-                    <button type="button" class="btn btn-primary btn-sm" onclick="window.corrida={{ejecucion.codigo}}" data-toggle="modal" data-target="#myModal">
-                        <span class="glyphicon glyphicon-stats"></span>
-                    </button>
-
+                        <button type="button" class="btn btn-primary btn-sm" onclick="window.corrida={{ejecucion.codigo}}" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-stats"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="window.corrida={{ejecucion.codigo}}" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-stats"></span>
+                        </button>
                     </td>
                 </tr>
 
