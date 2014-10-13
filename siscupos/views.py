@@ -142,4 +142,4 @@ def consultarSatisfaccionPrograma(request, corrida):
     results.append(p1)
     results.append(p2)
 
-    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
+    return HttpResponse(json.dumps(results, use_decimal=True), content_type='application/json; charset=UTF-8')
