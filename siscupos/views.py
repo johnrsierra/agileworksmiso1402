@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 import json
 from django.core import serializers
-from SolverAsignacion import *
+from AsignadorCupos import *
 
 # Create your views here.
 def index(request):
@@ -70,7 +70,9 @@ def jsonTest(request):
     return HttpResponse(data, content_type='application/json; charset=UTF-8')
 
 def optimizando(request):
-    optimizarAutomatico()
+    solver = AsignadorCupos()
+    solver.poblar_estudiantesBD()
+    solver.asignacion_optima()
     context = {}
     return render(request,'coordinacion/optimizando.html',context)
 
