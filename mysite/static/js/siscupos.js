@@ -48,10 +48,10 @@ Morris.Bar({
     });
 }
 
-var seleccionarCorrida = function(programa){
-    console.log(window.corrida);
-    alert('1');
-    $.get( "asignacions/"+window.corrida+"/", function( data ) {
+var seleccionarCorrida = function(corridaConsulta){
+    console.log(corridaConsulta);
+
+    $.get( "asignacions/"+corridaConsulta+"/", function( data ) {
         console.log(data);
         setResultsCorrida(data);
     });
