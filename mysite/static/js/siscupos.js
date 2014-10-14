@@ -50,13 +50,15 @@ Morris.Bar({
 
 var seleccionarCorrida = function(programa){
     console.log(window.corrida);
+    alert('1');
     $.get( "asignacions/"+window.corrida+"/", function( data ) {
         console.log(data);
         setResultsCorrida(data);
     });
 }
 var setResultsCorrida = function(datos){
-$('#morris-bar-chart').empty();
+$('#morris-bar-chart2').empty();
+    alert('2');
 Morris.Bar({
         element: 'morris-bar-chart2',
         data: datos,
