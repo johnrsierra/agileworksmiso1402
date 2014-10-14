@@ -50,18 +50,15 @@ Morris.Bar({
 
 var seleccionarCorrida = function(programa){
     console.log(window.corrida);
-    alert('Hola '+window.corrida );
     $.get( "asignacions/"+window.corrida+"/", function( data ) {
         console.log(data);
         setResultsCorrida(data);
     });
-    alert('data:'+data)
 }
 var setResultsCorrida = function(datos){
 $('#morris-bar-chart').empty();
-    alert('Dentro:'+datos)
 Morris.Bar({
-        element: 'morris-bar-chart',
+        element: 'morris-bar-chart2',
         data: datos,
         xkey: 'tipo',
         ykeys: ['porcentaje'],
