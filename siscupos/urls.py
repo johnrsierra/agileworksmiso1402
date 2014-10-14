@@ -7,7 +7,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^coordinacion/$',views.coordinacion, name='coordinacion'),
     url(r'^coordinacion/demanda/$',views.demandaCupos, name='demanda'),
-    url(r'^coordinacion/optimizador/asignacionr/(?P<prog>\w+)/$',views.consultarAsignacionPrograma, name='asignacionr'),#retorna el resultado del optimizador por plan
+    url(r'^coordinacion/optimizador/asignacionr/(?P<prog>\w+)/(?P<corrida>\w+)/$',views.consultarAsignacionPrograma, name='asignacionr'),#retorna el resultado del optimizador por plan
+    url(r'^coordinacion/optimizador/asignacions/(?P<corrida>\w+)/$',views.consultarSatisfaccionPrograma, name='asignacions'),#retorna el resultado de satisfaccion
     url(r'^coordinacion/optimizador/$',views.ejecuciones, name='optimizador'),
     url(r'^coordinacion/optimizando/$',views.optimizando, name='optimizando'),
     url(r'^coordinacion/optimizador/(?P<preasig_id>\w+)/resultados/$',views.resultado,name='resultado'),

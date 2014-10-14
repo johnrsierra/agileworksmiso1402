@@ -103,9 +103,9 @@ def darPeriodos(periodo):
 
 from django.db import connection
 
-def consultarAsignacionPrograma(request, prog):
+def consultarAsignacionPrograma(request, prog,corrida):
     cursor = connection.cursor()
-    cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = 70 and pro.sigla = %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", seccion order by 1',[prog])
+    cursor.execute('select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,"seccion" seccion,count(*) estudiantes, max(cupos) cupos from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id = %s and pro.sigla = %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo", seccion order by 1',[corrida,prog])
     cursos = cursor.fetchall()
     results = []
     for row in cursos:
@@ -113,3 +113,33 @@ def consultarAsignacionPrograma(request, prog):
         results.append(p)
 
     return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
+
+#FSandoval: consulta para conocer la satisfaccion de los estudiantes en una corrida dada
+def consultarSatisfaccionPrograma(request, corrida):
+    #Variables que contienen los resultados
+    porcentajeUno = 0
+    porcentajedos = 0
+    results = []
+
+    #consulta los resultados de los estudiantes que inscribieron un curso
+    cursorUno = connection.cursor()
+    cursorUno.execute('select CAST(AVG(case when COALESCE(a.asignadas,0)= COALESCE(b.capacidad,0) THEN 100 ELSE 0 end) as integer) , count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = %s group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = \'0\'  and asig."preAsignacionCurso_id" = %s group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad = 1', [corrida, corrida])
+    resultadoUno = cursorUno.fetchall()
+    for row in resultadoUno:
+        porcentajeUno = row[0]
+
+    #consulta los resultados de los estudiantes que inscribieron dos cursos
+    cursordos = connection.cursor()
+    cursordos.execute('select CAST(AVG(case when COALESCE(a.asignadas,0)= 2 THEN 100 WHEN COALESCE(a.asignadas,0)= 1 THEN 50 ELSE 0 end) as integer), count(*) estudiantes from (select count(*) asignadas, asig.estudiante_id estudiante from siscupos_asignaturasugerida asig where asig."preAsignacionCurso_id" = %s group by asig.estudiante_id ) a RIGHT OUTER JOIN (select count(*) capacidad, estudiante_id estudiante from siscupos_asignaturaxestudianteasig asig where estado = \'0\' and asig."preAsignacionCurso_id" = %s group by estudiante_id) b ON  b.estudiante = a.estudiante where b.capacidad > 1', [corrida, corrida])
+    resultadodos = cursordos.fetchall()
+
+    for row in resultadodos:
+        porcentajedos = row[0]
+
+    #Carga los resultados en un objeto JSon
+    p1 = {'tipo': '1', 'porcentaje': porcentajeUno}
+    p2 = {'tipo': '2', 'porcentaje': porcentajedos}
+    results.append(p1)
+    results.append(p2)
+
+    return HttpResponse(json.dumps(results ), content_type='application/json; charset=UTF-8')
