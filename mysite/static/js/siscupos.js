@@ -57,7 +57,7 @@ var seleccionarCorrida = function(corridaConsulta){
     });
 }
 var setResultsCorrida = function(datos){
-$('#morris-bar-chart2').empty();
+$('#morris-bar-chart').empty();
 Morris.Bar({
         element: 'morris-bar-chart2',
         data: datos,
