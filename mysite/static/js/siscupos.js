@@ -57,7 +57,7 @@ var seleccionarCorrida = function(corridaConsulta){
     });
 }
 var setResultsCorrida = function(datos){
-$('#morris-bar-chart').empty();
+$('#morris-bar-chart2').empty();
 Morris.Bar({
         element: 'morris-bar-chart2',
         data: datos,
@@ -65,7 +65,7 @@ Morris.Bar({
         ykeys: ['porcentaje'],
         labels: ['porcentaje'],
         hideHover: 'auto',
-        resize: false,
+        resize: true,
         xLabelAngle: 60
     });
 }
