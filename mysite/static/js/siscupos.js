@@ -64,7 +64,7 @@ Morris.Bar({
         ykeys: ['porcentaje'],
         labels: ['porcentaje'],
         hideHover: 'auto',
-        resize: true,
+        resize: false,
         xLabelAngle: 60
     });
 }

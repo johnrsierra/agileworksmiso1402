@@ -90,37 +90,7 @@ Optimizador plan de carrera
                     <div class="col-lg">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Programas</h3>
-                            </div>
-                            <div class="panel-body">
-                                {% if lista_programas %}
-                                    {% for programa in lista_programas %}
-                                        <a style="cursor: pointer;" onclick="seleccionarCorrida('{{ programa.sigla }}')">
-                                            <div class="col-sm-3">
-                                                <div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <div class="row">
-                                                            <div class="col-xs-6">
-                                                                <div class="huge">{{ programa.sigla }}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td colspan="4">No hay programas registrados.</td>
-                                    </tr>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Asignación vs Cupos
+                                Satisfacción
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -174,7 +144,7 @@ Optimizador plan de carrera
                         <button type="button" class="btn btn-primary btn-sm" onclick="window.corrida={{ejecucion.codigo}}" data-toggle="modal" data-target="#myModal">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="window.corrida={{ejecucion.codigo}}" data-toggle="modal" data-target="#modalSatisfaccion">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="seleccionarCorrida('{{ ejecucion.codigo }}')" data-toggle="modal" data-target="#modalSatisfaccion">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
                     </td>
@@ -195,4 +165,3 @@ Optimizador plan de carrera
 <!-- /.row -->
 
 {% endblock %}
-
