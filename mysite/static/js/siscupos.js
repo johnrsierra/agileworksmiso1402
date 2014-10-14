@@ -59,7 +59,7 @@ var seleccionarCorrida = function(programa){
 }
 var setResultsCorrida = function(datos){
 $('#morris-bar-chart').empty();
-    alert('Dentro:'+data)
+    alert('Dentro:'+datos)
 Morris.Bar({
         element: 'morris-bar-chart',
         data: datos,
