@@ -48,7 +48,7 @@ class AsignadorCupos:
     # Poblar el arreglo de ESTUDIANTES y los cursos que desean tomar en los próximos
     # semestres
     #
-    def poblar_estudiantesBD(self):
+    def poblar_estudiantesBD(self, periodoOptimizacion):
 
         #Obtiene la conexion
         try:
@@ -109,7 +109,8 @@ class AsignadorCupos:
                              " select axe.asignatura_id curso "
                              "     , axe.estudiante_id estudiante "
                              "     , a.credito_prerrequisitos creditos_prerequisitos "
-                             "    , ( "
+                             "     , axe.periodo periodo2"
+                             "     , ( "
                              "        select COALESCE(sum(COALESCE(a1.creditos,0)), 0) "
                              "        from siscupos_asignaturaxestudiante axe1 "
                              "            ,siscupos_asignatura a1 "
@@ -135,7 +136,7 @@ class AsignadorCupos:
             print "antes de asignar deseos"
             #actualiza los cursos deseados
             for rowEC in rowsEstudiCur:
-               self.EST_X_CUR[self.ESTUDIANTES[rowEC[1]]][self.CURSOS[rowEC[0]]] = self.calcularPrioridad(rowEC[2], rowEC[3])
+               self.EST_X_CUR[self.ESTUDIANTES[rowEC[1]]][self.CURSOS[rowEC[0]]] = self.calcularPrioridad(rowEC[2], rowEC[4], rowEC[3] == periodoOptimizacion)
 
         except Exception as e:
             print("Error ejecutando el query ", e.message)
@@ -202,8 +203,6 @@ class AsignadorCupos:
         # Solucionar el problema a través de PuLP
         prob.writeLP("MinmaxProblem.lp")
         prob.solve()
-
-        self.persistirResultado(asig_est);
         return asig_est
 
 
@@ -212,7 +211,7 @@ class AsignadorCupos:
     # los creditosPrerquisito exigidos para esa asigatura y
     # los creditosTotales que ha cursado el estudiante
     #
-    def calcularPrioridad(self, v_creditosPrerequisito, v_creditosTomados):
+    def calcularPrioridad(self, v_creditosPrerequisito, v_creditosTomados, esPeriodoOptimizar):
         #entre más creditosTomados, mayor prioridad
         #si los creditosPrerequisito es igual o mayor a creditosTomados, entonces se le brinda mayor prioridad
         #es más importante la antiguedad del estudiante (creditosTomados) que los prerequisitos.
@@ -226,15 +225,19 @@ class AsignadorCupos:
 
         l_prioridad = 1
         if (v_creditosPrerequisito <= v_creditosTomados):
-            l_prioridad = 1 + (v_creditosTomados - v_creditosPrerequisito)
+            l_prioridad = 4
 
-        l_prioridad = l_prioridad + 2*v_creditosTomados
+        l_prioridad = l_prioridad + v_creditosTomados
+
+        # se brinda mayor prioridad si la asignatura fue pedida para el proximo semestre por el estudiante
+        if (esPeriodoOptimizar) :
+            l_prioridad = l_prioridad + 2
 
         return l_prioridad
 
 
     from django.db import connection
-    def persistirResultado(self, asig_est):
+    def persistirResultado(self, asig_est, periodoOptimizacion):
 
         #Obtiene la conexion
         try:
@@ -252,7 +255,7 @@ class AsignadorCupos:
                                  "  \"fechaCorrida\", "
                                  "  observacion,  "
                                  "  periodo) values "
-                                 "    (2, CURRENT_DATE, 'OK', 20141)")
+                                 "    (2, CURRENT_DATE, 'OK', " + str(periodoOptimizacion) + ")")
 
         curUpdPerAsignacion.execute("update siscupos_preasignacioncurso "
                                     " set codigo = id ")

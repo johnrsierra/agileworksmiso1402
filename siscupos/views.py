@@ -71,8 +71,9 @@ def jsonTest(request):
 
 def optimizando(request):
     solver = AsignadorCupos()
-    solver.poblar_estudiantesBD()
-    solver.asignacion_optima()
+    solver.poblar_estudiantesBD('201410')
+    asignacion_sugerida = solver.asignacion_optima()
+    solver.persistirResultado(asignacion_sugerida, '201410')
     context = {}
     return render(request,'coordinacion/optimizando.html',context)
 
