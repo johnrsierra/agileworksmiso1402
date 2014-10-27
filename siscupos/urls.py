@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^materias/$',views.materias, name='materias'),
     url(r'^estudiantes/$',views.estudiantes, name='estudiantes'),
     url(r'^estudiantes/(?P<est_id>\w+)/carpeta/$',views.carpeta,name='carpeta'),
+    url(r'^estudiante/(?P<est_id>\w+)/carpetaestudiante/$',views.micarpeta,name='carpetaestudiante'),
 )
 

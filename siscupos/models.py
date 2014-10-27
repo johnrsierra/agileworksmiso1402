@@ -40,6 +40,7 @@ class Estudiante(models.Model):
     nombres = models.CharField(max_length=200)
     apellidos = models.CharField(max_length=200)
     periodoInicio = models.CharField(max_length=6)
+    programa = models.ForeignKey(ProgramaAcademico, null=True, blank=True)
     def __unicode__(self):
         return unicode(self.codigo) + ' ' + unicode(self.nombres) + ' ' + unicode(self.apellidos)
 

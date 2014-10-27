@@ -3,7 +3,8 @@
 {% block title %}Siscupos - Carpeta{% endblock %}
 
 {% block page-header%}
-Carpeta de {{estudiante.nombres}} {{estudiante.apellidos}} <small>{{estudiante.codigo}}</small>
+Carpeta de {{estudiante.nombres}} {{estudiante.apellidos}}
+<small>{{estudiante.codigo}}</small>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -32,42 +33,43 @@ Carpeta de {{estudiante.nombres}} {{estudiante.apellidos}} <small>{{estudiante.c
                     <div class="panel-heading">
                         <h3 class="panel-title">{{mat_periodo.periodo}}</h3>
                     </div>
-                    <div class="panel-body" id="periodo{{mat_periodo.periodo}}" >
+                    <div class="panel-body" id="periodo{{mat_periodo.periodo}}">
                         {%if mat_periodo.lista_materias%}
-                            {% for materia in mat_periodo.lista_materias %}
-                                {% if materia.periodo == mat_periodo.periodo %}
-                                <div class="col-sm-12 col-lg-12" >
-                                    {%if materia.cursada == '1'%}
-                                    <div  class="panel panel-green materia">
-                                    {%else%}
-                                    <div  class="panel panel-default materia">
+                        {% for materia in mat_periodo.lista_materias %}
+                        {% if materia.periodo == mat_periodo.periodo %}
+                        <div class="col-sm-12 col-lg-12">
+                            {%if materia.cursada == '1'%}
+                            <div class="panel panel-green materia">
+                                {%else%}
+                                <div class="panel panel-default materia">
                                     {%endif%}
-                                        <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div >{{materia.asignatura.codigo}}</div>
-                                                </div>
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div>{{materia.asignatura.codigo}}</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {%endif%}
+                            </div>
+                            {%endif%}
                             {% endfor %}
-                        {%else%}
-                            <div class="row" >
+                            {%else%}
+                            <div class="row">
                                 <div class="col-xs-12 text-center">
                                     <i class="fa fa-book fa-3x"></i>
+
                                     <div>No hay materias pre inscritas para este periodo</div>
                                 </div>
                             </div>
-                        {%endif%}
+                            {%endif%}
+                        </div>
                     </div>
                 </div>
+                <!-- /.caja periodo -->
+                {% endfor %}
             </div>
-            <!-- /.caja periodo -->
-            {% endfor %}
         </div>
     </div>
-</div>
 </div>
 {% endblock %}

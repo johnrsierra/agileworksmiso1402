@@ -88,6 +88,19 @@ def carpeta(request,est_id):
     context = {'estudiante':est,'periodos':periodos,'mats_periodos':mats_periodos}
     return render(request,'estudiantes/carpeta.html',context)
 
+def micarpeta(request,est_id):
+    #debe ser la lista de materias del programa del estudiante
+    est = Estudiante.objects.get(pk=est_id)
+    periodos = darPeriodos(est.periodoInicio)
+    lista_materias = AsignaturaXPrograma.objects.filter(programaAcademico=est.programa)
+    mats_periodos = []
+    for x in range(0,len(periodos)):
+        lista_materias_periodo = AsignaturaXEstudiante.objects.filter(estudiante=est,periodo=periodos[x])
+        mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo})
+    context = {'estudiante':est,'periodos':periodos,'lista_materias':lista_materias,'mats_periodos':mats_periodos}
+    return render(request,'estudiante/carpeta.html',context)
+
+
 #Este metodo deberia eliminarse y traer los periodos de la DB
 def darPeriodos(periodo):
     ano = str(periodo[:4])

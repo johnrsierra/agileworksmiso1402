@@ -22,7 +22,8 @@ Lista de Estudiantes
                         <th>codigo</th>
                         <th>nombres</th>
                         <th>Apellidos</th>
-                        <th>Carpeta</th>
+                        <th>Ver Carpeta</th>
+                        <th>Editar Carpeta</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@ Lista de Estudiantes
                         <td>{{estudiante.nombres}}</td>
                         <td>{{estudiante.apellidos}}</td>
                         <td><a href="/siscupos/estudiantes/{{estudiante.id}}/carpeta">ver carpeta</a></td>
+                        <td><a href="/siscupos/estudiante/{{estudiante.id}}/carpetaestudiante">editar carpeta</a></td>
                     </tr>
                     {% endfor %}
                 {% else %}

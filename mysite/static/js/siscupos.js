@@ -18,7 +18,9 @@ activeClass: "ui-state-default",
 hoverClass: "ui-state-hover",
 accept: ":not(.ui-sortable-helper)",
 drop: function( event, ui ) {
-    console.log(ui.draggable[0]);
+    if($(this).find('.empty').length == 1){
+        $(this).find('.empty').remove('.empty');
+    }
     var tmp = ui.draggable[0]
     $(tmp).clone().removeAttr('style').appendTo(this);
 }
