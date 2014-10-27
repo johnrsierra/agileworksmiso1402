@@ -141,10 +141,10 @@ Optimizador plan de carrera
                     <td>{{ejecucion.observacion}}</td>
                     <td>{{ejecucion.periodo}}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="window.corrida={{ejecucion.codigo}}" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="resetModal({{ejecucion.codigo}});" data-toggle="modal" data-target="#myModal">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="seleccionarCorrida('{{ ejecucion.codigo }}')" data-toggle="modal" data-target="#modalSatisfaccion">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="seleccionarCorrida('{{ ejecucion.codigo }}');" data-toggle="modal" data-target="#modalSatisfaccion">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
                     </td>

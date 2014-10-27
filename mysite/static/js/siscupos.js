@@ -29,15 +29,26 @@ drop: function( event, ui ) {
 
 $('table.table').DataTable();
 
+var resetModal = function(ejec){
+    window.corrida = ejec;
+
+}
 var seleccionarPlan = function(programa){
-    console.log(window.corrida);
     $.get( "asignacionr/"+programa+"/"+window.corrida+"/", function( data ) {
-        console.log(data);
-        setResults(data);
+
+        if(data){
+        console.log("data " + data);
+            setResults(data);
+        }else{
+            console.log("do something else");
+            Morris.bar = {};
+            $('#morris-bar-chart').empty();
+        }
     });
 }
 var setResults = function(datos){
 $('#morris-bar-chart').empty();
+Morris.bar ={};
 Morris.Bar({
         element: 'morris-bar-chart',
         data: datos,
