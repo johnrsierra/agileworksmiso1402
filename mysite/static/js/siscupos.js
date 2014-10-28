@@ -35,24 +35,26 @@ $('table.table').DataTable();
 
 var resetModal = function(ejec){
     window.corrida = ejec;
+    $("#myModalLabel").text("Resultados ejecución " + ejec);
+}
 
+var cerrarModal = function(){
+    delete Morris.Bar.data;
+    $('#morris-bar-chart').empty();
+    $("option:selected").removeAttr("selected");
 }
 var seleccionarPlan = function(programa){
     $.get( "asignacionr/"+programa+"/"+window.corrida+"/", function( data ) {
-
-        if(data){
-        console.log("data " + data);
+        if(data.length != 0){
             setResults(data);
         }else{
-            console.log("do something else");
-            Morris.bar = {};
-            $('#morris-bar-chart').empty();
+            $('#morris-bar-chart').html("<div class='row empty'><div class='col-xs-12 text-center'><i class='fa fa-book fa-3x'></i><div>No hay resultados para este programa</div></div></div>");
         }
     });
 }
+
 var setResults = function(datos){
 $('#morris-bar-chart').empty();
-Morris.bar ={};
 Morris.Bar({
         element: 'morris-bar-chart',
         data: datos,
@@ -63,6 +65,7 @@ Morris.Bar({
         resize: true,
         xLabelAngle: 60
     });
+    delete Morris.Bar.data;
 }
 
 var seleccionarCorrida = function(corridaConsulta){
