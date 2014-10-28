@@ -1,5 +1,9 @@
 'use strict';
 
+$('[data-toggle="popover"]').popover({
+    trigger: 'hover',
+        'placement': 'top'
+});
 $('#stack .materia').hover(function() {
  $(this).css('cursor','move');
  }, function() {

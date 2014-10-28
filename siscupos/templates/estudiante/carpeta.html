@@ -28,11 +28,10 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
             {% if lista_materias %}
             {% for materia in lista_materias %}
             <div class="col-sm-3 col-lg-3">
-                <div class="panel panel-primary materia">
+                <div class="panel panel-primary materia" data-toggle="popover" data-content="{{materia.asignatura.nombres}}">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-6">
-                                <div title="{{materia.asignatura.nombres}}">{{materia.asignatura.codigo}}</div>
+                            <div class="col-xs-6">{{materia.asignatura.codigo}}
                             </div>
                         </div>
                     </div>
