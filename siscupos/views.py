@@ -159,3 +159,14 @@ def consultarSatisfaccionPrograma(request, corrida):
     results.append(p2)
 
     return HttpResponse(json.dumps(results ), content_type='application/json; charset=UTF-8')
+
+def demandaxasignacion(request,corrida):
+    cursor = connection.cursor()
+    cursor.execute('select COALESCE(a.asignadas,0) asignadas, COALESCE(b.capacidad,0) demanda, b.asignatura_id, b.asignatura from (select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,asig.id asignatura_id,count(*) asignadas from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id= %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo",asig.id) a RIGHT OUTER JOIN (select count(*) capacidad,asig.asignatura_id,asg.codigo asignatura from siscupos_asignaturaxestudianteasig asig,siscupos_asignatura asg where asig.estado = \'0\' and asig."preAsignacionCurso_id" = %s and asg.id = asig."asignatura_id" group by asignatura_id,asg.codigo ) b ON a.asignatura_id = b.asignatura_id',[corrida,corrida])
+    demanda = cursor.fetchall()
+    results = []
+    for row in demanda:
+        p = {'asignadas':row[0],'demanda':row[1],'asignatura_id':row[2],'asignatura':row[3]}
+        results.append(p)
+
+    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')

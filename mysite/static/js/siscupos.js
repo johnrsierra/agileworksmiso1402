@@ -33,6 +33,8 @@ drop: function( event, ui ) {
 
 $('table.table').DataTable();
 
+// Gráfica 1
+
 var resetModal = function(ejec){
     window.corrida = ejec;
     $("#myModalLabel").text("Resultados ejecución " + ejec);
@@ -68,6 +70,10 @@ Morris.Bar({
     delete Morris.Bar.data;
 }
 
+
+
+//Gráfica 2
+
 var seleccionarCorrida = function(corridaConsulta){
     console.log(corridaConsulta);
 
@@ -87,5 +93,34 @@ Morris.Bar({
         hideHover: 'auto',
         resize: true,
         xLabelAngle: 60
+    });
+}
+
+//Gráfica 3
+
+var cerrarModalDemanda = function(){
+    delete Morris.Bar.data;
+    $('#morris-bar-chart3').empty();
+    $("option:selected").removeAttr("selected");
+}
+var seleccionarPlan3 = function(corrida){
+    $("#modalDemandaAsigLbl").text("Resultados ejecución " + corrida);
+    $.get( "demanda/"+corrida+"/", function( datos ) {
+        if(datos.length != 0){
+           $('#morris-bar-chart3').empty();
+            Morris.Bar({
+                element: 'morris-bar-chart3',
+                data: datos,
+                xkey: 'asignatura',
+                ykeys: ['demanda','asignadas'],
+                labels: ['demanda','asignadas'],
+                hideHover: 'auto',
+                resize: true,
+                xLabelAngle: 60
+            });
+            delete Morris.Bar.data;
+        }else{
+            $('#morris-bar-chart3').html("<div class='row empty'><div class='col-xs-12 text-center'><i class='fa fa-book fa-3x'></i><div>No hay resultados para esta corrida</div></div></div>");
+        }
     });
 }
