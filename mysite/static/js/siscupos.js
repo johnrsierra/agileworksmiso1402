@@ -22,7 +22,7 @@ drop: function( event, ui ) {
         $(this).find('.empty').remove('.empty');
     }
     var tmp = ui.draggable[0]
-    $(tmp).clone().removeAttr('style').appendTo(this);
+    $(tmp).clone().removeAttr('style').appendTo(this).wrap("<div class='col-sm-12 col-lg-12'></div>");
 }
 });
 
