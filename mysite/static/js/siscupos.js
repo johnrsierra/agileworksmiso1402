@@ -26,10 +26,21 @@ drop: function( event, ui ) {
         $(this).find('.empty').remove('.empty');
     }
     var tmp = ui.draggable[0]
-    $(tmp).clone().removeAttr('style').appendTo(this).wrap("<div class='col-sm-12 col-lg-12'></div>");
+    $(tmp).clone().removeAttr('style').appendTo(this).wrap("<div class='col-sm-12 col-lg-12 nuevaMateria'></div>");
+    $(tmp).css('display','none');
 }
 });
 
+$('#resetMaterias').on('click', function(e) {
+    $(".nuevaMateria").each(function () {
+        $(this).remove();
+    });
+    $("#stack .materia").each(function () {
+        if($(this).css('display') == 'none'){
+           $(this).css('display','');
+        }
+    });
+});
 
 $('table.table').DataTable();
 
