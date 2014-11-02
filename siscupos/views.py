@@ -100,6 +100,33 @@ def micarpeta(request,est_id):
     context = {'estudiante':est,'periodos':periodos,'lista_materias':lista_materias,'mats_periodos':mats_periodos}
     return render(request,'estudiante/carpeta.html',context)
 
+def nuevacarpeta(request,est_id):
+    #debe ser la lista de materias del programa del estudiante
+    est = Estudiante.objects.get(pk=est_id)
+
+    print('<<<<>>>')
+
+    if request.is_ajax():
+        if request.method == 'POST':
+            print 'Raw Data: "%s"' % request.body
+    idEstudiante = request.POST['idEstudiante']
+    JSONdataMat = request.POST.getlist('nuevaMaterias[]')
+
+    for matNueva in JSONdataMat:
+
+        codPeriodo = matNueva[(matNueva.find("---")) + 3 :]
+        codMateria = matNueva[:(matNueva.find("---"))]
+
+        try:
+            objAsig = Asignatura.objects.get(codigo=codMateria)
+            objEst = Estudiante.objects.get(pk=idEstudiante)
+            objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
+        except AsignaturaXEstudiante.DoesNotExist:
+            objAsigXEst_nuevo = AsignaturaXEstudiante(cursada='N', estado='15', asignatura=objAsig, estudiante=objEst, periodo=codPeriodo)
+            objAsigXEst_nuevo.save()
+
+    return render(request,'estudiante/carpeta.html')
+
 
 #Este metodo deberia eliminarse y traer los periodos de la DB
 def darPeriodos(periodo):

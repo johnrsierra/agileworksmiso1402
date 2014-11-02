@@ -25,7 +25,7 @@ drop: function( event, ui ) {
     if($(this).find('.empty').length == 1){
         $(this).find('.empty').remove('.empty');
     }
-    var tmp = ui.draggable[0]
+    var tmp = ui.draggable[0];
     $(tmp).clone().removeAttr('style').appendTo(this).wrap("<div class='col-sm-12 col-lg-12 nuevaMateria'></div>");
     $(tmp).css('display','none');
 }
@@ -38,6 +38,47 @@ $('#resetMaterias').on('click', function(e) {
     $("#stack .materia").each(function () {
         if($(this).css('display') == 'none'){
            $(this).css('display','');
+        }
+    });
+});
+
+$('#sendMaterias').on('click', function(e) {
+
+    var objMaterias = [];
+    $(".nuevaMateria").each(function () {
+        var parentPeriodo = $(this).parent().attr('id');
+        var matPeriodo = $(this).text().trim() + "---" + (parentPeriodo.substring("periodo".length));
+        objMaterias.push(matPeriodo);
+    });
+
+    var pathname = window.location.pathname;
+
+    var lngStrPath_1 = "/siscupos/estudiante/".length;
+    var idxStrCarpet = pathname.indexOf("/carpetaestudiante/");
+
+    var idEstudiante = pathname.substring(lngStrPath_1, idxStrCarpet);
+
+    var objJson = {
+        'idEstudiante' : idEstudiante,
+        'nuevaMaterias' : objMaterias
+    };
+
+    var jsonSend = JSON.stringify(objJson);
+
+    $.ajax({
+        url : "/siscupos/estudiante/"+ idEstudiante +"/nuevacarpeta/",
+        type : "POST",
+        dataType: "json",
+        data: //objJson
+        {
+            idEstudiante: idEstudiante,
+            nuevaMaterias: objMaterias
+        },
+        success : function(json) {
+            $('#result').append( 'Server Response: ' + json.server_response);
+        },
+        error : function(xhr,errmsg,err) {
+            //alert(xhr.status + ": " + xhr.responseText);
         }
     });
 });
@@ -135,3 +176,29 @@ var seleccionarPlan3 = function(corrida){
         }
     });
 }
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+            // Only send the token to relative URLs i.e. locally.
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
