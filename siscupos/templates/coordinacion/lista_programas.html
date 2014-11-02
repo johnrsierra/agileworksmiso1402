@@ -30,16 +30,16 @@ Coordinación
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <div class="huge">{{programa.sigla}}</div>
+                                    <div class="huge" title="{{programa.nombre}}">{{programa.sigla}}</div>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">14</div>
+                                    <div class="huge">{{programa.asignaturaxprograma_set.count}}</div>
                                     <div>Materias</div>
                                 </div>
                             </div>
                         </div>
                         <a href="/siscupos/coordinacion/programacion/{{programa.id}}/plan/">
-                            <div class="panel-footer">
+                            <div class="panel-footer" title="{{programa.nombre}}">
                                 <span class="pull-left">Ver Detalles</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 

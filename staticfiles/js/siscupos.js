@@ -8,8 +8,8 @@ $('#stack .materia').hover(function() {
 
 
 $( "#stack .materia" ).draggable({
-    revert:true,
-    clone:true,
+    revert:false,
+    clone:false,
     stack:'#stack .materia'
 });
 
@@ -18,6 +18,7 @@ activeClass: "ui-state-default",
 hoverClass: "ui-state-hover",
 accept: ":not(.ui-sortable-helper)",
 drop: function( event, ui ) {
+    alert('aa');
     console.log(ui.draggable[0]);
     var tmp = ui.draggable[0]
     $(tmp).clone().removeAttr('style').appendTo(this);

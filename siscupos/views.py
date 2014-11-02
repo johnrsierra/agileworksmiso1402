@@ -88,6 +88,46 @@ def carpeta(request,est_id):
     context = {'estudiante':est,'periodos':periodos,'mats_periodos':mats_periodos}
     return render(request,'estudiantes/carpeta.html',context)
 
+def micarpeta(request,est_id):
+    #debe ser la lista de materias del programa del estudiante
+    est = Estudiante.objects.get(pk=est_id)
+    periodos = darPeriodos(est.periodoInicio)
+    lista_materias = AsignaturaXPrograma.objects.filter(programaAcademico=est.programa)
+    mats_periodos = []
+    for x in range(0,len(periodos)):
+        lista_materias_periodo = AsignaturaXEstudiante.objects.filter(estudiante=est,periodo=periodos[x])
+        mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo})
+    context = {'estudiante':est,'periodos':periodos,'lista_materias':lista_materias,'mats_periodos':mats_periodos}
+    return render(request,'estudiante/carpeta.html',context)
+
+def nuevacarpeta(request,est_id):
+    #debe ser la lista de materias del programa del estudiante
+    est = Estudiante.objects.get(pk=est_id)
+
+    print('<<<<>>>')
+
+    if request.is_ajax():
+        if request.method == 'POST':
+            print 'Raw Data: "%s"' % request.body
+    idEstudiante = request.POST['idEstudiante']
+    JSONdataMat = request.POST.getlist('nuevaMaterias[]')
+
+    for matNueva in JSONdataMat:
+
+        codPeriodo = matNueva[(matNueva.find("---")) + 3 :]
+        codMateria = matNueva[:(matNueva.find("---"))]
+
+        try:
+            objAsig = Asignatura.objects.get(codigo=codMateria)
+            objEst = Estudiante.objects.get(pk=idEstudiante)
+            objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
+        except AsignaturaXEstudiante.DoesNotExist:
+            objAsigXEst_nuevo = AsignaturaXEstudiante(cursada='N', estado='15', asignatura=objAsig, estudiante=objEst, periodo=codPeriodo)
+            objAsigXEst_nuevo.save()
+
+    return render(request,'estudiante/carpeta.html')
+
+
 #Este metodo deberia eliminarse y traer los periodos de la DB
 def darPeriodos(periodo):
     ano = str(periodo[:4])
@@ -146,3 +186,14 @@ def consultarSatisfaccionPrograma(request, corrida):
     results.append(p2)
 
     return HttpResponse(json.dumps(results ), content_type='application/json; charset=UTF-8')
+
+def demandaxasignacion(request,corrida):
+    cursor = connection.cursor()
+    cursor.execute('select COALESCE(a.asignadas,0) asignadas, COALESCE(b.capacidad,0) demanda, b.asignatura_id, b.asignatura from (select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,asig.id asignatura_id,count(*) asignadas from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id= %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo",asig.id) a RIGHT OUTER JOIN (select count(*) capacidad,asig.asignatura_id,asg.codigo asignatura from siscupos_asignaturaxestudianteasig asig,siscupos_asignatura asg where asig.estado = \'0\' and asig."preAsignacionCurso_id" = %s and asg.id = asig."asignatura_id" group by asignatura_id,asg.codigo ) b ON a.asignatura_id = b.asignatura_id',[corrida,corrida])
+    demanda = cursor.fetchall()
+    results = []
+    for row in demanda:
+        p = {'asignadas':row[0],'demanda':row[1],'asignatura_id':row[2],'asignatura':row[3]}
+        results.append(p)
+
+    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')

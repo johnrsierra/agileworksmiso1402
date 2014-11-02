@@ -3,7 +3,7 @@
 {% block title %}Siscupos - Carpeta{% endblock %}
 
 {% block page-header%}
-Carpeta
+Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -17,7 +17,7 @@ Carpeta
 
 {% block content %}
 <div class="row">
-{{materia.estudiante}}
+    {{materia.estudiante}}
 </div>
 <div class="row">
     <div class="panel panel-default">
@@ -27,12 +27,11 @@ Carpeta
         <div class="panel-body" id="stack">
             {% if lista_materias %}
             {% for materia in lista_materias %}
-            <div class="col-sm-3 col-lg-3" >
-                <div class="panel panel-primary materia">
+            <div class="col-sm-3 col-lg-3">
+                <div class="panel panel-primary materia" data-toggle="popover" data-content="{{materia.asignatura.nombres}}">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-6">
-                                <div >{{materia.codigo}}</div>
+                            <div class="col-xs-6">{{materia.asignatura.codigo}}
                             </div>
                         </div>
                     </div>
@@ -45,6 +44,12 @@ Carpeta
             </tr>
             {% endif %}
         </div>
+        <div>
+            <form action="." method="post">{% csrf_token %}
+                <button id = "resetMaterias" class="btn btn-primary" type="button">Reset</button>
+                <button id = "sendMaterias" class="btn btn-primary" type="button">Send</button>
+            </form>
+        </div>
     </div>
 </div>
 <!-- /.row -->
@@ -54,55 +59,49 @@ Carpeta
             <h3 class="panel-title">Planeación</h3>
         </div>
         <div class="panel-body">
+            {% for mat_periodo in mats_periodos %}
             <!-- caja periodo -->
             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="min-height:170px">
                     <div class="panel-heading">
-                        <h3 class="panel-title">201410</h3>
+                        <h3 class="panel-title">{{mat_periodo.periodo}}</h3>
                     </div>
-                    <div class="panel-body" id="periodo1" style="min-height:225px">
+                    <div class="panel-body" id="periodo{{mat_periodo.periodo}}">
+                        {%if mat_periodo.lista_materias_periodo%}
+                        {% for materia in mat_periodo.lista_materias_periodo %}
+                        {% if materia.periodo == mat_periodo.periodo %}
+                        <div class="col-sm-12 col-lg-12">
+                            {%if materia.cursada == '1'%}
+                            <div class="panel panel-green materia">
+                            {%else%}
+                            <div class="panel panel-default materia">
+                            {%endif%}
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div>{{materia.asignatura.codigo}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            {%endif%}
+                            {% endfor %}
+                            {%else%}
+                            <div class="row empty">
+                                <div class="col-xs-12 text-center">
+                                    <i class="fa fa-book fa-3x"></i>
 
+                                    <div>No hay materias previamente inscritas para este periodo</div>
+                                </div>
+                            </div>
+                            {%endif%}
+                        </div>
                     </div>
                 </div>
+                <!-- /.caja periodo -->
+                {% endfor %}
             </div>
-            <!-- /.caja periodo -->
-            <!-- caja periodo -->
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">201420</h3>
-                    </div>
-                    <div class="panel-body" id="periodo2" style="min-height:225px">
-
-                    </div>
-                </div>
-            </div>
-            <!-- /.caja periodo -->
-            <!-- caja periodo -->
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">201510</h3>
-                    </div>
-                    <div class="panel-body" id="periodo3" style="min-height:225px">
-
-                    </div>
-                </div>
-            </div>
-            <!-- /.caja periodo -->
-            <!-- caja periodo -->
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">201520</h3>
-                    </div>
-                    <div class="panel-body" id="periodo4" style="min-height:225px">
-
-                    </div>
-                </div>
-            </div>
-            <!-- /.caja periodo -->
-
         </div>
     </div>
 </div>
