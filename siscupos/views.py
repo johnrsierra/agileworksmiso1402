@@ -92,11 +92,32 @@ def micarpeta(request,est_id):
     #debe ser la lista de materias del programa del estudiante
     est = Estudiante.objects.get(pk=est_id)
     periodos = darPeriodos(est.periodoInicio)
+
+    # Obtiene las asignaturas del estudiante
     lista_materias = AsignaturaXPrograma.objects.filter(programaAcademico=est.programa)
     mats_periodos = []
+
+    #Consulta las materias que fueron asignadas por el optimizador en su ultima corrida
+    preAsignacionCurso_id = PreAsignacionCurso.objects.order_by('-id')[0]
+
     for x in range(0,len(periodos)):
+        # Consulta el listado de asignaturas preasignadas
+        lista_materias_preasignadas = AsignaturaSugerida.objects.filter(estudiante=est, preAsignacionCurso=preAsignacionCurso_id)
+        mats_periodos_asig = []
+
+        #Recorre el listado de preasignacion y ubica las materias q corresponde al periodo que se esta consultando
+        for materiasAsig in lista_materias_preasignadas:
+            perAsig = materiasAsig.preAsignacionCurso.periodo
+
+            if perAsig == periodos[x]:
+                mats_periodos_asig.append(materiasAsig)
+
+        #Consulta las asignaturas que el estudiante tiene en el periodo
         lista_materias_periodo = AsignaturaXEstudiante.objects.filter(estudiante=est,periodo=periodos[x])
-        mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo})
+
+        #Asigna las asignaturas del periodo y las sugeridas por el optimizador
+        mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo, 'lista_materias_asignadas': mats_periodos_asig})
+
     context = {'estudiante':est,'periodos':periodos,'lista_materias':lista_materias,'mats_periodos':mats_periodos}
     return render(request,'estudiante/carpeta.html',context)
 
@@ -104,39 +125,53 @@ def nuevacarpeta(request,est_id):
     #debe ser la lista de materias del programa del estudiante
     est = Estudiante.objects.get(pk=est_id)
 
-    print('<<<<>>>')
+    print('<<<<Actualizar carpeta>>>')
 
     if request.is_ajax():
         if request.method == 'POST':
             print 'Raw Data: "%s"' % request.body
+
+    #Obtiene los datos enviados
     idEstudiante = request.POST['idEstudiante']
     nuevasMaterias = request.POST.getlist('nuevaMaterias[]')
     borrarMaterias = request.POST.getlist('borraMaterias[]')
 
 
+    #Recorre el listado de las materias a borrar
     for matBorrar in borrarMaterias:
+        #Extrae el periodo
         codPeriodo = matBorrar[(matBorrar.find("---")) + 3 :]
+        #Extraer el codigo de la materia
         codMateria = matBorrar[:(matBorrar.find("---"))]
 
         try:
+            #Busca la asignatura
             objAsig = Asignatura.objects.get(codigo=codMateria)
+            #Busca el estudiante
             objEst = Estudiante.objects.get(pk=idEstudiante)
+            #Busca la asignatura x estudiante
             objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
             print('<<<< Asignatura x Estudiante a Borrar >>>', objAsigXEst)
+            #Ejecuta el borrado del registro
             objAsigXEst.delete()
         except AsignaturaXEstudiante.DoesNotExist:
             print('<<<<No se puede borrar>>>', objAsig, ',', objEst)
 
+    #Recorre el listado de las materias a asignar
     for matNueva in nuevasMaterias:
 
         codPeriodo = matNueva[(matNueva.find("---")) + 3 :]
         codMateria = matNueva[:(matNueva.find("---"))]
 
         try:
+            #Busca la asignatura
             objAsig = Asignatura.objects.get(codigo=codMateria)
+            #Busca el estudiante
             objEst = Estudiante.objects.get(pk=idEstudiante)
+            #Busca la asignatura x estudiante
             objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
         except AsignaturaXEstudiante.DoesNotExist:
+            #Si no existe la asignatura x estudiante crea el registro
             objAsigXEst_nuevo = AsignaturaXEstudiante(cursada='N', estado='15', asignatura=objAsig, estudiante=objEst, periodo=codPeriodo)
             print('<<<< Asignatura x Estudiante a Crear >>>', objAsigXEst_nuevo)
             objAsigXEst_nuevo.save()
