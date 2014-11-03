@@ -37,7 +37,7 @@ $( "div[id^='periodo']" ).droppable({
                         matExiste = true;
                         $('#alertPanel').text('Materia previamente asignada ' + $(tmp).text().trim());
                         $("#alertPanel").show();
-                        setTimeout(function() { $("#alertPanel").hide(); }, 5000);
+                        setTimeout(function() { $("#alertPanel").hide(); }, 3000);
                     }
                 }
             });
@@ -55,6 +55,7 @@ $( "div[id^='periodo']" ).droppable({
                 clone: true,
                 stack: '#stack .materia'
             }).appendTo(this).wrap("<div class='col-sm-12 col-lg-12 nuevaMateria'></div>");
+            // Se oculta la materia seleccionada del lsitado del programa
             $(tmp).css('display', 'none');
         }
     }
@@ -108,11 +109,13 @@ $('#sendMaterias').on('click', function(e) {
 
     var pathname = window.location.pathname;
 
+    //Obtiene el numero del estudiante
     var lngStrPath_1 = "/siscupos/estudiante/".length;
     var idxStrCarpet = pathname.indexOf("/carpetaestudiante/");
 
     var idEstudiante = pathname.substring(lngStrPath_1, idxStrCarpet);
 
+    // Envia la petición Json al server
     $.ajax({
         url : "/siscupos/estudiante/"+ idEstudiante +"/nuevacarpeta/",
         type : "POST",

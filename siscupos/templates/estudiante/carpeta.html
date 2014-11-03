@@ -75,7 +75,7 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
 <div class="row">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Planeación Estudiante</h3>
+            <h3 class="panel-title">Planeación <b>Estudiante</b></h3>
         </div>
         <div class="panel-body">
             {% for mat_periodo in mats_periodos %}
@@ -90,7 +90,7 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
                             {% for materia in mat_periodo.lista_materias_periodo %}
                                 {% if materia.periodo == mat_periodo.periodo %}
                                     <div class="col-sm-12 col-lg-12">
-                                        {%if materia.estado == '0'%}
+                                        {%if materia.estado == '0' and materia.cursada == 'N' %}
                                             <div class="panel panel-info materia asignadaManual">
                                         {%else%}
                                             <div class="panel panel-success materia">
@@ -101,7 +101,7 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
                                                         <div>{{materia.asignatura.codigo}}</div>
                                                     </div>
                                                     <div class="col-xs-6" style="float: right; text-align: right">
-                                                        {%if materia.estado == '0'%}
+                                                        {%if materia.estado == '0' and materia.cursada == 'N' %}
                                                         <button id="drop---{{materia.asignatura.codigo}}" type="button" class="btn btn-default btn-xs">
                                                             <span class="glyphicon glyphicon-trash"></span>
                                                         </button>
@@ -134,7 +134,7 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
 <div class="row">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Planeación Optimizador</h3>
+            <h3 class="panel-title">Planeación <b>Optimizador</b></h3>
         </div>
         <div class="panel-body">
             {% for mat_periodo in mats_periodos %}
@@ -144,7 +144,7 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
                     <div class="panel-heading">
                         <h3 class="panel-title">{{mat_periodo.periodo}}</h3>
                     </div>
-                    <div class="panel-body" id="periodo{{mat_periodo.periodo}}">
+                    <div class="panel-body" id="asigPeriodo{{mat_periodo.periodo}}">
                         {%if mat_periodo.lista_materias_asignadas%}
                             {% for asignaturaSugerida in mat_periodo.lista_materias_asignadas %}
                                 {% if asignaturaSugerida.preAsignacionCurso.periodo == mat_periodo.periodo %}
@@ -169,8 +169,7 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
                             <div class="row empty">
                                 <div class="col-xs-12 text-center">
                                     <i class="fa fa-book fa-3x"></i>
-
-                                    <div>No hay materias previamente inscritas para este periodo</div>
+                                    <div>No hay materias asignadas para este periodo</div>
                                 </div>
                             </div>
                         {%endif%}

@@ -137,20 +137,28 @@ def nuevacarpeta(request,est_id):
     borrarMaterias = request.POST.getlist('borraMaterias[]')
 
 
+    print('<<<<nuevasMaterias>>>', nuevasMaterias)
+    print('<<<<borrarMaterias>>>', borrarMaterias)
+
+
     #Recorre el listado de las materias a borrar
     for matBorrar in borrarMaterias:
         #Extrae el periodo
         codPeriodo = matBorrar[(matBorrar.find("---")) + 3 :]
+        print('<<<<codPeriodo>>>', codPeriodo)
         #Extraer el codigo de la materia
         codMateria = matBorrar[:(matBorrar.find("---"))]
+        print('<<<<codMateria>>>', codMateria)
 
         try:
             #Busca la asignatura
             objAsig = Asignatura.objects.get(codigo=codMateria)
+            print('<<<<objAsig>>>', objAsig)
             #Busca el estudiante
             objEst = Estudiante.objects.get(pk=idEstudiante)
+            print('<<<<objEst>>>', objEst)
             #Busca la asignatura x estudiante
-            objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
+            objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig, estudiante=objEst)
             print('<<<< Asignatura x Estudiante a Borrar >>>', objAsigXEst)
             #Ejecuta el borrado del registro
             objAsigXEst.delete()
@@ -172,7 +180,7 @@ def nuevacarpeta(request,est_id):
             objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
         except AsignaturaXEstudiante.DoesNotExist:
             #Si no existe la asignatura x estudiante crea el registro
-            objAsigXEst_nuevo = AsignaturaXEstudiante(cursada='N', estado='15', asignatura=objAsig, estudiante=objEst, periodo=codPeriodo)
+            objAsigXEst_nuevo = AsignaturaXEstudiante(cursada='N', estado='0', asignatura=objAsig, estudiante=objEst, periodo=codPeriodo)
             print('<<<< Asignatura x Estudiante a Crear >>>', objAsigXEst_nuevo)
             objAsigXEst_nuevo.save()
 
