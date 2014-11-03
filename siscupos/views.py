@@ -110,9 +110,24 @@ def nuevacarpeta(request,est_id):
         if request.method == 'POST':
             print 'Raw Data: "%s"' % request.body
     idEstudiante = request.POST['idEstudiante']
-    JSONdataMat = request.POST.getlist('nuevaMaterias[]')
+    nuevasMaterias = request.POST.getlist('nuevaMaterias[]')
+    borrarMaterias = request.POST.getlist('borraMaterias[]')
 
-    for matNueva in JSONdataMat:
+
+    for matBorrar in borrarMaterias:
+        codPeriodo = matBorrar[(matBorrar.find("---")) + 3 :]
+        codMateria = matBorrar[:(matBorrar.find("---"))]
+
+        try:
+            objAsig = Asignatura.objects.get(codigo=codMateria)
+            objEst = Estudiante.objects.get(pk=idEstudiante)
+            objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
+            print('<<<< Asignatura x Estudiante a Borrar >>>', objAsigXEst)
+            objAsigXEst.delete()
+        except AsignaturaXEstudiante.DoesNotExist:
+            print('<<<<No se puede borrar>>>', objAsig, ',', objEst)
+
+    for matNueva in nuevasMaterias:
 
         codPeriodo = matNueva[(matNueva.find("---")) + 3 :]
         codMateria = matNueva[:(matNueva.find("---"))]
@@ -123,6 +138,7 @@ def nuevacarpeta(request,est_id):
             objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
         except AsignaturaXEstudiante.DoesNotExist:
             objAsigXEst_nuevo = AsignaturaXEstudiante(cursada='N', estado='15', asignatura=objAsig, estudiante=objEst, periodo=codPeriodo)
+            print('<<<< Asignatura x Estudiante a Crear >>>', objAsigXEst_nuevo)
             objAsigXEst_nuevo.save()
 
     return render(request,'estudiante/carpeta.html')
