@@ -125,6 +125,40 @@ Optimizador plan de carrera
     </div>
 </div>
 
+<!-- Modal Indicadores -->
+<div class="modal fade" id="modalIndicadores" tabindex="-1" role="dialog" aria-labelledby="Indicadores"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg">
+                    <div class="panel panel-default">
+                        <div id="bar-chart-indicadores-title" class="panel-heading">
+                            Indicadores comparativos entre corridas
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="bar-chart-indicadores"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="row">
     <div class="col-lg">
         <div class="table-responsive">
@@ -143,6 +177,7 @@ Optimizador plan de carrera
                     <th>Observación</th>
                     <th>Periodo</th>
                     <th>Resultados</th>
+                    <th>Comparar</th>
 
                 </tr>
                 </thead>
@@ -168,10 +203,25 @@ Optimizador plan de carrera
                                 data-target="#modalSatisfaccion">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="seleccionarPlan3({{ejecucion.codigo}});"
+                        <button type="button" class="btn btn-primary btn-sm"
+                                onclick="seleccionarPlan3({{ejecucion.codigo}});"
                                 data-toggle="modal" data-target="#modalDemandaAsig">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
+                    </td>
+                    <td>
+                    {% if lista_ejecuciones_comp %}
+                      <select id="corrida_comp{{ejecucion.codigo}}">
+                    {% for comparacion in lista_ejecuciones_comp %}
+                         <option value="{{comparacion.codigo}}">{{comparacion.codigo}}</option>
+                    {% endfor %}
+                      </select>
+                      <button type="button" class="btn btn-primary btn-sm"
+                                onclick="seleccionarIndicadores({{ejecucion.codigo}}, document.getElementById('corrida_comp{{ejecucion.codigo}}').value);"
+                                data-toggle="modal" data-target="#modalIndicadores">
+                            <span class="glyphicon glyphicon-stats"></span>
+                      </button>
+                    {% endif %}
                     </td>
                 </tr>
 

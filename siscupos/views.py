@@ -5,6 +5,13 @@ from django.template import RequestContext
 import json
 from django.core import serializers
 from AsignadorCupos import *
+from django.shortcuts import render,HttpResponse
+from siscupos.models import Asignatura,AsignaturaSugerida,AsignaturaXEstudiante,AsignaturaXPrograma,Estudiante,PreAsignacionCurso,PreProgramacion,ProgramaAcademico
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+import json
+from django.core import serializers
+from AsignadorCupos import *
 
 # Create your views here.
 def index(request):
@@ -52,7 +59,8 @@ def demandaCupos(request):
 def ejecuciones(request):
     lista_programas = ProgramaAcademico.objects.all()
     lista_ejecuciones = PreAsignacionCurso.objects.all()
-    context = {'lista_ejecuciones':lista_ejecuciones,'lista_programas':lista_programas}
+    lista_ejecuciones_comp = PreAsignacionCurso.objects.all()
+    context = {'lista_ejecuciones':lista_ejecuciones,'lista_programas':lista_programas, 'lista_ejecuciones_comp':lista_ejecuciones_comp}
     return render(request,'coordinacion/optimizador.html',context)
 
 def resultado(request,preasig_id):
@@ -197,3 +205,385 @@ def demandaxasignacion(request,corrida):
         results.append(p)
 
     return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
+
+def indicadoresDetalleSatis(request,corrida):
+    print('Iniciio indicadores Detalle')
+    cursor = connection.cursor()
+    dataA = []
+    resultsHC = []
+
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+        ' select c.satisfaccion, count(*) '
+        ' from ( '
+        ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 1 THEN 50 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' else 0 end) satisfaccion '
+        ' ,a.asignadas '
+        ' ,b.capacidad '
+        ' ,b.estudiante '
+        ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturasugerida asig '
+        ' where asig."preAsignacionCurso_id" = %s '
+        ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+        ' order by 3,2 ) a '
+        ' RIGHT OUTER JOIN  '
+        ' (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturaxestudianteasig asig '
+        ' where estado = \'0\'   '
+        ' and asig."preAsignacionCurso_id" = %s '
+        ' group by estudiante_id, asig."preAsignacionCurso_id" '
+        ' order by 3,2) b '
+        ' ON  b.estudiante = a.estudiante '
+        ' AND b.corrida = a.corrida) c '
+        ' group by c.satisfaccion '
+        ' order by c.satisfaccion   ',
+        [corrida, corrida]
+    )
+
+    print('antes de fetchall de detalle Satis' + corrida)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        print('recorriendo cupos ', row[1])
+        dataA.append(int(row[1]))
+
+    phcA ={'name':'Corrida '+str(corrida), 'data':dataA}
+
+    resultsHC.append(phcA)
+    print(resultsHC)
+
+    httpResp = HttpResponse(json.dumps(resultsHC), content_type='application/json; charset=UTF-8')
+
+    print('antes de return')
+    return httpResp
+
+
+
+def indicadoresDetalleEstudiantes(request,corrida, porc_satisfaccion):
+    print('Iniciio indicadores Detalle estudiante')
+    cursor = connection.cursor()
+    dataA = []
+
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+        ' select codigo, nombres, apellidos, estudiante '
+        ' from ( '
+        ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 1 THEN 50 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' else 0 end) satisfaccion '
+        ' ,a.asignadas '
+        ' ,b.capacidad '
+        ' ,b.estudiante estudiante '
+        ' ,b.nombres nombres, b.apellidos apellidos, b.codigo codigo '
+        ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturasugerida asig '
+        ' where asig."preAsignacionCurso_id" = %s '
+        ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+        ' order by 3,2 ) a '
+        ' RIGHT OUTER JOIN  '
+        ' (select count(*) capacidad, '
+        '         estudiante_id estudiante, '
+        '         asig."preAsignacionCurso_id" corrida, '
+        '         est.nombres, est.apellidos, est.codigo '
+        ' from siscupos_asignaturaxestudianteasig asig '
+        '     ,siscupos_estudiante est '
+        ' where estado = \'0\'   '
+        ' and asig.estudiante_id = est.id '
+        ' and asig."preAsignacionCurso_id" = %s '
+        ' group by estudiante_id, asig."preAsignacionCurso_id", est.nombres, est.apellidos, est.codigo '
+        ' order by 3,2) b '
+        ' ON  b.estudiante = a.estudiante '
+        ' AND b.corrida = a.corrida '
+        ' ) c '
+        ' where c.satisfaccion = %s ',
+        [corrida, corrida, porc_satisfaccion]
+    )
+
+    print('antes de fetchall de detalle Satis' + corrida)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        e = Estudiante()
+        e.codigo = row[0]
+        e.nombres = row[1]
+        e.apellidos = row[2]
+        e.id = row[3]
+        print('recorriendo estudientas ', row[1])
+        dataA.append(e)
+
+    print('antes de return')
+    context = {'lista_estudiantes':dataA}
+    return render(request,'estudiantes/lista_estudiantes.html',context)
+
+
+
+
+
+
+
+def indicadores(request,corridaA, corridaB):
+    print('Iniciio indicadores')
+    cursor = connection.cursor()
+    results = []
+    dataA = []
+    dataB = []
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+        ' select  round((sum(a.estudiantes)/sum(a.cupos))*100), a.corrida '
+        ' from( '
+        ' select  asisug."preAsignacionCurso_id" corrida '
+        ' , pro."sigla" plan '
+        ' , count(*) estudiantes '
+        ' , max(cupos) cupos '
+        ' from  siscupos_preasignacioncurso preasig '
+        '      ,siscupos_asignaturasugerida asisug '
+        '      ,siscupos_preprogramacionasig pre '
+        '      ,siscupos_asignaturaxprograma asi '
+        '      ,siscupos_programaacademico pro '
+        '      ,siscupos_asignatura asig '
+        ' where preasig.id in (%s,%s) '
+        '   and asisug."preAsignacionCurso_id" = preasig.id '
+        '   and pre."preProgramacion_id" = asisug."preProgramacion_id" '
+        '   and pre."asignaturaXPrograma_id" = asi.id '
+        '   and pre."preAsignacionCurso_id" = preasig.id '
+        '   and pro.id = asi."programaAcademico_id" '
+        '   and asig.id = asi."asignatura_id" '
+        ' group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo" '
+        ' ) a '
+        ' group by a.corrida ',
+        [corridaA, corridaB]
+    )
+
+    print('antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    datosCupos = []
+    for row in cupos:
+        print('recorriendo cupos ', row[0])
+        datosCupos.append(row[0])
+
+    print('despues de recorrer cupos')
+    p = {'ind':'%Cupos', 'a':str(datosCupos[0]),'b':str(datosCupos[1])}
+    dataA.append(int(datosCupos[0]))
+    dataB.append(int(datosCupos[1]))
+    results.append(p)
+    print('despues append')
+    print(p)
+
+
+
+    # Indicador 2: Satisfaccion
+    cursor.execute(
+        ' select round(avg(c.satisfaccion)) '
+        ' ,c.corrida '
+        ' from( '
+        ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 1 THEN 50 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' else 0 end) satisfaccion '
+        ' ,B.corrida '
+        ' ,a.asignadas '
+        ' ,b.capacidad '
+        ' ,b.estudiante '
+        ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturasugerida asig '
+        ' where asig."preAsignacionCurso_id" IN (%s,%s) '
+        ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+        ' order by 3,2 ) a '
+        ' RIGHT OUTER JOIN  '
+        ' (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturaxestudianteasig asig '
+        ' where estado = \'0\'  '
+        ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+        ' group by estudiante_id, asig."preAsignacionCurso_id" '
+        ' order by 3,2) b '
+        ' ON  b.estudiante = a.estudiante '
+        ' AND b.corrida = a.corrida '
+        ' order by 2,5 ) c '
+        ' where c.corrida is not null '
+        ' group by c.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('2 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    datosSatis = []
+    for row in cupos:
+        print('recorriendo cupos ', row[0])
+        datosSatis.append(row[0])
+
+    print('2 despues de recorrer cupos')
+    p = {'ind':'%Satisf.', 'a':str(datosSatis[0]),'b':str(datosSatis[1])}
+    dataA.append(int(datosSatis[0]))
+    dataB.append(int(datosSatis[1]))
+    results.append(p)
+    print('2 despues append')
+    print(p)
+
+
+    # Indicador 3: Asignacion de estudiantes
+    cursor.execute(
+       ' select round(avg(c.asignacion)) '
+       '  ,c.corrida '
+       '  from( '
+       '  select (case when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)>= 1 THEN 100 '
+       '  else 0 end) asignacion '
+       '  ,b.corrida '
+       '  ,a.asignadas '
+       '  ,b.capacidad '
+       '  ,b.estudiante '
+       '  from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+       '  from siscupos_asignaturasugerida asig '
+       '  where asig."preAsignacionCurso_id" IN (%s,%s) '
+       '  group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+       '  order by 2 ) a '
+       '  RIGHT OUTER JOIN '
+       '  (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+       '  from siscupos_asignaturaxestudianteasig asig '
+       '  where estado = \'0\'  '
+       '  and asig."preAsignacionCurso_id" IN (%s,%s) '
+       '  group by estudiante_id, asig."preAsignacionCurso_id" '
+       '  order by 2) b '
+       ' ON  b.estudiante = a.estudiante '
+       '  AND b.corrida = a.corrida '
+       '  order by 2,5) c   '
+       '  group by c.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('3 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    datosAsig = []
+    for row in cupos:
+        print('recorriendo cupos ', row[0])
+        datosAsig.append(row[0])
+
+    dataA.append(int(datosAsig[0]))
+    dataB.append(int(datosAsig[1]))
+    print('3 despues de recorrer cupos')
+    p = {'ind':'%Estud.', 'a':str(datosAsig[0]),'b':str(datosAsig[1])}
+    results.append(p)
+    print('3 despues append')
+    print(p)
+
+
+    # Indicador 4: Atrasos por no poder tomar asignaturas
+    cursor.execute(
+            ' select 100-round(avg(c.asignacion)) atraso '
+            ' ,c.corrida '
+            ' from( '
+            ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+            ' when COALESCE(b.capacidad,0) = 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+            ' else 0 end) asignacion '
+            ' ,b.corrida '
+            ' ,a.asignadas '
+            ' ,b.capacidad '
+            ' ,b.estudiante '
+            ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+            ' from siscupos_asignaturasugerida asig '
+            ' where asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+            ' order by 2 ) a '
+            ' RIGHT OUTER JOIN  '
+            ' (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+            ' from siscupos_asignaturaxestudianteasig asig '
+            ' where estado = \'0\'  '
+            ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' group by estudiante_id, asig."preAsignacionCurso_id" '
+            ' order by 2) b '
+            ' ON  b.estudiante = a.estudiante '
+            ' AND b.corrida = a.corrida '
+            ' order by 2,5) c   '
+            ' group by c.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('4 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    datosRetraso = []
+    for row in cupos:
+        print('recorriendo cupos ', row[0])
+        datosRetraso.append(row[0])
+
+    dataA.append(int(datosRetraso[0]))
+    dataB.append(int(datosRetraso[1]))
+    print('4 despues de recorrer cupos')
+    p = {'ind':'%Retraso', 'a':str(datosRetraso[0]),'b':str(datosRetraso[1])}
+    results.append(p)
+    print('4 despues append')
+    print(p)
+
+
+    # Indicador 5: Cumplimiento deseadas
+    cursor.execute(
+            ' select avg(d.peso), d.corrida '
+            ' from( '
+            ' select sum(c.pesoxmateria) peso, c.estudiante,c.corrida corrida '
+            ' from (select a.asignatura_asig '
+            ' ,b.asignatura_cap '
+            ' ,b.estudiante estudiante '
+            ' ,B.corrida_cap corrida '
+            ' ,(case when COALESCE(a.asignatura_asig,0) = COALESCE(b.asignatura_cap,0) THEN 50 '
+            ' else 0 end) pesoxmateria  '
+            ' from (select asp.asignatura_id asignatura_asig, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida_asig '
+            ' from siscupos_asignaturasugerida asig '
+            ' ,siscupos_preProgramacion pre '
+            ' ,siscupos_asignaturaxprograma asp '
+            ' where asig."preProgramacion_id" = pre.id '
+            ' and pre."asignaturaXPrograma_id" = asp.id '
+            ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' order by 2,1 ) a '
+            ' RIGHT OUTER JOIN '
+            ' (select asignatura_id asignatura_cap, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida_cap '
+            ' from siscupos_asignaturaxestudianteasig asig '
+            ' where estado = \'3\'  '
+            ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' order by 2,1) b '
+            ' ON  b.estudiante = a.estudiante '
+            ' AND b.asignatura_cap = a.asignatura_asig '
+            ' and b.corrida_cap = a.corrida_asig '
+            ' order by 2,1) c '
+            ' group by c.estudiante,c.corrida) d '
+            ' group by d.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('5 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    datosDeseo = []
+    for row in cupos:
+        print('recorriendo cupos ', row[0])
+        datosDeseo.append(row[0])
+
+    if len(datosDeseo) < 2:
+        datosDeseo.append(0)
+    if len(datosDeseo) < 2:
+        datosDeseo.append(0)
+
+    print('5 despues de recorrer cupos')
+    p = {'ind':'%Deseo', 'a':str(datosDeseo[0]),'b':str(datosDeseo[1])}
+    results.append(p)
+    dataA.append(int(datosDeseo[0]))
+    dataB.append(int(datosDeseo[1]))
+    print('5 despues append')
+    print(p)
+
+
+    #Transformar a HighCharts
+    resultsHC = []
+    phcA ={'name':'Corrida '+str(corridaA), 'data':dataA}
+    phcB ={'name':'Corrida '+str(corridaB), 'data':dataB}
+
+    resultsHC.append(phcA)
+    resultsHC.append(phcB)
+    print(resultsHC)
+
+    httpResp = HttpResponse(json.dumps(resultsHC), content_type='application/json; charset=UTF-8')
+
+    print('antes de return')
+    return httpResp

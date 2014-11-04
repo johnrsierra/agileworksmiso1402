@@ -214,6 +214,7 @@ var cerrarModalDemanda = function(){
     $('#morris-bar-chart3').empty();
     $("option:selected").removeAttr("selected");
 }
+
 var seleccionarPlan3 = function(corrida){
     $("#modalDemandaAsigLbl").text("Resultados ejecución " + corrida);
     $.get( "demanda/"+corrida+"/", function( datos ) {
@@ -235,6 +236,211 @@ var seleccionarPlan3 = function(corrida){
         }
     });
 }
+
+// Autor: ca.rodriguez18
+// 02/11/2014
+var seleccionarIndicadoresMorris = function(corridaA, corridaB){
+    $.get( "indicadores/"+corridaA+"/"+corridaB+"/", function( datos ) {
+        if(datos.length != 0){
+           $('#bar-chart-indicadores').empty();
+            Morris.Bar({
+                element: 'bar-chart-indicadores',
+                data: datos,
+                xkey: 'ind',
+                ykeys: ['a','b'],
+                labels: ['Corrida A','Corrida B'],
+                hideHover: 'false',
+                resize: true
+            });
+            delete Morris.Bar.data;
+        }else{
+            $('#bar-chart-indicadores').html("<div class='row empty'><div class='col-xs-12 text-center'><i class='fa fa-book fa-3x'></i><div>No hay resultados para esta corrida</div></div></div>");
+        }
+    });
+}
+
+
+
+
+var seleccionarIndicadores = function(corridaA, corridaB){
+
+    var tituloModal = document.getElementById('bar-chart-indicadores-title');
+    tituloModal.innerHTML = 'Comparar corridas. ' + corridaA + ' vs ' + corridaB;
+
+    var areaGrafica = document.getElementById('bar-chart-indicadores');
+    areaGrafica.innerHTML = 'Cargando.....';
+
+    $.get( "indicadores/"+corridaA+"/"+corridaB+"/", function( datos ) {
+        if(datos.length != 0){
+           $('#bar-chart-indicadores').empty();
+
+
+           var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'bar-chart-indicadores',
+            type: 'column'
+        },
+        title: {
+            text: 'Comparacion indicadores'
+        },
+        subtitle: {
+            text: 'Source: SisCupos'
+        },
+        xAxis: {
+            categories: [
+                'Cupos',
+                'Satisfaccion',
+                'Estudiantes',
+                'Atraso',
+                'Deseos'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Porcentajes'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series: {
+              point:{
+                  events: {
+                   click: function (event, i) {
+                     if (this.category == 'Cupos') {
+                         var tituloModal = document.getElementById('bar-chart-indicadores-title');
+                         tituloModal.innerHTML = 'Detalle asignacion cupos. Corrida: ' + this.series.name.substr(8);
+                         var areaGrafica = document.getElementById('bar-chart-indicadores');
+                         areaGrafica.innerHTML = 'Cargando.....';
+
+                         seleccionarIndicadoresCupos(this.series.name.substr(8));
+                     }
+                     if (this.category == 'Satisfaccion') {
+                         var tituloModal = document.getElementById('bar-chart-indicadores-title');
+                         tituloModal.innerHTML = 'Detalle asignacion cupos. Corrida: ' + this.series.name.substr(8);
+                         var areaGrafica = document.getElementById('bar-chart-indicadores');
+                         areaGrafica.innerHTML = 'Cargando.....';
+
+                         seleccionarIndicadoresSatisfaccion(this.series.name.substr(8));
+                     }
+                   }
+                  }
+              }
+            },
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: datos
+    });
+        }else{
+            $('#bar-chart-indicadores').html("<div class='row empty'><div class='col-xs-12 text-center'><i class='fa fa-book fa-3x'></i><div>No hay resultados para esta corrida</div></div></div>");
+        }
+    });
+}
+
+
+
+
+var seleccionarIndicadoresSatisfaccion = function(corrida){
+
+    var tituloModal = document.getElementById('bar-chart-indicadores-title');
+    tituloModal.innerHTML = 'Detalle satisfaccion ' + corrida;
+
+    var areaGrafica = document.getElementById('bar-chart-indicadores');
+    areaGrafica.innerHTML = 'Cargando.....';
+
+    $.get( "indicadoresDetalleSatis/"+corrida+"/", function( datos ) {
+        if(datos.length != 0){
+           $('#bar-chart-indicadores').empty();
+
+
+           var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'bar-chart-indicadores',
+            type: 'column'
+        },
+        title: {
+            text: 'Detalle de satisfaccion'
+        },
+        subtitle: {
+            text: 'Source: SisCupos'
+        },
+        xAxis: {
+            categories: [
+                '0',
+                '50',
+                '100'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Num estudiantes'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} Estudiantes</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series: {
+              point:{
+                  events: {
+                   click: function (event, i) {
+                     location.href = '/siscupos/coordinacion/optimizador/indicadoresDetalleEstudiantes/'+corrida+'/'+this.category+'/';
+                   }
+                  }
+              }
+            },
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: datos
+    });
+        }else{
+            $('#bar-chart-indicadores').html("<div class='row empty'><div class='col-xs-12 text-center'><i class='fa fa-book fa-3x'></i><div>No hay resultados para esta corrida</div></div></div>");
+        }
+    });
+}
+
+
+
+var seleccionarIndicadoresCupos = function(corrida){
+    $.get( "demanda/"+corrida+"/", function( datos ) {
+        if(datos.length != 0){
+           $('#bar-chart-indicadores').empty();
+            Morris.Bar({
+                element: 'bar-chart-indicadores',
+                data: datos,
+                xkey: 'asignatura',
+                ykeys: ['demanda','asignadas'],
+                labels: ['demanda','asignadas'],
+                hideHover: 'auto',
+                resize: true,
+                xLabelAngle: 60
+            });
+            delete Morris.Bar.data;
+        }else{
+            $('#bar-chart-indicadores').html("<div class='row empty'><div class='col-xs-12 text-center'><i class='fa fa-book fa-3x'></i><div>No hay resultados para esta corrida</div></div></div>");
+        }
+    });
+}
+
 
 
 function getCookie(name) {
