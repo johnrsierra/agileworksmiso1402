@@ -38,10 +38,10 @@ Carpeta de {{estudiante.nombres}} {{estudiante.apellidos}}
                         {% for materia in mat_periodo.lista_materias %}
                         {% if materia.periodo == mat_periodo.periodo %}
                         <div class="col-sm-12 col-lg-12">
-                            {%if materia.cursada == '1'%}
-                            <div class="panel panel-green materia">
+                            {%if materia.cursada == 'N'%}
+                            <div class="panel panel-info materia">
                                 {%else%}
-                                <div class="panel panel-default materia">
+                                <div class="panel panel-success materia">
                                     {%endif%}
                                     <div class="panel-heading">
                                         <div class="row">

@@ -18,24 +18,69 @@ $( "#stack .materia" ).draggable({
 });
 
 $( "div[id^='periodo']" ).droppable({
-activeClass: "ui-state-default",
-hoverClass: "ui-state-hover",
-accept: ":not(.ui-sortable-helper)",
-drop: function( event, ui ) {
-    if($(this).find('.empty').length == 1){
-        $(this).find('.empty').remove('.empty');
+    activeClass: "ui-state-default",
+    hoverClass: "ui-state-hover",
+    accept: ":not(.ui-sortable-helper)",
+    drop: function( event, ui ) {
+
+        var tmp = ui.draggable[0];
+        var matExiste = false;
+
+        //Busca todos los paneles de periodos
+        $( "div[id^='periodo']" ).each(function(){
+            var periodoMat = $(this);
+
+            // Busca todas las materias de un periodo y evalua si es visible y si ya existe
+            $(this).find(".materia").each(function(){
+                if($(this).css('display') != 'none' && $(this).parent().hasClass('nuevaMateria') == false){
+                    if($(this).text().trim() == $(tmp).text().trim()){
+                        matExiste = true;
+                        $('#alertPanel').text('Materia previamente asignada ' + $(tmp).text().trim());
+                        $("#alertPanel").show();
+                        setTimeout(function() { $("#alertPanel").hide(); }, 3000);
+                    }
+                }
+            });
+        });
+
+        // Si la materia no esta asignada actualmente se procede a su asignación
+        if(matExiste == false) {
+
+            if ($(this).find('.empty').length == 1) {
+                $(this).find('.empty').remove('.empty');
+            }
+
+            $(tmp).clone().removeAttr('style').draggable({
+                revert: true,
+                clone: true,
+                stack: '#stack .materia'
+            }).appendTo(this).wrap("<div class='col-sm-12 col-lg-12 nuevaMateria'></div>");
+            // Se oculta la materia seleccionada del lsitado del programa
+            $(tmp).css('display', 'none');
+        }
     }
-    var tmp = ui.draggable[0];
-    $(tmp).clone().removeAttr('style').appendTo(this).wrap("<div class='col-sm-12 col-lg-12 nuevaMateria'></div>");
-    $(tmp).css('display','none');
-}
 });
 
+$( "button[id^='drop---']" ).on('click', function(e) {
+    // Oculta la materia
+    $(this).parent().parent().parent().parent().css('display','none');
+});
+
+// Ejecuta el reset de todas las materias a como estaban
 $('#resetMaterias').on('click', function(e) {
+    // Borra las materias que fueron arrastradas
     $(".nuevaMateria").each(function () {
         $(this).remove();
     });
+    // Muestra las materias que se encuentran ocultas
     $("#stack .materia").each(function () {
+        if($(this).css('display') == 'none'){
+           $(this).css('display','');
+        }
+    });
+
+    // Muestra las materias que se encuentran ocultas
+    $(".asignadaManual").each(function () {
         if($(this).css('display') == 'none'){
            $(this).css('display','');
         }
@@ -44,6 +89,7 @@ $('#resetMaterias').on('click', function(e) {
 
 $('#sendMaterias').on('click', function(e) {
 
+    // Obtiene el listado de las materias que son nuevas y se van a guardar
     var objMaterias = [];
     $(".nuevaMateria").each(function () {
         var parentPeriodo = $(this).parent().attr('id');
@@ -51,34 +97,41 @@ $('#sendMaterias').on('click', function(e) {
         objMaterias.push(matPeriodo);
     });
 
+    // Obtiene el listado de las materias que se van a borrar (las que habian sido preasignadas manulamente)
+    var objMateriasABorrar = [];
+    $(".asignadaManual").each(function () {
+        if($(this).css('display') == 'none'){
+            var parentPeriodoBorrar = $(this).parent().parent().attr('id');
+            var matPeriodoBorrar = $(this).text().trim() + "---" + (parentPeriodoBorrar.substring("periodo".length));
+            objMateriasABorrar.push(matPeriodoBorrar);
+        }
+    });
+
     var pathname = window.location.pathname;
 
+    //Obtiene el numero del estudiante
     var lngStrPath_1 = "/siscupos/estudiante/".length;
     var idxStrCarpet = pathname.indexOf("/carpetaestudiante/");
 
     var idEstudiante = pathname.substring(lngStrPath_1, idxStrCarpet);
 
-    var objJson = {
-        'idEstudiante' : idEstudiante,
-        'nuevaMaterias' : objMaterias
-    };
-
-    var jsonSend = JSON.stringify(objJson);
-
+    // Envia la petición Json al server
     $.ajax({
         url : "/siscupos/estudiante/"+ idEstudiante +"/nuevacarpeta/",
         type : "POST",
         dataType: "json",
-        data: //objJson
+        data:
         {
             idEstudiante: idEstudiante,
-            nuevaMaterias: objMaterias
+            nuevaMaterias: objMaterias,
+            borraMaterias: objMateriasABorrar
         },
         success : function(json) {
             $('#result').append( 'Server Response: ' + json.server_response);
+            location.reload();
         },
         error : function(xhr,errmsg,err) {
-            //alert(xhr.status + ": " + xhr.responseText);
+            location.reload();
         }
     });
 });
