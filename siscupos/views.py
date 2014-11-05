@@ -123,9 +123,25 @@ def micarpeta(request,est_id):
         #Consulta las asignaturas que el estudiante tiene en el periodo
         lista_materias_periodo = AsignaturaXEstudiante.objects.filter(estudiante=est,periodo=periodos[x])
 
-        #Asigna las asignaturas del periodo y las sugeridas por el optimizador
-        mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo, 'lista_materias_asignadas': mats_periodos_asig})
+        cursor = connection.cursor()
+        cursor.execute(
+            'select asig.id, asig.cursada, asig.estado, asig.asignatura_id, asi.codigo, asig.estudiante_id, asig.periodo '
+            'FROM siscupos_asignaturaxestudianteasig asig '
+            'INNER JOIN siscupos_asignatura asi ON asi.id = asig.asignatura_id '
+            'WHERE '
+            'asig.periodo like \'' + str(periodos[x]) + '\' and asig.estudiante_id = ' + str(est_id) +
+            ' and asig."preAsignacionCurso_id" = (select max("preAsignacionCurso_id") from siscupos_asignaturaxestudianteasig)')
+        cursos = cursor.fetchall()
+        results = []
+        for row in cursos:
+            p = {'id':row[0],'cursada':row[1],'estado':row[2],'asignatura_id':row[3],'asignatura_codigo':row[4],'estudiante_id':row[5],'periodo':periodos[x]}
+            results.append(p)
 
+        print('results', results)
+        print('periodos[x]', periodos[x])
+
+        #Asigna las asignaturas del periodo y las sugeridas por el optimizador
+        mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo, 'lista_materias_asignadas': mats_periodos_asig, 'lista_asig_est_asig': results})
     context = {'estudiante':est,'periodos':periodos,'lista_materias':lista_materias,'mats_periodos':mats_periodos}
     return render(request,'estudiante/carpeta.html',context)
 
