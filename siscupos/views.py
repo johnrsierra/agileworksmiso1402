@@ -338,6 +338,65 @@ def indicadoresDetalleSatis(request,corrida):
 
 
 
+
+def indicadoresDetalleCupos(request,corrida):
+    print('Iniciio indicadores Detalle Cupos')
+    cursor = connection.cursor()
+    dataEstudiantes = []
+    dataCupos = []
+    resultsHC = []
+    materias = []
+    phcEstudiantes = {}
+    phcCupos = {}
+    resultadoTotal = {}
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+         ' select  count(*) estudiantes '
+         ' , max(cupos) cupos  '
+         ' , asig.codigo codigo '
+         ' from  siscupos_preasignacioncurso preasig '
+         '      ,siscupos_asignaturasugerida asisug  '
+         '      ,siscupos_preprogramacionasig pre  '
+         '      ,siscupos_asignaturaxprograma asi  '
+         '      ,siscupos_programaacademico pro  '
+         '      ,siscupos_asignatura asig  '
+         ' where preasig.id in (%s)  '
+         '   and asisug."preAsignacionCurso_id" = preasig.id '
+         '   and pre."preProgramacion_id" = asisug."preProgramacion_id" '
+         '   and pre."asignaturaXPrograma_id" = asi.id  '
+         '   and pre."preAsignacionCurso_id" = preasig.id  '
+         '   and pro.id = asi."programaAcademico_id"  '
+         '   and asig.id = asi."asignatura_id"  '
+         ' group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo" ',
+         [corrida]
+    )
+
+    print('antes de fetchall de detalle Satis' + corrida)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        materias.append(row[2])
+        dataEstudiantes.append(int(row[0]))
+        dataCupos.append(int(row[1]))
+
+
+    phcEstudiantes = {'name': 'Estudiantes', 'data': dataEstudiantes}
+    phcCupos = {'name': 'Cupos', 'data': dataCupos}
+    resultsHC.append(phcEstudiantes)
+    resultsHC.append(phcCupos)
+
+    resultadoTotal = {'materias':materias, 'datos': resultsHC}
+    print(resultadoTotal)
+
+    httpResp = HttpResponse(json.dumps(resultadoTotal), content_type='application/json; charset=UTF-8')
+
+    print('antes de return')
+    return httpResp
+
+
+
+
+
 def indicadoresDetalleEstudiantes(request,corrida, porc_satisfaccion):
     print('Iniciio indicadores Detalle estudiante')
     cursor = connection.cursor()
@@ -439,18 +498,14 @@ def indicadores(request,corridaA, corridaB):
 
     print('antes de fetchall ' + corridaA + ' ' + corridaB)
     cupos = cursor.fetchall()
-    datosCupos = []
     for row in cupos:
-        print('recorriendo cupos ', row[0])
-        datosCupos.append(row[0])
+        print('recorriendo cupos ', row[0], ' corrida ', row[1])
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
 
     print('despues de recorrer cupos')
-    p = {'ind':'%Cupos', 'a':str(datosCupos[0]),'b':str(datosCupos[1])}
-    dataA.append(int(datosCupos[0]))
-    dataB.append(int(datosCupos[1]))
-    results.append(p)
-    print('despues append')
-    print(p)
 
 
 
@@ -490,18 +545,13 @@ def indicadores(request,corridaA, corridaB):
     )
     print('2 antes de fetchall ' + corridaA + ' ' + corridaB)
     cupos = cursor.fetchall()
-    datosSatis = []
     for row in cupos:
-        print('recorriendo cupos ', row[0])
-        datosSatis.append(row[0])
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
 
-    print('2 despues de recorrer cupos')
-    p = {'ind':'%Satisf.', 'a':str(datosSatis[0]),'b':str(datosSatis[1])}
-    dataA.append(int(datosSatis[0]))
-    dataB.append(int(datosSatis[1]))
-    results.append(p)
     print('2 despues append')
-    print(p)
 
 
     # Indicador 3: Asignacion de estudiantes
@@ -535,18 +585,12 @@ def indicadores(request,corridaA, corridaB):
     )
     print('3 antes de fetchall ' + corridaA + ' ' + corridaB)
     cupos = cursor.fetchall()
-    datosAsig = []
     for row in cupos:
-        print('recorriendo cupos ', row[0])
-        datosAsig.append(row[0])
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
 
-    dataA.append(int(datosAsig[0]))
-    dataB.append(int(datosAsig[1]))
-    print('3 despues de recorrer cupos')
-    p = {'ind':'%Estud.', 'a':str(datosAsig[0]),'b':str(datosAsig[1])}
-    results.append(p)
-    print('3 despues append')
-    print(p)
 
 
     # Indicador 4: Atrasos por no poder tomar asignaturas
@@ -581,18 +625,11 @@ def indicadores(request,corridaA, corridaB):
     )
     print('4 antes de fetchall ' + corridaA + ' ' + corridaB)
     cupos = cursor.fetchall()
-    datosRetraso = []
     for row in cupos:
-        print('recorriendo cupos ', row[0])
-        datosRetraso.append(row[0])
-
-    dataA.append(int(datosRetraso[0]))
-    dataB.append(int(datosRetraso[1]))
-    print('4 despues de recorrer cupos')
-    p = {'ind':'%Retraso', 'a':str(datosRetraso[0]),'b':str(datosRetraso[1])}
-    results.append(p)
-    print('4 despues append')
-    print(p)
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
 
 
     # Indicador 5: Cumplimiento deseadas
@@ -630,24 +667,16 @@ def indicadores(request,corridaA, corridaB):
     )
     print('5 antes de fetchall ' + corridaA + ' ' + corridaB)
     cupos = cursor.fetchall()
-    datosDeseo = []
+    dA = 0
+    dB = 0
     for row in cupos:
-        print('recorriendo cupos ', row[0])
-        datosDeseo.append(row[0])
+        if str(row[1]) == str(corridaA):
+            dA = int(row[0])
+        else:
+            dB = int(row[0])
 
-    if len(datosDeseo) < 2:
-        datosDeseo.append(0)
-    if len(datosDeseo) < 2:
-        datosDeseo.append(0)
-
-    print('5 despues de recorrer cupos')
-    p = {'ind':'%Deseo', 'a':str(datosDeseo[0]),'b':str(datosDeseo[1])}
-    results.append(p)
-    dataA.append(int(datosDeseo[0]))
-    dataB.append(int(datosDeseo[1]))
-    print('5 despues append')
-    print(p)
-
+    dataA.append(dA)
+    dataB.append(dB)
 
     #Transformar a HighCharts
     resultsHC = []
