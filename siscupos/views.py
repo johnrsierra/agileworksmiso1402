@@ -326,11 +326,11 @@ def indicadoresDetalleSatis(request,corrida):
     dataCincuenta = 0
     dataCien = 0
     for row in cupos:
-        if row[1] == 0:
+        if row[0] == 0:
             dataCero = int(row[1])
-        if row[1] == 50:
+        if row[0] == 50:
             dataCincuenta = int(row[1])
-        if row[1] == 100:
+        if row[0] == 100:
             dataCien = int(row[1])
 
     dataA.append(dataCero)

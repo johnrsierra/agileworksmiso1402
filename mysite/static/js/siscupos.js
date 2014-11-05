@@ -201,7 +201,7 @@ Morris.Bar({
         resize: true,
         xLabelAngle: 60
     });
-} 
+}
 
 //Gráfica 3
 
