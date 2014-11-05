@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^coordinacion/optimizador/demanda/(?P<corrida>\w+)/$',views.demandaxasignacion, name='demanda'),#retorna la demanda vs la asignacion de la corrida
     url(r'^coordinacion/optimizador/indicadores/(?P<corridaA>\w+)/(?P<corridaB>\w+)/$',views.indicadores, name='indicadores'),#retorna los indicadores de la corrida
     url(r'^coordinacion/optimizador/indicadoresDetalleSatis/(?P<corrida>\w+)/$',views.indicadoresDetalleSatis, name='indicadoresDetalleSatis'),#retorna los indicadores de la corrida
+    url(r'^coordinacion/optimizador/indicadoresDetalleCupos/(?P<corrida>\w+)/$',views.indicadoresDetalleCupos, name='indicadoresDetalleCupos'),#retorna los indicadores de la corrida
     url(r'^coordinacion/optimizador/indicadoresDetalleEstudiantes/(?P<corrida>\w+)/(?P<porc_satisfaccion>\w+)/$',views.indicadoresDetalleEstudiantes, name='indicadoresDetalleEstudiantes'),#retorna los indicadores de la corrida
     url(r'^coordinacion/optimizador/$',views.ejecuciones, name='optimizador'),
     url(r'^coordinacion/optimizando/$',views.optimizando, name='optimizando'),

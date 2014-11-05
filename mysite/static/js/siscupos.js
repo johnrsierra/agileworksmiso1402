@@ -474,20 +474,53 @@ var seleccionarIndicadoresSatisfaccion = function(corrida){
 
 
 var seleccionarIndicadoresCupos = function(corrida){
-    $.get( "demanda/"+corrida+"/", function( datos ) {
+    var tituloModal = document.getElementById('bar-chart-indicadores-title');
+    tituloModal.innerHTML = 'Detalle estudiantes vs cupos disponibles - ' + corrida;
+
+    var areaGrafica = document.getElementById('bar-chart-indicadores');
+    areaGrafica.innerHTML = 'Cargando.....';
+
+    $.get( "indicadoresDetalleCupos/"+corrida+"/", function( datos ) {
         if(datos.length != 0){
            $('#bar-chart-indicadores').empty();
-            Morris.Bar({
-                element: 'bar-chart-indicadores',
-                data: datos,
-                xkey: 'asignatura',
-                ykeys: ['demanda','asignadas'],
-                labels: ['demanda','asignadas'],
-                hideHover: 'auto',
-                resize: true,
-                xLabelAngle: 60
-            });
-            delete Morris.Bar.data;
+
+
+           var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'bar-chart-indicadores',
+            type: 'column'
+        },
+        title: {
+            text: 'Detalle de satisfaccion'
+        },
+        subtitle: {
+            text: 'Source: SisCupos'
+        },
+        xAxis: {
+            categories:  datos['materias']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cupos y estudiantes'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} Estudiantes</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: datos['datos']
+    });
         }else{
             $('#bar-chart-indicadores').html("<div class='row empty'><div class='col-xs-12 text-center'><i class='fa fa-book fa-3x'></i><div>No hay resultados para esta corrida</div></div></div>");
         }
