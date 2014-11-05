@@ -322,9 +322,20 @@ def indicadoresDetalleSatis(request,corrida):
 
     print('antes de fetchall de detalle Satis' + corrida)
     cupos = cursor.fetchall()
+    dataCero = 0
+    dataCincuenta = 0
+    dataCien = 0
     for row in cupos:
-        print('recorriendo cupos ', row[1])
-        dataA.append(int(row[1]))
+        if row[1] == 0:
+            dataCero = int(row[1])
+        if row[1] == 50:
+            dataCincuenta = int(row[1])
+        if row[1] == 100:
+            dataCien = int(row[1])
+
+    dataA.append(dataCero)
+    dataA.append(dataCincuenta)
+    dataA.append(dataCien)
 
     phcA ={'name':'Corrida '+str(corrida), 'data':dataA}
 
