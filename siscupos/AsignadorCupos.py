@@ -283,24 +283,6 @@ class AsignadorCupos:
 
         conn.commit()
 
-        #Se asignan los colores para los estudiantes
-        #Se asignan a todos el valor 90, despues se actualizan los que deben tener 80
-        curActuUno = conn.cursor()
-        curActuDos = conn.cursor()
-
-        curActuUno.execute("""update siscupos_asignaturaxestudianteasig set estado = 90
-                               where \"preAsignacionCurso_id\" = (select max(\"preAsignacionCurso_id\")
-				                from siscupos_asignaturaxestudianteasig)""")
-
-        curActuDos.execute("""update siscupos_asignaturaxestudianteasig set estado = 80
-                               where id in ( select asig.id from siscupos_asignaturaxestudianteasig asig, siscupos_asignaturaxestudiante des
-                                              where asig.\"preAsignacionCurso_id\" = (select max(\"preAsignacionCurso_id\")
-				                              from siscupos_asignaturaxestudianteasig)
-                                              and asig.estudiante_id = des.estudiante_id
-                                              and asig.periodo = des.periodo
-                                              and asig.asignatura_id = des.asignatura_id) """)
-
-        conn.commit()
 
 # FIN ASIGNACION_OPTIMA
 #solver = AsignadorCupos()
