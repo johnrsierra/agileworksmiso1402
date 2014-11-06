@@ -145,19 +145,19 @@ Carpeta {{estudiante.nombres}} {{estudiante.apellidos}} - {{estudiante.codigo}}
                         <h3 class="panel-title">{{mat_periodo.periodo}}</h3>
                     </div>
                     <div class="panel-body" id="asigPeriodo{{mat_periodo.periodo}}">
-                        {%if mat_periodo.lista_asig_est_asig%} <!--{ if mat_periodo.lista_materias_asignadas } -->
-                            {% for asignaturaSugerida in mat_periodo.lista_asig_est_asig %}
-                                {% if asignaturaSugerida.periodo == mat_periodo.periodo %}
+                        {%if mat_periodo.lista_materias_asignadas%}
+                            {% for asignaturaSugerida in mat_periodo.lista_materias_asignadas %}
+                                {% if asignaturaSugerida.preAsignacionCurso.periodo == mat_periodo.periodo %}
                                     <div class="col-sm-12 col-lg-12">
-                                        {%if asignaturaSugerida.estado == '90'%}
-                                            <div class="panel panel-danger materia asignadaSugerida">
+                                        {%if asignaturaSugerida.estado == 'OK'%}
+                                            <div class="panel panel-warning materia asignadaSugerida">
                                         {%else%}
                                             <div class="panel panel-warning materia asignadaSugerida">
                                         {%endif%}
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-xs-6" style="float: left;">
-                                                        <div>{{asignaturaSugerida.asignatura_codigo}}</div>
+                                                        <div>{{asignaturaSugerida.preProgramacion.asignaturaXPrograma.asignatura.codigo}}</div>
                                                     </div>
                                                 </div>
                                             </div>

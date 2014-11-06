@@ -117,6 +117,8 @@ def micarpeta(request,est_id):
         for materiasAsig in lista_materias_preasignadas:
             perAsig = materiasAsig.preAsignacionCurso.periodo
 
+            #print('materiasAsig', materiasAsig.preProgramacion.asignaturaXPrograma.asignatura.codigo, ';Periodo:', materiasAsig.preProgramacion.periodo)
+
             if perAsig == periodos[x]:
                 mats_periodos_asig.append(materiasAsig)
 
@@ -137,8 +139,7 @@ def micarpeta(request,est_id):
             p = {'id':row[0],'cursada':row[1],'estado':row[2],'asignatura_id':row[3],'asignatura_codigo':row[4],'estudiante_id':row[5],'periodo':periodos[x]}
             results.append(p)
 
-        print('results', results)
-        print('periodos[x]', periodos[x])
+        print('materiasAsig', materiasAsig)
 
         #Asigna las asignaturas del periodo y las sugeridas por el optimizador
         mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo, 'lista_materias_asignadas': mats_periodos_asig, 'lista_asig_est_asig': results})
