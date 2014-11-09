@@ -40,6 +40,7 @@ class Estudiante(models.Model):
     nombres = models.CharField(max_length=200)
     apellidos = models.CharField(max_length=200)
     periodoInicio = models.CharField(max_length=6)
+    programa = models.ForeignKey(ProgramaAcademico, null=True, blank=True)
     def __unicode__(self):
         return unicode(self.codigo) + ' ' + unicode(self.nombres) + ' ' + unicode(self.apellidos)
 
@@ -71,7 +72,7 @@ class PreAsignacionCurso(models.Model):
     observacion = models.CharField(max_length=200)
     periodo = models.CharField(max_length=6)
     def __unicode__(self):
-        return str(self.codigo) + ' ' + str(self.observacion)
+        return str(self.codigo) + ' ' + str(self.observacion) + unicode(self.fechaCorrida)
 
 #Clase Asignatura
 class AsignaturaSugerida(models.Model):
@@ -81,7 +82,8 @@ class AsignaturaSugerida(models.Model):
     estudiante = models.ForeignKey(Estudiante)
     preAsignacionCurso = models.ForeignKey(PreAsignacionCurso)
     def __unicode__(self):
-        return self.preAsignacionCurso.fechaCorrida
+        return unicode(self.preAsignacionCurso.fechaCorrida)
+
 #Clase solicitada por FViera
 class PreProgramacionAsig(models.Model):
     seccion = models.IntegerField()

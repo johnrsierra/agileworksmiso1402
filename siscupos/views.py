@@ -4,7 +4,14 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 import json
 from django.core import serializers
-from SolverAsignacion import *
+from AsignadorCupos import *
+from django.shortcuts import render,HttpResponse
+from siscupos.models import Asignatura,AsignaturaSugerida,AsignaturaXEstudiante,AsignaturaXPrograma,Estudiante,PreAsignacionCurso,PreProgramacion,ProgramaAcademico
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+import json
+from django.core import serializers
+from AsignadorCupos import *
 
 # Create your views here.
 def index(request):
@@ -52,7 +59,8 @@ def demandaCupos(request):
 def ejecuciones(request):
     lista_programas = ProgramaAcademico.objects.all()
     lista_ejecuciones = PreAsignacionCurso.objects.all()
-    context = {'lista_ejecuciones':lista_ejecuciones,'lista_programas':lista_programas}
+    lista_ejecuciones_comp = PreAsignacionCurso.objects.all()
+    context = {'lista_ejecuciones':lista_ejecuciones,'lista_programas':lista_programas, 'lista_ejecuciones_comp':lista_ejecuciones_comp}
     return render(request,'coordinacion/optimizador.html',context)
 
 def resultado(request,preasig_id):
@@ -70,7 +78,10 @@ def jsonTest(request):
     return HttpResponse(data, content_type='application/json; charset=UTF-8')
 
 def optimizando(request):
-    optimizarAutomatico()
+    solver = AsignadorCupos()
+    solver.poblar_estudiantesBD('201410')
+    asignacion_sugerida = solver.asignacion_optima()
+    solver.persistirResultado(asignacion_sugerida, '201410')
     context = {}
     return render(request,'coordinacion/optimizando.html',context)
 
@@ -84,6 +95,122 @@ def carpeta(request,est_id):
         mats_periodos.append({'periodo':periodos[x],'lista_materias':lista_materias})
     context = {'estudiante':est,'periodos':periodos,'mats_periodos':mats_periodos}
     return render(request,'estudiantes/carpeta.html',context)
+
+def micarpeta(request,est_id):
+    #debe ser la lista de materias del programa del estudiante
+    est = Estudiante.objects.get(pk=est_id)
+    periodos = darPeriodos(est.periodoInicio)
+
+    # Obtiene las asignaturas del estudiante
+    lista_materias = AsignaturaXPrograma.objects.filter(programaAcademico=est.programa)
+    mats_periodos = []
+
+    #Consulta las materias que fueron asignadas por el optimizador en su ultima corrida
+    preAsignacionCurso_id = PreAsignacionCurso.objects.order_by('-id')[0]
+
+    for x in range(0,len(periodos)):
+        # Consulta el listado de asignaturas preasignadas
+        lista_materias_preasignadas = AsignaturaSugerida.objects.filter(estudiante=est, preAsignacionCurso=preAsignacionCurso_id)
+        mats_periodos_asig = []
+
+        #Recorre el listado de preasignacion y ubica las materias q corresponde al periodo que se esta consultando
+        for materiasAsig in lista_materias_preasignadas:
+            perAsig = materiasAsig.preAsignacionCurso.periodo
+
+            #print('materiasAsig', materiasAsig.preProgramacion.asignaturaXPrograma.asignatura.codigo, ';Periodo:', materiasAsig.preProgramacion.periodo)
+
+            if perAsig == periodos[x]:
+                mats_periodos_asig.append(materiasAsig)
+
+        #Consulta las asignaturas que el estudiante tiene en el periodo
+        lista_materias_periodo = AsignaturaXEstudiante.objects.filter(estudiante=est,periodo=periodos[x])
+
+        cursor = connection.cursor()
+        cursor.execute(
+            'select asig.id, asig.cursada, asig.estado, asig.asignatura_id, asi.codigo, asig.estudiante_id, asig.periodo '
+            'FROM siscupos_asignaturaxestudianteasig asig '
+            'INNER JOIN siscupos_asignatura asi ON asi.id = asig.asignatura_id '
+            'WHERE '
+            'asig.periodo like \'' + str(periodos[x]) + '\' and asig.estudiante_id = ' + str(est_id) +
+            ' and asig."preAsignacionCurso_id" = (select max("preAsignacionCurso_id") from siscupos_asignaturaxestudianteasig)')
+        cursos = cursor.fetchall()
+        results = []
+        for row in cursos:
+            p = {'id':row[0],'cursada':row[1],'estado':row[2],'asignatura_id':row[3],'asignatura_codigo':row[4],'estudiante_id':row[5],'periodo':periodos[x]}
+            results.append(p)
+
+        print('materiasAsig', materiasAsig)
+
+        #Asigna las asignaturas del periodo y las sugeridas por el optimizador
+        mats_periodos.append({'periodo':periodos[x],'lista_materias_periodo':lista_materias_periodo, 'lista_materias_asignadas': mats_periodos_asig, 'lista_asig_est_asig': results})
+    context = {'estudiante':est,'periodos':periodos,'lista_materias':lista_materias,'mats_periodos':mats_periodos}
+    return render(request,'estudiante/carpeta.html',context)
+
+def nuevacarpeta(request,est_id):
+    #debe ser la lista de materias del programa del estudiante
+    est = Estudiante.objects.get(pk=est_id)
+
+    print('<<<<Actualizar carpeta>>>')
+
+    if request.is_ajax():
+        if request.method == 'POST':
+            print 'Raw Data: "%s"' % request.body
+
+    #Obtiene los datos enviados
+    idEstudiante = request.POST['idEstudiante']
+    nuevasMaterias = request.POST.getlist('nuevaMaterias[]')
+    borrarMaterias = request.POST.getlist('borraMaterias[]')
+
+
+    print('<<<<nuevasMaterias>>>', nuevasMaterias)
+    print('<<<<borrarMaterias>>>', borrarMaterias)
+
+
+    #Recorre el listado de las materias a borrar
+    for matBorrar in borrarMaterias:
+        #Extrae el periodo
+        codPeriodo = matBorrar[(matBorrar.find("---")) + 3 :]
+        print('<<<<codPeriodo>>>', codPeriodo)
+        #Extraer el codigo de la materia
+        codMateria = matBorrar[:(matBorrar.find("---"))]
+        print('<<<<codMateria>>>', codMateria)
+
+        try:
+            #Busca la asignatura
+            objAsig = Asignatura.objects.get(codigo=codMateria)
+            print('<<<<objAsig>>>', objAsig)
+            #Busca el estudiante
+            objEst = Estudiante.objects.get(pk=idEstudiante)
+            print('<<<<objEst>>>', objEst)
+            #Busca la asignatura x estudiante
+            objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig, estudiante=objEst)
+            print('<<<< Asignatura x Estudiante a Borrar >>>', objAsigXEst)
+            #Ejecuta el borrado del registro
+            objAsigXEst.delete()
+        except AsignaturaXEstudiante.DoesNotExist:
+            print('<<<<No se puede borrar>>>', objAsig, ',', objEst)
+
+    #Recorre el listado de las materias a asignar
+    for matNueva in nuevasMaterias:
+
+        codPeriodo = matNueva[(matNueva.find("---")) + 3 :]
+        codMateria = matNueva[:(matNueva.find("---"))]
+
+        try:
+            #Busca la asignatura
+            objAsig = Asignatura.objects.get(codigo=codMateria)
+            #Busca el estudiante
+            objEst = Estudiante.objects.get(pk=idEstudiante)
+            #Busca la asignatura x estudiante
+            objAsigXEst = AsignaturaXEstudiante.objects.get(asignatura=objAsig.pk, estudiante=idEstudiante)
+        except AsignaturaXEstudiante.DoesNotExist:
+            #Si no existe la asignatura x estudiante crea el registro
+            objAsigXEst_nuevo = AsignaturaXEstudiante(cursada='N', estado='0', asignatura=objAsig, estudiante=objEst, periodo=codPeriodo)
+            print('<<<< Asignatura x Estudiante a Crear >>>', objAsigXEst_nuevo)
+            objAsigXEst_nuevo.save()
+
+    return render(request,'estudiante/carpeta.html')
+
 
 #Este metodo deberia eliminarse y traer los periodos de la DB
 def darPeriodos(periodo):
@@ -143,3 +270,436 @@ def consultarSatisfaccionPrograma(request, corrida):
     results.append(p2)
 
     return HttpResponse(json.dumps(results ), content_type='application/json; charset=UTF-8')
+
+def demandaxasignacion(request,corrida):
+    cursor = connection.cursor()
+    cursor.execute('select COALESCE(a.asignadas,0) asignadas, COALESCE(b.capacidad,0) demanda, b.asignatura_id, b.asignatura from (select  asisug."preAsignacionCurso_id", pro."sigla" plan, asig."codigo" asignatura,asig.id asignatura_id,count(*) asignadas from  siscupos_preasignacioncurso preasig,siscupos_asignaturasugerida asisug,siscupos_preprogramacionasig pre,siscupos_asignaturaxprograma asi,siscupos_programaacademico pro,siscupos_asignatura asig where preasig.id= %s and asisug."preAsignacionCurso_id" = preasig.id and pre."preProgramacion_id" = asisug."preProgramacion_id" and pre."asignaturaXPrograma_id" = asi.id and pre."preAsignacionCurso_id" = preasig.id and pro.id = asi."programaAcademico_id" and asig.id = asi."asignatura_id" group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo",asig.id) a RIGHT OUTER JOIN (select count(*) capacidad,asig.asignatura_id,asg.codigo asignatura from siscupos_asignaturaxestudianteasig asig,siscupos_asignatura asg where asig.estado = \'0\' and asig."preAsignacionCurso_id" = %s and asg.id = asig."asignatura_id" group by asignatura_id,asg.codigo ) b ON a.asignatura_id = b.asignatura_id',[corrida,corrida])
+    demanda = cursor.fetchall()
+    results = []
+    for row in demanda:
+        p = {'asignadas':row[0],'demanda':row[1],'asignatura_id':row[2],'asignatura':row[3]}
+        results.append(p)
+
+    return HttpResponse(json.dumps(results), content_type='application/json; charset=UTF-8')
+
+def indicadoresDetalleSatis(request,corrida):
+    print('Iniciio indicadores Detalle')
+    cursor = connection.cursor()
+    dataA = []
+    resultsHC = []
+
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+        ' select c.satisfaccion, count(*) '
+        ' from ( '
+        ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 1 THEN 50 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' else 0 end) satisfaccion '
+        ' ,a.asignadas '
+        ' ,b.capacidad '
+        ' ,b.estudiante '
+        ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturasugerida asig '
+        ' where asig."preAsignacionCurso_id" = %s '
+        ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+        ' order by 3,2 ) a '
+        ' RIGHT OUTER JOIN  '
+        ' (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturaxestudianteasig asig '
+        ' where estado in (\'0\', \'3\')   '
+        ' and asig."preAsignacionCurso_id" = %s '
+        ' group by estudiante_id, asig."preAsignacionCurso_id" '
+        ' order by 3,2) b '
+        ' ON  b.estudiante = a.estudiante '
+        ' AND b.corrida = a.corrida) c '
+        ' group by c.satisfaccion '
+        ' order by c.satisfaccion   ',
+        [corrida, corrida]
+    )
+
+    print('antes de fetchall de detalle Satis' + corrida)
+    cupos = cursor.fetchall()
+    dataCero = 0
+    dataCincuenta = 0
+    dataCien = 0
+    for row in cupos:
+        if row[0] == 0:
+            dataCero = int(row[1])
+        if row[0] == 50:
+            dataCincuenta = int(row[1])
+        if row[0] == 100:
+            dataCien = int(row[1])
+
+    dataA.append(dataCero)
+    dataA.append(dataCincuenta)
+    dataA.append(dataCien)
+
+    phcA ={'name':'Corrida '+str(corrida), 'data':dataA}
+
+    resultsHC.append(phcA)
+    print(resultsHC)
+
+    httpResp = HttpResponse(json.dumps(resultsHC), content_type='application/json; charset=UTF-8')
+
+    print('antes de return')
+    return httpResp
+
+
+
+
+def indicadoresDetalleCupos(request,corrida):
+    print('Iniciio indicadores Detalle Cupos')
+    cursor = connection.cursor()
+    dataEstudiantes = []
+    dataCupos = []
+    resultsHC = []
+    materias = []
+    phcEstudiantes = {}
+    phcCupos = {}
+    resultadoTotal = {}
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+         ' select  count(*) estudiantes '
+         ' , max(cupos) cupos  '
+         ' , asig.codigo codigo '
+         ' from  siscupos_preasignacioncurso preasig '
+         '      ,siscupos_asignaturasugerida asisug  '
+         '      ,siscupos_preprogramacionasig pre  '
+         '      ,siscupos_asignaturaxprograma asi  '
+         '      ,siscupos_programaacademico pro  '
+         '      ,siscupos_asignatura asig  '
+         ' where preasig.id in (%s)  '
+         '   and asisug."preAsignacionCurso_id" = preasig.id '
+         '   and pre."preProgramacion_id" = asisug."preProgramacion_id" '
+         '   and pre."asignaturaXPrograma_id" = asi.id  '
+         '   and pre."preAsignacionCurso_id" = preasig.id  '
+         '   and pro.id = asi."programaAcademico_id"  '
+         '   and asig.id = asi."asignatura_id"  '
+         ' group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo" ',
+         [corrida]
+    )
+
+    print('antes de fetchall de detalle Satis' + corrida)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        materias.append(row[2])
+        dataEstudiantes.append(int(row[0]))
+        dataCupos.append(int(row[1]))
+
+
+    phcEstudiantes = {'name': 'Estudiantes', 'data': dataEstudiantes}
+    phcCupos = {'name': 'Cupos', 'data': dataCupos}
+    resultsHC.append(phcEstudiantes)
+    resultsHC.append(phcCupos)
+
+    resultadoTotal = {'materias':materias, 'datos': resultsHC}
+    print(resultadoTotal)
+
+    httpResp = HttpResponse(json.dumps(resultadoTotal), content_type='application/json; charset=UTF-8')
+
+    print('antes de return')
+    return httpResp
+
+
+
+
+
+def indicadoresDetalleEstudiantes(request,corrida, porc_satisfaccion):
+    print('Iniciio indicadores Detalle estudiante')
+    cursor = connection.cursor()
+    dataA = []
+
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+        ' select codigo, nombres, apellidos, estudiante '
+        ' from ( '
+        ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 1 THEN 50 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' else 0 end) satisfaccion '
+        ' ,a.asignadas '
+        ' ,b.capacidad '
+        ' ,b.estudiante estudiante '
+        ' ,b.nombres nombres, b.apellidos apellidos, b.codigo codigo '
+        ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturasugerida asig '
+        ' where asig."preAsignacionCurso_id" = %s '
+        ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+        ' order by 3,2 ) a '
+        ' RIGHT OUTER JOIN  '
+        ' (select count(*) capacidad, '
+        '         estudiante_id estudiante, '
+        '         asig."preAsignacionCurso_id" corrida, '
+        '         est.nombres, est.apellidos, est.codigo '
+        ' from siscupos_asignaturaxestudianteasig asig '
+        '     ,siscupos_estudiante est '
+        ' where estado in (\'0\', \'3\')   '
+        ' and asig.estudiante_id = est.id '
+        ' and asig."preAsignacionCurso_id" = %s '
+        ' group by estudiante_id, asig."preAsignacionCurso_id", est.nombres, est.apellidos, est.codigo '
+        ' order by 3,2) b '
+        ' ON  b.estudiante = a.estudiante '
+        ' AND b.corrida = a.corrida '
+        ' ) c '
+        ' where c.satisfaccion = %s ',
+        [corrida, corrida, porc_satisfaccion]
+    )
+
+    print('antes de fetchall de detalle Satis' + corrida)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        e = Estudiante()
+        e.codigo = row[0]
+        e.nombres = row[1]
+        e.apellidos = row[2]
+        e.id = row[3]
+        print('recorriendo estudientas ', row[1])
+        dataA.append(e)
+
+    print('antes de return')
+    context = {'lista_estudiantes':dataA}
+    return render(request,'estudiantes/lista_estudiantes.html',context)
+
+
+
+
+
+
+
+def indicadores(request,corridaA, corridaB):
+    print('Iniciio indicadores')
+    cursor = connection.cursor()
+    results = []
+    dataA = []
+    dataB = []
+
+    # Indicador 1: Porcentaje de cupos asignados
+    cursor.execute(
+        ' select  round((sum(a.estudiantes)/sum(a.cupos))*100), a.corrida '
+        ' from( '
+        ' select  asisug."preAsignacionCurso_id" corrida '
+        ' , pro."sigla" plan '
+        ' , count(*) estudiantes '
+        ' , max(cupos) cupos '
+        ' from  siscupos_preasignacioncurso preasig '
+        '      ,siscupos_asignaturasugerida asisug '
+        '      ,siscupos_preprogramacionasig pre '
+        '      ,siscupos_asignaturaxprograma asi '
+        '      ,siscupos_programaacademico pro '
+        '      ,siscupos_asignatura asig '
+        ' where preasig.id in (%s,%s) '
+        '   and asisug."preAsignacionCurso_id" = preasig.id '
+        '   and pre."preProgramacion_id" = asisug."preProgramacion_id" '
+        '   and pre."asignaturaXPrograma_id" = asi.id '
+        '   and pre."preAsignacionCurso_id" = preasig.id '
+        '   and pro.id = asi."programaAcademico_id" '
+        '   and asig.id = asi."asignatura_id" '
+        ' group by asisug."preAsignacionCurso_id",pro."sigla",asig."codigo" '
+        ' ) a '
+        ' group by a.corrida ',
+        [corridaA, corridaB]
+    )
+
+    print('antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        print('recorriendo cupos ', row[0], ' corrida ', row[1])
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
+
+    print('despues de recorrer cupos')
+
+
+
+    # Indicador 2: Satisfaccion
+    cursor.execute(
+        ' select round(avg(c.satisfaccion)) '
+        ' ,c.corrida '
+        ' from( '
+        ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 1 THEN 50 '
+        ' when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+        ' when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)= 0 THEN 0 '
+        ' else 0 end) satisfaccion '
+        ' ,B.corrida '
+        ' ,a.asignadas '
+        ' ,b.capacidad '
+        ' ,b.estudiante '
+        ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturasugerida asig '
+        ' where asig."preAsignacionCurso_id" IN (%s,%s) '
+        ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+        ' order by 3,2 ) a '
+        ' RIGHT OUTER JOIN  '
+        ' (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+        ' from siscupos_asignaturaxestudianteasig asig '
+        ' where estado in (\'0\', \'3\')  '
+        ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+        ' group by estudiante_id, asig."preAsignacionCurso_id" '
+        ' order by 3,2) b '
+        ' ON  b.estudiante = a.estudiante '
+        ' AND b.corrida = a.corrida '
+        ' order by 2,5 ) c '
+        ' where c.corrida is not null '
+        ' group by c.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('2 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
+
+    print('2 despues append')
+
+
+    # Indicador 3: Asignacion de estudiantes
+    cursor.execute(
+       ' select round(avg(c.asignacion)) '
+       '  ,c.corrida '
+       '  from( '
+       '  select (case when COALESCE(b.capacidad,0) >= 1 and COALESCE(a.asignadas,0)>= 1 THEN 100 '
+       '  else 0 end) asignacion '
+       '  ,b.corrida '
+       '  ,a.asignadas '
+       '  ,b.capacidad '
+       '  ,b.estudiante '
+       '  from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+       '  from siscupos_asignaturasugerida asig '
+       '  where asig."preAsignacionCurso_id" IN (%s,%s) '
+       '  group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+       '  order by 2 ) a '
+       '  RIGHT OUTER JOIN '
+       '  (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+       '  from siscupos_asignaturaxestudianteasig asig '
+       '  where estado in (\'0\', \'3\')  '
+       '  and asig."preAsignacionCurso_id" IN (%s,%s) '
+       '  group by estudiante_id, asig."preAsignacionCurso_id" '
+       '  order by 2) b '
+       ' ON  b.estudiante = a.estudiante '
+       '  AND b.corrida = a.corrida '
+       '  order by 2,5) c   '
+       '  group by c.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('3 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
+
+
+
+    # Indicador 4: Atrasos por no poder tomar asignaturas
+    cursor.execute(
+            ' select 100-round(avg(c.asignacion)) atraso '
+            ' ,c.corrida '
+            ' from( '
+            ' select (case when COALESCE(b.capacidad,0) >= 2 and COALESCE(a.asignadas,0)= 2 THEN 100 '
+            ' when COALESCE(b.capacidad,0) = 1 and COALESCE(a.asignadas,0)= 1 THEN 100 '
+            ' else 0 end) asignacion '
+            ' ,b.corrida '
+            ' ,a.asignadas '
+            ' ,b.capacidad '
+            ' ,b.estudiante '
+            ' from (select count(*) asignadas, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+            ' from siscupos_asignaturasugerida asig '
+            ' where asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' group by asig.estudiante_id,asig."preAsignacionCurso_id" '
+            ' order by 2 ) a '
+            ' RIGHT OUTER JOIN  '
+            ' (select count(*) capacidad, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida '
+            ' from siscupos_asignaturaxestudianteasig asig '
+            ' where estado in (\'0\', \'3\')  '
+            ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' group by estudiante_id, asig."preAsignacionCurso_id" '
+            ' order by 2) b '
+            ' ON  b.estudiante = a.estudiante '
+            ' AND b.corrida = a.corrida '
+            ' order by 2,5) c   '
+            ' group by c.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('4 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    for row in cupos:
+        if str(row[1]) == str(corridaA):
+            dataA.append(int(row[0]))
+        else:
+            dataB.append(int(row[0]))
+
+
+    # Indicador 5: Cumplimiento deseadas
+    cursor.execute(
+            ' select avg(d.peso), d.corrida '
+            ' from( '
+            ' select sum(c.pesoxmateria) peso, c.estudiante,c.corrida corrida '
+            ' from (select a.asignatura_asig '
+            ' ,b.asignatura_cap '
+            ' ,b.estudiante estudiante '
+            ' ,B.corrida_cap corrida '
+            ' ,(case when COALESCE(a.asignatura_asig,0) = COALESCE(b.asignatura_cap,0) THEN 50 '
+            ' else 0 end) pesoxmateria  '
+            ' from (select asp.asignatura_id asignatura_asig, asig.estudiante_id estudiante, asig."preAsignacionCurso_id" corrida_asig '
+            ' from siscupos_asignaturasugerida asig '
+            ' ,siscupos_preProgramacion pre '
+            ' ,siscupos_asignaturaxprograma asp '
+            ' where asig."preProgramacion_id" = pre.id '
+            ' and pre."asignaturaXPrograma_id" = asp.id '
+            ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' order by 2,1 ) a '
+            ' RIGHT OUTER JOIN '
+            ' (select asignatura_id asignatura_cap, estudiante_id estudiante, asig."preAsignacionCurso_id" corrida_cap '
+            ' from siscupos_asignaturaxestudianteasig asig '
+            ' where estado = \'3\'  '
+            ' and asig."preAsignacionCurso_id" IN (%s,%s) '
+            ' order by 2,1) b '
+            ' ON  b.estudiante = a.estudiante '
+            ' AND b.asignatura_cap = a.asignatura_asig '
+            ' and b.corrida_cap = a.corrida_asig '
+            ' order by 2,1) c '
+            ' group by c.estudiante,c.corrida) d '
+            ' group by d.corrida ',
+        [corridaA, corridaB, corridaA, corridaB]
+    )
+    print('5 antes de fetchall ' + corridaA + ' ' + corridaB)
+    cupos = cursor.fetchall()
+    dA = 0
+    dB = 0
+    for row in cupos:
+        if str(row[1]) == str(corridaA):
+            dA = int(row[0])
+        else:
+            dB = int(row[0])
+
+    dataA.append(dA)
+    dataB.append(dB)
+
+    #Transformar a HighCharts
+    resultsHC = []
+    phcA ={'name':'Corrida '+str(corridaA), 'data':dataA}
+    phcB ={'name':'Corrida '+str(corridaB), 'data':dataB}
+
+    resultsHC.append(phcA)
+    resultsHC.append(phcB)
+    print(resultsHC)
+
+    httpResp = HttpResponse(json.dumps(resultsHC), content_type='application/json; charset=UTF-8')
+
+    print('antes de return')
+    return httpResp

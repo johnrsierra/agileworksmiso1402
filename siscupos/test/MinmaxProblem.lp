@@ -1,12 +1,12 @@
 \* AsignacionCursos *\
 Maximize
-TotalAsignaciones: 49 AsigSugerida_(0,_0) + 49 AsigSugerida_(0,_1)
- + 97 AsigSugerida_(1,_0) + 97 AsigSugerida_(1,_1) + 13 AsigSugerida_(2,_0)
- + 13 AsigSugerida_(2,_1) + 109 AsigSugerida_(3,_0) + 109 AsigSugerida_(3,_1)
- + 13 AsigSugerida_(4,_0) + 13 AsigSugerida_(4,_1) + 121 AsigSugerida_(5,_0)
- + 121 AsigSugerida_(5,_1) + 13 AsigSugerida_(6,_0) + 13 AsigSugerida_(6,_1)
- + 49 AsigSugerida_(7,_0) + 49 AsigSugerida_(7,_1) + 13 AsigSugerida_(8,_0)
- + 13 AsigSugerida_(8,_1) + 49 AsigSugerida_(9,_0) + 49 AsigSugerida_(9,_1)
+TotalAsignaciones: 20 AsigSugerida_(0,_0) + 20 AsigSugerida_(0,_1)
+ + 36 AsigSugerida_(1,_0) + 36 AsigSugerida_(1,_1) + 8 AsigSugerida_(2,_0)
+ + 8 AsigSugerida_(2,_1) + 40 AsigSugerida_(3,_0) + 40 AsigSugerida_(3,_1)
+ + 8 AsigSugerida_(4,_0) + 8 AsigSugerida_(4,_1) + 44 AsigSugerida_(5,_0)
+ + 44 AsigSugerida_(5,_1) + 8 AsigSugerida_(6,_0) + 8 AsigSugerida_(6,_1)
+ + 20 AsigSugerida_(7,_0) + 20 AsigSugerida_(7,_1) + 8 AsigSugerida_(8,_0)
+ + 8 AsigSugerida_(8,_1) + 20 AsigSugerida_(9,_0) + 20 AsigSugerida_(9,_1)
 Subject To
 EstAsig_0: AsigSugerida_(0,_2) + AsigSugerida_(0,_3) = 0
 EstAsig_1: AsigSugerida_(1,_2) + AsigSugerida_(1,_3) = 0

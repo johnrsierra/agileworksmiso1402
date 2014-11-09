@@ -17,106 +17,158 @@ Optimizador plan de carrera
 
 {% block content %}
 <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span
-                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="cerrarModal()"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg">
+                    {% if lista_programas %}
+                    <select id="programa" onchange="seleccionarPlan(this.value)">
+                        <option value="">--</option>
+                        {% for programa in lista_programas %}
+                        <option value="{{ programa.sigla }}">{{ programa.sigla }} - {{programa.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
+                    <tr>
+                        <td colspan="4">No hay programas registrados.</td>
+                    </tr>
+                    {% endif %}
                 </div>
-                <div class="modal-body">
-                    <div class="col-lg">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Programas</h3>
-                            </div>
-                            <div class="panel-body">
-                                {% if lista_programas %}
-                                    {% for programa in lista_programas %}
-                                        <a style="cursor: pointer;" onclick="seleccionarPlan('{{ programa.sigla }}')">
-                                            <div class="col-sm-3">
-                                                <div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <div class="row">
-                                                            <div class="col-xs-6">
-                                                                <div class="huge">{{ programa.sigla }}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td colspan="4">No hay programas registrados.</td>
-                                    </tr>
-                                {% endif %}
-                            </div>
+                <br/>
+                <div class="col-lg">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Asignación vs Cupos
                         </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Asignación vs Cupos
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div id="morris-bar-chart"></div>
-                            </div>
-                            <!-- /.panel-body -->
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-bar-chart"></div>
                         </div>
-                        <!-- /.panel -->
+                        <!-- /.panel-body -->
                     </div>
+                    <!-- /.panel -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModal()">Cerrar</button>
             </div>
         </div>
     </div>
+</div>
 
-<!-- Modal Nuevo -->
-    <div class="modal fade" id="modalSatisfaccion" tabindex="-1" role="dialog" aria-labelledby="Satisfaccion" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span
-                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Resultados</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="col-lg">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Satisfacción
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div id="morris-bar-chart2"></div>
-                            </div>
-                            <!-- /.panel-body -->
+<!-- Modal Satisfacción -->
+<div class="modal fade" id="modalSatisfaccion" tabindex="-1" role="dialog" aria-labelledby="Satisfaccion"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Satisfacción
                         </div>
-                        <!-- /.panel -->
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-bar-chart2"></div>
+                        </div>
+                        <!-- /.panel-body -->
                     </div>
+                    <!-- /.panel -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal Demanda vs asignación -->
+<div class="modal fade" id="modalDemandaAsig" tabindex="-1" role="dialog" aria-labelledby="modalDemandaAsigLbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="cerrarModalDemanda()"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="modalDemandaAsigLbl">Resultados</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Demanda vs Asignación
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-bar-chart3"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalDemanda()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Indicadores -->
+<div class="modal fade" id="modalIndicadores" tabindex="-1" role="dialog" aria-labelledby="Indicadores"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg">
+                    <div class="panel panel-default">
+                        <div id="bar-chart-indicadores-title" class="panel-heading">
+                            Indicadores comparativos entre corridas
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="bar-chart-indicadores"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="col-lg">
         <div class="table-responsive">
             <button type="button" class="btn btn-danger btn-md">
-              <span class="glyphicon glyphicon-star"></span> <a style="color:white !important" href="/siscupos/coordinacion/optimizando">Optimizar</a>
+                <span class="glyphicon glyphicon-star"></span> <a style="color:white !important"
+                                                                  href="/siscupos/coordinacion/optimizando">Optimizar</a>
             </button>
 
-            <br />
-            <br />
+            <br/>
+            <br/>
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
@@ -125,6 +177,7 @@ Optimizador plan de carrera
                     <th>Observación</th>
                     <th>Periodo</th>
                     <th>Resultados</th>
+                    <th>Comparar</th>
 
                 </tr>
                 </thead>
@@ -141,12 +194,34 @@ Optimizador plan de carrera
                     <td>{{ejecucion.observacion}}</td>
                     <td>{{ejecucion.periodo}}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="window.corrida={{ejecucion.codigo}}" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="resetModal({{ejecucion.codigo}});"
+                                data-toggle="modal" data-target="#myModal">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="seleccionarCorrida('{{ ejecucion.codigo }}')" data-toggle="modal" data-target="#modalSatisfaccion">
+                        <button type="button" class="btn btn-primary btn-sm"
+                                onclick="seleccionarCorrida('{{ ejecucion.codigo }}');" data-toggle="modal"
+                                data-target="#modalSatisfaccion">
                             <span class="glyphicon glyphicon-stats"></span>
                         </button>
+                        <button type="button" class="btn btn-primary btn-sm"
+                                onclick="seleccionarPlan3({{ejecucion.codigo}});"
+                                data-toggle="modal" data-target="#modalDemandaAsig">
+                            <span class="glyphicon glyphicon-stats"></span>
+                        </button>
+                    </td>
+                    <td>
+                    {% if lista_ejecuciones_comp %}
+                      <select id="corrida_comp{{ejecucion.codigo}}">
+                    {% for comparacion in lista_ejecuciones_comp %}
+                         <option value="{{comparacion.codigo}}">{{comparacion.codigo}}</option>
+                    {% endfor %}
+                      </select>
+                      <button type="button" class="btn btn-primary btn-sm"
+                                onclick="seleccionarIndicadores({{ejecucion.codigo}}, document.getElementById('corrida_comp{{ejecucion.codigo}}').value);"
+                                data-toggle="modal" data-target="#modalIndicadores">
+                            <span class="glyphicon glyphicon-stats"></span>
+                      </button>
+                    {% endif %}
                     </td>
                 </tr>
 
@@ -160,7 +235,7 @@ Optimizador plan de carrera
             </table>
         </div>
     </div>
-    </div>
+</div>
 </div>
 <!-- /.row -->
 
